@@ -1,7 +1,9 @@
-package com.lifehackig.fitnessapp;
+package com.lifehackig.fitnessapp.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.lifehackig.fitnessapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
