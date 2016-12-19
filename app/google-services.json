@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_number": "2658470442",
+    "firebase_url": "https://fitness-app-74f73.firebaseio.com",
+    "project_id": "fitness-app-74f73",
+    "storage_bucket": "fitness-app-74f73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2658470442:android:60ccbfc2907f8519",
+        "android_client_info": {
+          "package_name": "com.lifehackig.fitnessapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2658470442-dk0nk5oijcabl4nbsapht7kim8i5l2sr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lifehackig.fitnessapp",
+            "certificate_hash": "7B0F22B9B2CF1D4DA38B48DB8DA9FC8EDCC218C0"
+          }
+        },
+        {
+          "client_id": "2658470442-cnbpj98qfgt4cjcas660n7lg0m59a0ev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2658470442-cnbpj98qfgt4cjcas660n7lg0m59a0ev.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
