@@ -32,6 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private ProgressDialog mAuthProgressDialog;
+    private String mNameString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +77,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void createNewUser() {
-        final String name = mName.getText().toString().trim();
+        mNameString = mName.getText().toString().trim();
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         String confirmPassword = mConfirmPassword.getText().toString().trim();
 
-        boolean validName = isValidName(name);
+        boolean validName = isValidName(mNameString);
         boolean validEmail = isValidEmail(email);
         boolean validPassword = isValidPassword(password, confirmPassword);
 
@@ -96,10 +97,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 mAuthProgressDialog.dismiss();
 
                 if (task.isSuccessful()) {
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    UserProfileChangeRequest addName = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(name).build();
-                    user.updateProfile(addName);
+                    addNameToFirebaseProfile(task.getResult().getUser());
                 } else {
                     Toast.makeText(SignUpActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                 }
@@ -133,6 +131,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return false;
         }
         return true;
+    }
+
+    public void addNameToFirebaseProfile(FirebaseUser user) {
+        UserProfileChangeRequest addName = new UserProfileChangeRequest.Builder()
+                .setDisplayName(mNameString).build();
+        user.updateProfile(addName);
     }
 
     @Override
