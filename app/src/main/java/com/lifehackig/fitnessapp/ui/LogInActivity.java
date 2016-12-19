@@ -83,6 +83,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         String password = mPassword.getText().toString().trim();
         boolean invalidEmail = email.equals("");
         boolean invalidPassword = password.equals("");
+
         if (invalidEmail) {
             mEmail.setError("Please enter your email");
         }
