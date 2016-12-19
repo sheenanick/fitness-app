@@ -1,13 +1,17 @@
 package com.lifehackig.fitnessapp.ui;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewTreeObserver;
+import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,6 +22,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     @Bind(R.id.textView) TextView mTextView;
+    @Bind(R.id.calendarView) CalendarView mCalendarView;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -37,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+        mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
+                Intent intent = new Intent(MainActivity.this, DayActivity.class);
+                intent.putExtra("year", year);
+                intent.putExtra("month", month);
+                intent.putExtra("day", day);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
