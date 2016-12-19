@@ -4,4 +4,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="don_t_have_an_account_sign_up_here">Don\'t have an account? Sign up here.</string>
+    <string name="name">Name</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
