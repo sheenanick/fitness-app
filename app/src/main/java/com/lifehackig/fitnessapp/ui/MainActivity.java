@@ -1,30 +1,39 @@
 package com.lifehackig.fitnessapp.ui;
 
 import android.content.Intent;
-import android.icu.text.SimpleDateFormat;
+
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.ViewTreeObserver;
+import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.lifehackig.fitnessapp.R;
 
+import java.util.Calendar;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
-    @Bind(R.id.textView) TextView mTextView;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.calendarView) CalendarView mCalendarView;
+    @Bind(R.id.date) TextView mDateTextView;
+    @Bind(R.id.calories) TextView mCalories;
+    @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
+
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+
+    private int mYear;
+    private int mMonth;
+    private int mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +41,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        mCalories.setText("Calories: 0");
+
+        mYear = Calendar.getInstance().get(Calendar.YEAR);
+        mMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        String date = "Date: " + mMonth + "/" + mDay + "/" + mYear;
+        mDateTextView.setText(date);
+
         mAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    mTextView.setText(user.getDisplayName());
+                    getSupportActionBar().setTitle(user.getDisplayName());
                 }
             }
         };
@@ -46,13 +63,26 @@ public class MainActivity extends AppCompatActivity {
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int day) {
-                Intent intent = new Intent(MainActivity.this, DayActivity.class);
-                intent.putExtra("year", year);
-                intent.putExtra("month", month);
-                intent.putExtra("day", day);
-                startActivity(intent);
+                mYear = year;
+                mMonth = month + 1;
+                mDay = day;
+                String date = "Date: " + mMonth + "/" + mDay + "/" + mYear;
+                mDateTextView.setText(date);
             }
         });
+
+        mSeeDetailsButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mSeeDetailsButton) {
+            Intent intent = new Intent(MainActivity.this, DayActivity.class);
+            intent.putExtra("year", mYear);
+            intent.putExtra("month", mMonth);
+            intent.putExtra("day", mDay);
+            startActivity(intent);
+        }
     }
 
     @Override
