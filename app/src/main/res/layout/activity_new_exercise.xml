@@ -15,7 +15,7 @@
         android:padding="16dp"
         android:layout_marginBottom="5dp"
         android:inputType="text"
-        android:hint="Exercise Name"/>
+        android:hint="@string/exercise_name"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,7 @@
             android:background="@color/colorTextLight"
             android:padding="16dp"
             android:inputType="number"
-            android:hint="Number"/>
+            android:hint="@string/number"/>
         <RadioGroup
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -46,12 +46,12 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginEnd="16dp"
                 android:checked="true"
-                android:hint="reps"/>
+                android:hint="@string/reps"/>
             <RadioButton
                 android:id="@+id/minutes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="minutes"/>
+                android:hint="@string/minutes"/>
         </RadioGroup>
     </LinearLayout>
 
@@ -73,7 +73,7 @@
             android:background="@color/colorTextLight"
             android:padding="16dp"
             android:inputType="number"
-            android:hint="Weight" />
+            android:hint="@string/weight" />
         <TextView
             android:id="@+id/weightLabel"
             android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignBottom="@+id/weightEditText"
             android:layout_alignParentTop="true"
-            android:text="lbs (optional)" />
+            android:text="@string/lbs_optional" />
     </RelativeLayout>
 
     <EditText
@@ -94,13 +94,18 @@
         android:padding="16dp"
         android:layout_marginBottom="5dp"
         android:inputType="number"
-        android:hint="Calories"/>
+        android:hint="@string/calories"/>
 
-    <Spinner
-        android:id="@+id/muscleSpinner"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorTextLight"/>
+        android:background="@color/colorTextLight">
+        <Spinner
+            android:id="@+id/muscleSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/addButton"
@@ -109,5 +114,5 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorPrimary"
         android:textColor="@color/colorTextLight"
-        android:text="Add"/>
+        android:text="@string/add"/>
 </LinearLayout>
