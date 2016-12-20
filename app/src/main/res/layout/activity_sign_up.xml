@@ -4,51 +4,89 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:padding="16dp"
     tools:context="com.lifehackig.fitnessapp.ui.SignUpActivity">
 
     <TextView
-        android:id="@+id/signUpTitle"
+        android:id="@+id/personalInfoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sign_up"
-        android:textSize="32sp"/>
+        android:layout_marginBottom="10dp"
+        android:text="Personal Information"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"/>
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/firstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"
+        android:padding="10dp"
+        android:layout_marginBottom="5dp"
+        android:inputType="textPersonName"
+        android:hint="First Name"
+        android:ems="12" />
+
+    <EditText
+        android:id="@+id/lastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"
+        android:padding="10dp"
+        android:layout_marginBottom="5dp"
+        android:inputType="textPersonName"
+        android:hint="Last Name"
+        android:ems="12" />
+
+    <TextView
+        android:id="@+id/accountInfoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="@string/name"
-        android:ems="10" />
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="Account Security"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"/>
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"
+        android:padding="10dp"
+        android:layout_marginBottom="5dp"
         android:inputType="textEmailAddress"
         android:hint="@string/email"
-        android:ems="10" />
+        android:ems="12" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"
+        android:padding="10dp"
+        android:layout_marginBottom="5dp"
         android:inputType="textPassword"
-        android:hint="@string/password"
-        android:ems="10" />
+        android:hint="Create Password"
+        android:ems="12" />
 
     <EditText
         android:id="@+id/confirmPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
         android:inputType="textPassword"
         android:hint="@string/confirm_password"
-        android:ems="10" />
+        android:ems="12" />
 
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorTextLight"
         android:text="@string/sign_up" />
 </LinearLayout>
