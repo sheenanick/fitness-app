@@ -28,8 +28,7 @@ import com.lifehackig.fitnessapp.models.Exercise;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DayActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.addExerciseButton) Button mAddExerciseButton;
+public class DayActivity extends AppCompatActivity {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.emptyView) TextView mEmptyView;
     @Bind(R.id.calories) TextView mCalories;
@@ -90,7 +89,6 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
             }
         };
 
-        mAddExerciseButton.setOnClickListener(this);
     }
 
     private void setupFirebaseAdapter() {
@@ -126,19 +124,9 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
-    public void onClick(View v) {
-        if (v == mAddExerciseButton) {
-            Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
-            intent.putExtra("year", mYear);
-            intent.putExtra("month", mMonth);
-            intent.putExtra("day", mDay);
-            startActivity(intent);
-        }
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_exercise_menu, menu);
         inflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -146,6 +134,14 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_add_exercise:
+                Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
+                intent.putExtra("year", mYear);
+                intent.putExtra("month", mMonth);
+                intent.putExtra("day", mDay);
+                startActivity(intent);
+                return true;
+
             case R.id.action_log_out:
                 logout();
                 return true;
