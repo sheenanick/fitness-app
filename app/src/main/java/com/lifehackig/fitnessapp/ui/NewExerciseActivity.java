@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +24,7 @@ import com.lifehackig.fitnessapp.models.Exercise;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class NewExerciseActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class NewExerciseActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.nameEditText) EditText mExerciseName;
     @Bind(R.id.repsOrDuration) EditText mRepsOrDuration;
     @Bind(R.id.reps) RadioButton mReps;
@@ -44,10 +42,10 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    private String mMuscle;
     private Integer mTotalCalories;
     private Integer mIntCalories;
     private DatabaseReference mDateCaloriesRef;
+    DatabaseReference mDateRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +62,6 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.muscles_array, android.R.layout.simple_spinner_dropdown_item);
         mMuscleSpinner.setAdapter(adapter);
-        mMuscleSpinner.setOnItemSelectedListener(this);
 
         mAddButton.setOnClickListener(this);
 
@@ -85,6 +82,8 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v == mAddButton) {
             saveNewExercise();
+            updateCalories();
+            returnToDayActivity();
         }
     }
 
@@ -95,27 +94,28 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         Integer reps = 0;
         Integer minutes = 0;
         mIntCalories = Integer.parseInt(mCalories.getText().toString().trim());
+        String muscle = mMuscleSpinner.getSelectedItem().toString();
 
         String weight = mWeight.getText().toString().trim();
         Integer intWeight = 0;
         if (!weight.equals("")) {
             intWeight = Integer.parseInt(weight);
         }
-
         if (isReps) {
             reps = repsOrDuration;
         } else {
             minutes = repsOrDuration;
         }
 
-        DatabaseReference dateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString());
-        DatabaseReference exercisesRef = dateRef.child("exercises");
-        DatabaseReference exerciseRef = exercisesRef.push();
+        mDateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString());
+        DatabaseReference exerciseRef = mDateRef.child("exercises").push();
         String pushId = exerciseRef.getKey();
-        Exercise exercise = new Exercise(name, reps, minutes, intWeight, mMuscle, mIntCalories, pushId);
+        Exercise exercise = new Exercise(name, reps, minutes, intWeight, muscle, mIntCalories, pushId);
         exerciseRef.setValue(exercise);
+    }
 
-        mDateCaloriesRef = dateRef.child("calories");
+    public void updateCalories() {
+        mDateCaloriesRef = mDateRef.child("calories");
         mDateCaloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -127,7 +127,6 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
                 Integer newTotalCalories = mTotalCalories + mIntCalories;
                 mDateCaloriesRef.setValue(newTotalCalories);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -137,7 +136,9 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
             Integer newTotalCalories = mTotalCalories + mIntCalories;
             mDateCaloriesRef.setValue(newTotalCalories);
         }
+    }
 
+    public void returnToDayActivity() {
         Intent intent = new Intent(NewExerciseActivity.this, DayActivity.class);
         intent.putExtra("year", mYear);
         intent.putExtra("month", mMonth);
@@ -145,18 +146,6 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
-    }
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id) {
-        if (view == mMuscleSpinner) {
-            mMuscle = adapterView.getItemAtPosition(pos).toString();
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
     }
 
     @Override
