@@ -4,35 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="16dp"
     tools:context="com.lifehackig.fitnessapp.ui.NewExerciseActivity">
 
     <EditText
         android:id="@+id/nameEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"
+        android:padding="16dp"
+        android:layout_marginBottom="5dp"
         android:inputType="text"
         android:hint="Exercise Name"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
-
         <EditText
             android:id="@+id/repsOrDuration"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/colorTextLight"
+            android:padding="16dp"
             android:inputType="number"
             android:hint="Number"/>
-
         <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
             <RadioButton
                 android:id="@+id/reps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:checked="true"
                 android:hint="reps"/>
             <RadioButton
@@ -41,40 +53,61 @@
                 android:layout_height="wrap_content"
                 android:hint="minutes"/>
         </RadioGroup>
-
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
         <EditText
             android:id="@+id/weightEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/weightLabel"
+            android:layout_toStartOf="@+id/weightLabel"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/colorTextLight"
+            android:padding="16dp"
             android:inputType="number"
-            android:hint="Weight"/>
+            android:hint="Weight" />
         <TextView
+            android:id="@+id/weightLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="lbs (optional)"/>
-    </LinearLayout>
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/weightEditText"
+            android:layout_alignParentTop="true"
+            android:text="lbs (optional)" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/caloriesEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"
+        android:padding="16dp"
+        android:layout_marginBottom="5dp"
         android:inputType="number"
         android:hint="Calories"/>
 
     <Spinner
         android:id="@+id/muscleSpinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"/>
 
     <Button
         android:id="@+id/addButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Add"/>
+        android:layout_marginTop="16dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorTextLight"
+        android:text="Add"/>
 </LinearLayout>
