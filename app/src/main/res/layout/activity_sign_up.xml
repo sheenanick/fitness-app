@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="Personal Information"
+        android:text="@string/personal_information"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"/>
 
@@ -24,7 +24,7 @@
         android:padding="10dp"
         android:layout_marginBottom="5dp"
         android:inputType="textPersonName"
-        android:hint="First Name" />
+        android:hint="@string/first_name" />
 
     <EditText
         android:id="@+id/lastName"
@@ -34,7 +34,7 @@
         android:padding="10dp"
         android:layout_marginBottom="5dp"
         android:inputType="textPersonName"
-        android:hint="Last Name" />
+        android:hint="@string/last_name" />
 
     <TextView
         android:id="@+id/accountInfoTitle"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="10dp"
-        android:text="Account Security"
+        android:text="@string/account_security"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"/>
 
@@ -64,7 +64,7 @@
         android:padding="10dp"
         android:layout_marginBottom="5dp"
         android:inputType="textPassword"
-        android:hint="Create Password" />
+        android:hint="@string/create_password" />
 
     <EditText
         android:id="@+id/confirmPassword"
