@@ -25,16 +25,23 @@
             android:inputType="number"
             android:text="Number"/>
 
-        <RadioButton
-            android:id="@+id/reps"
+        <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="reps"/>
-        <RadioButton
-            android:id="@+id/minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="minutes"/>
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/reps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="reps"/>
+            <RadioButton
+                android:id="@+id/minutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="minutes"/>
+        </RadioGroup>
+
     </LinearLayout>
 
     <LinearLayout
