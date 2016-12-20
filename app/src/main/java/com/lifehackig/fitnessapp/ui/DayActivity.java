@@ -6,23 +6,47 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lifehackig.fitnessapp.R;
 
-public class DayActivity extends AppCompatActivity {
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+public class DayActivity extends AppCompatActivity implements View.OnClickListener{
+    @Bind(R.id.addExerciseButton) Button mAddExerciseButton;
+
+    private int mYear;
+    private int mMonth;
+    private int mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day);
+        ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        int year = intent.getIntExtra("year", 0);
-        int month = intent.getIntExtra("month", 0);
-        int day = intent.getIntExtra("day", 0);
-        String date = month + "/" + day + "/" + year;
+        mYear = intent.getIntExtra("year", 0);
+        mMonth = intent.getIntExtra("month", 0);
+        mDay = intent.getIntExtra("day", 0);
+        String date = mMonth + "/" + mDay + "/" + mYear;
         getSupportActionBar().setTitle(date);
+
+        mAddExerciseButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mAddExerciseButton) {
+            Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
+            intent.putExtra("year", mYear);
+            intent.putExtra("month", mMonth);
+            intent.putExtra("day", mDay);
+            startActivity(intent);
+        }
     }
 
     @Override
