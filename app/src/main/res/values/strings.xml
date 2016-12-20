@@ -8,6 +8,7 @@
     <string name="confirm_password">Confirm password</string>
     <string name="sign_up">Sign Up</string>
     <string name="log_out">Log Out</string>
+    <string name="go">Go</string>
     <string-array name="muscles_array">
         <item>Neck</item>
         <item>Shoulders</item>
