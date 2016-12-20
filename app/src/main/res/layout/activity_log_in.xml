@@ -12,39 +12,46 @@
         android:adjustViewBounds="true"
         android:src="@drawable/main_image"/>
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/imageView"
+        android:background="@color/colorAccent"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/imageView"
-        android:paddingBottom="18dp"
+        android:layout_below="@+id/divider"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="50dp"
         android:gravity="center"
         android:orientation="vertical" >
 
         <EditText
             android:id="@+id/email"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorTextLight"
-            android:padding="10dp"
+            android:padding="16dp"
             android:layout_marginBottom="5dp"
             android:inputType="textEmailAddress"
-            android:hint="@string/email"
-            android:ems="12" />
+            android:hint="@string/email" />
 
         <EditText
             android:id="@+id/password"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorTextLight"
-            android:padding="10dp"
+            android:padding="16dp"
             android:layout_marginBottom="10dp"
             android:inputType="textPassword"
-            android:hint="@string/password"
-            android:ems="12" />
+            android:hint="@string/password"/>
 
         <Button
             android:id="@+id/logInButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorTextLight"
@@ -54,7 +61,7 @@
             android:id="@+id/signUpText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:textStyle="bold"
             android:textSize="18sp"
             android:text="@string/don_t_have_an_account_sign_up"/>
