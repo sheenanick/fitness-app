@@ -8,15 +8,20 @@ public class Exercise {
     private String muscle;
     private Integer calories;
 
+
+
+    private String pushId;
+
     public Exercise() {}
 
-    public Exercise(String name, Integer reps, Integer duration, Integer weight, String muscle, Integer calories) {
+    public Exercise(String name, Integer reps, Integer duration, Integer weight, String muscle, Integer calories, String pushId) {
         this.name = name;
         this.reps = reps;
         this.duration = duration;
         this.weight = weight;
         this.muscle = muscle;
         this.calories = calories;
+        this.pushId = pushId;
     }
 
     public String getName() {
@@ -41,5 +46,9 @@ public class Exercise {
 
     public Integer getCalories() {
         return calories;
+    }
+
+    public String getPushId() {
+        return pushId;
     }
 }
