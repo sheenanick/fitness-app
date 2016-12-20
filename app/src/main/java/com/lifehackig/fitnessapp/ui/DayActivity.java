@@ -108,13 +108,10 @@ public class DayActivity extends AppCompatActivity {
         caloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String totalCalories;
-                if (dataSnapshot.getValue() == null) {
-                    totalCalories = "Calories: 0";
-                } else {
-                    totalCalories = "Calories: " + dataSnapshot.getValue().toString();
+                if (dataSnapshot.getValue() != null) {
+                    String totalCalories = dataSnapshot.getValue().toString();
+                    mCalories.setText(totalCalories);
                 }
-                mCalories.setText(totalCalories);
             }
 
             @Override
