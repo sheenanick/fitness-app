@@ -23,7 +23,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
-    @Bind(R.id.name) EditText mName;
+    @Bind(R.id.firstName) EditText mFirstName;
+    @Bind(R.id.lastName) EditText mLastName;
     @Bind(R.id.email) EditText mEmail;
     @Bind(R.id.password) EditText mPassword;
     @Bind(R.id.confirmPassword) EditText mConfirmPassword;
@@ -77,16 +78,19 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void createNewUser() {
-        mNameString = mName.getText().toString().trim();
+        String firstName = mFirstName.getText().toString().trim();
+        String lastName = mLastName.getText().toString().trim();
+        mNameString = firstName + " " + lastName;
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         String confirmPassword = mConfirmPassword.getText().toString().trim();
 
-        boolean validName = isValidName(mNameString);
+        boolean validFirstName = isValidName(firstName, mFirstName);
+        boolean validLastName = isValidName(lastName, mLastName);
         boolean validEmail = isValidEmail(email);
         boolean validPassword = isValidPassword(password, confirmPassword);
 
-        if (!validName || !validEmail || !validPassword) return;
+        if (!validFirstName || !validLastName || !validEmail || !validPassword) return;
 
         mAuthProgressDialog.show();
 
@@ -105,9 +109,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-    public boolean isValidName(String name) {
+    public boolean isValidName(String name, View v) {
         if (name.equals("")) {
-            mName.setError("Please enter your name");
+            if (v == mFirstName) mFirstName.setError("Please enter your first name");
+            if (v == mLastName) mLastName.setError("Please enter your last name");
             return false;
         } else {
             return true;
