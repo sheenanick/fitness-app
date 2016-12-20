@@ -15,6 +15,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.R;
 
 import java.util.Calendar;
@@ -30,10 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private String mCurrentUid;
 
-    private int mYear;
-    private int mMonth;
-    private int mDay;
+    private Integer mYear;
+    private Integer mMonth;
+    private Integer mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +47,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mCalories.setText("Calories: 0");
-
         mYear = Calendar.getInstance().get(Calendar.YEAR);
         mMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         String date = "Date: " + mMonth + "/" + mDay + "/" + mYear;
+
         mDateTextView.setText(date);
 
         mAuth = FirebaseAuth.getInstance();
@@ -54,11 +59,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
+
                 if (user != null) {
                     getSupportActionBar().setTitle(user.getDisplayName());
+                    mCurrentUid = user.getUid();
+                    String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
+                    setCaloriesTextView(dateRefId);
                 }
             }
         };
+
+
 
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -68,10 +79,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mDay = day;
                 String date = "Date: " + mMonth + "/" + mDay + "/" + mYear;
                 mDateTextView.setText(date);
+
+                String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
+                setCaloriesTextView(dateRefId);
             }
         });
 
         mSeeDetailsButton.setOnClickListener(this);
+    }
+
+    public void setCaloriesTextView(String dateRefId) {
+        DatabaseReference caloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
+        caloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String totalCalories;
+                if (dataSnapshot.getValue() == null) {
+                    totalCalories = "Calories: 0";
+                } else {
+                    totalCalories = "Calories: " + dataSnapshot.getValue().toString();
+                }
+                mCalories.setText(totalCalories);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     @Override
