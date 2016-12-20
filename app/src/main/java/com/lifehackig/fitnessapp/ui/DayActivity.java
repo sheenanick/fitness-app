@@ -31,6 +31,7 @@ import butterknife.ButterKnife;
 public class DayActivity extends AppCompatActivity implements View.OnClickListener{
     @Bind(R.id.addExerciseButton) Button mAddExerciseButton;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.emptyView) TextView mEmptyView;
     @Bind(R.id.calories) TextView mCalories;
 
     private Integer mYear;
@@ -64,7 +65,25 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     mCurrentUid = user.getUid();
-                    mExercises = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString()).child("exercises");
+
+                    String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
+                    mExercises = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("exercises");
+                    mExercises.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.getValue() == null) {
+                                mEmptyView.setVisibility(View.VISIBLE);
+                                mRecyclerView.setVisibility(View.GONE);
+                            } else {
+                                mRecyclerView.setVisibility(View.VISIBLE);
+                                mEmptyView.setVisibility(View.GONE);
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+
                     setupFirebaseAdapter();
                     setCaloriesTextView();
                 }
