@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.models.Exercise;
 
+import java.util.Locale;
+
 public class FirebaseExerciseViewHolder extends RecyclerView.ViewHolder {
     private View mView;
     private Context mContext;
@@ -23,6 +25,6 @@ public class FirebaseExerciseViewHolder extends RecyclerView.ViewHolder {
         TextView calories = (TextView) mView.findViewById(R.id.calories);
 
         exerciseName.setText(exercise.getName());
-        calories.setText(exercise.getCalories());
+        calories.setText(String.format(Locale.US, "%d", exercise.getCalories()));
     }
 }
