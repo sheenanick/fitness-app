@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,8 +15,11 @@ import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.models.Exercise;
 
@@ -41,6 +45,9 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private String mMuscle;
+    private Integer mTotalCalories;
+    private Integer mIntCalories;
+    private DatabaseReference mDateCaloriesRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +94,7 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         boolean isReps = mReps.isChecked();
         Integer reps = 0;
         Integer minutes = 0;
-        Integer calories = Integer.parseInt(mCalories.getText().toString().trim());
+        mIntCalories = Integer.parseInt(mCalories.getText().toString().trim());
 
         String weight = mWeight.getText().toString().trim();
         Integer intWeight = 0;
@@ -102,10 +109,34 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         }
 
         DatabaseReference dateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString());
-        DatabaseReference exerciseRef = dateRef.push();
+        DatabaseReference exercisesRef = dateRef.child("exercises");
+        DatabaseReference exerciseRef = exercisesRef.push();
         String pushId = exerciseRef.getKey();
-        Exercise exercise = new Exercise(name, reps, minutes, intWeight, mMuscle, calories, pushId);
+        Exercise exercise = new Exercise(name, reps, minutes, intWeight, mMuscle, mIntCalories, pushId);
         exerciseRef.setValue(exercise);
+
+        mDateCaloriesRef = dateRef.child("calories");
+        mDateCaloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null) {
+                    mTotalCalories = 0;
+                } else {
+                    mTotalCalories = Integer.parseInt(dataSnapshot.getValue().toString());
+                }
+                Integer newTotalCalories = mTotalCalories + mIntCalories;
+                mDateCaloriesRef.setValue(newTotalCalories);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        if (mTotalCalories != null) {
+            Integer newTotalCalories = mTotalCalories + mIntCalories;
+            mDateCaloriesRef.setValue(newTotalCalories);
+        }
 
         Intent intent = new Intent(NewExerciseActivity.this, DayActivity.class);
         intent.putExtra("year", mYear);
