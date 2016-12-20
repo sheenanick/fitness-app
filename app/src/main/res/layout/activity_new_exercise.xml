@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:text="Exercise Name"/>
+        android:hint="Exercise Name"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="Number"/>
+            android:hint="Number"/>
 
         <RadioGroup
             android:layout_width="wrap_content"
@@ -34,12 +34,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="reps"/>
+                android:hint="reps"/>
             <RadioButton
                 android:id="@+id/minutes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="minutes"/>
+                android:hint="minutes"/>
         </RadioGroup>
 
     </LinearLayout>
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="Weight"/>
+            android:hint="Weight"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:text="Calories"/>
+        android:hint="Calories"/>
 
     <Spinner
         android:id="@+id/muscleSpinner"
@@ -76,5 +76,5 @@
         android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"/>
+        android:hint="Add"/>
 </LinearLayout>
