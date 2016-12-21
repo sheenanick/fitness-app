@@ -13,6 +13,7 @@
         android:layout_height="300dp"/>
 
     <LinearLayout
+        android:id="@+id/calendarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/calendarView"
@@ -47,6 +48,53 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
                 android:text="Details"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/charts"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_margin="16dp"
+        android:layout_below="@+id/calendarLayout"
+        android:layout_above="@+id/bottom_navigation"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/circle1">
+            <TextView
+                android:id="@+id/totalCalories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="42sp"
+                android:text="0"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/circle2">
+            <TextView
+                android:id="@+id/steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="42sp"
+                android:text="4.7K"/>
+            <ImageView
+                android:id="@+id/footstepsImage"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_below="@+id/steps"
+                android:src="@drawable/footsteps"/>
         </RelativeLayout>
     </LinearLayout>
 
