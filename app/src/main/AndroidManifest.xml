@@ -23,7 +23,6 @@
         <activity android:name=".ui.NewExerciseActivity" />
         <activity android:name=".ui.WorkoutsActivity" />
         <activity android:name=".ui.AccountActivity" />
-        <activity android:name=".ui.NewWorkoutActivity"></activity>
     </application>
 
 </manifest>
