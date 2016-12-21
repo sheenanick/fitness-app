@@ -7,10 +7,51 @@
     android:padding="16dp"
     tools:context="com.lifehackig.fitnessapp.ui.NewExerciseActivity">
 
-
     <LinearLayout
+        android:id="@+id/workoutForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="22dp"
+            android:text="Select a workout from your favorites:"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorTextLight">
+            <Spinner
+                android:id="@+id/workoutSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="22dp"
+            android:text="OR"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorTextLight"
+            android:text="Add a New Exercise" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/newExerciseForm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <EditText
@@ -138,7 +179,6 @@
                 android:textColor="@color/colorTextLight"
                 android:text="@string/add"/>
         </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>
