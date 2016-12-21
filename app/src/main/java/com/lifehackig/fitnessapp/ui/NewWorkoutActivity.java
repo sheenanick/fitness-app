@@ -67,7 +67,7 @@ public class NewWorkoutActivity extends AppCompatActivity {
 
     public void logout() {
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(WorkoutsActivity.this, LogInActivity.class);
+        Intent intent = new Intent(NewWorkoutActivity.this, LogInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
