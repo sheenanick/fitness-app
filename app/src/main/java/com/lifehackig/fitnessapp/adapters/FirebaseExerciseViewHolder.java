@@ -25,6 +25,6 @@ public class FirebaseExerciseViewHolder extends RecyclerView.ViewHolder {
         TextView calories = (TextView) mView.findViewById(R.id.calories);
 
         exerciseName.setText(exercise.getName());
-        calories.setText(String.format(Locale.US, "%d", exercise.getCalories()));
+        calories.setText(String.format(Locale.US, "%d Calories", exercise.getCalories()));
     }
 }
