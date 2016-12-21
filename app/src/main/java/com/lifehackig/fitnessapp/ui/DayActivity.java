@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -24,15 +26,21 @@ import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.adapters.FirebaseExerciseViewHolder;
 import com.lifehackig.fitnessapp.models.Exercise;
+import com.lifehackig.fitnessapp.models.Workout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DayActivity extends AppCompatActivity {
+public class DayActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.emptyView) TextView mEmptyView;
-    @Bind(R.id.calories) TextView mCalories;
+//    @Bind(R.id.calories) TextView mCalories;
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
+    @Bind(R.id.saveButton) Button mSaveButton;
+    @Bind(R.id.addButton) Button mAddButton;
 
     private Integer mYear;
     private Integer mMonth;
@@ -85,7 +93,7 @@ public class DayActivity extends AppCompatActivity {
                     });
 
                     setupFirebaseAdapter();
-                    setCaloriesTextView();
+//                    setCaloriesTextView();
                 }
             }
         };
@@ -110,6 +118,9 @@ public class DayActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        mSaveButton.setOnClickListener(this);
+        mAddButton.setOnClickListener(this);
     }
 
     private void setupFirebaseAdapter() {
@@ -123,28 +134,28 @@ public class DayActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public void setCaloriesTextView() {
-        String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
-        DatabaseReference caloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
-        caloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    String totalCalories = dataSnapshot.getValue().toString();
-                    mCalories.setText(totalCalories);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
+//    public void setCaloriesTextView() {
+//        String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
+//        DatabaseReference caloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
+//        caloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.getValue() != null) {
+//                    String totalCalories = dataSnapshot.getValue().toString();
+//                    mCalories.setText(totalCalories);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_exercise_menu, menu);
+//        inflater.inflate(R.menu.add_exercise_menu, menu);
         inflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -152,13 +163,13 @@ public class DayActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_exercise:
-                Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
-                intent.putExtra("year", mYear);
-                intent.putExtra("month", mMonth);
-                intent.putExtra("day", mDay);
-                startActivity(intent);
-                return true;
+//            case R.id.action_add_exercise:
+//                Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
+//                intent.putExtra("year", mYear);
+//                intent.putExtra("month", mMonth);
+//                intent.putExtra("day", mDay);
+//                startActivity(intent);
+//                return true;
 
             case R.id.action_log_out:
                 logout();
@@ -193,5 +204,44 @@ public class DayActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         mAdapter.cleanup();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mAddButton) {
+            Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
+            intent.putExtra("year", mYear);
+            intent.putExtra("month", mMonth);
+            intent.putExtra("day", mDay);
+            startActivity(intent);
+        }
+        if (v == mSaveButton) {
+            saveWorkout();
+        }
+    }
+
+    private void saveWorkout() {
+        String name = "name";
+        final DatabaseReference workoutRef = FirebaseDatabase.getInstance().getReference("workouts").child(mCurrentUid).push();
+        String pushId = workoutRef.getKey();
+
+        final Workout workout = new Workout(name, pushId);
+
+        mExercises.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Exercise> workoutExercises = new ArrayList<>();
+                for (DataSnapshot exerciseSnapshot : dataSnapshot.getChildren()) {
+                    Exercise exercise = exerciseSnapshot.getValue(Exercise.class);
+                    workoutExercises.add(exercise);
+                }
+                workout.setExercises(workoutExercises);
+                workoutRef.setValue(workout);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
     }
 }
