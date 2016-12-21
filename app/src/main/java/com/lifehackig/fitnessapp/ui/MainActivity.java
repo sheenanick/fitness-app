@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mYear = Calendar.getInstance().get(Calendar.YEAR);
         mMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         mDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        String date = "Date: " + mMonth + "/" + mDay + "/" + mYear;
+        String date = mMonth + "/" + mDay + "/" + mYear;
 
         mDateTextView.setText(date);
 
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mYear = year;
                 mMonth = month + 1;
                 mDay = day;
-                String date = "Date: " + mMonth + "/" + mDay + "/" + mYear;
+                String date = mMonth + "/" + mDay + "/" + mYear;
                 mDateTextView.setText(date);
 
                 String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
