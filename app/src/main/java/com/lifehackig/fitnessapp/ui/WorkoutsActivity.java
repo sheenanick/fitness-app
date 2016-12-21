@@ -12,7 +12,7 @@ import com.lifehackig.fitnessapp.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SaveWorkoutsActivity extends AppCompatActivity {
+public class WorkoutsActivity extends AppCompatActivity {
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
 
     @Override
@@ -26,11 +26,11 @@ public class SaveWorkoutsActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_home:
-                        Intent homeIntent = new Intent(SaveWorkoutsActivity.this, MainActivity.class);
+                        Intent homeIntent = new Intent(WorkoutsActivity.this, MainActivity.class);
                         startActivity(homeIntent);
                         break;
                     case R.id.action_account:
-                        Intent accountIntent = new Intent(SaveWorkoutsActivity.this, AccountActivity.class);
+                        Intent accountIntent = new Intent(WorkoutsActivity.this, AccountActivity.class);
                         startActivity(accountIntent);
                         break;
                 }

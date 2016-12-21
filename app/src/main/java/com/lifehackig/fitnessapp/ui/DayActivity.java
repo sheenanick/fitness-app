@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -100,7 +99,7 @@ public class DayActivity extends AppCompatActivity {
                         startActivity(homeIntent);
                         break;
                     case R.id.action_workouts:
-                        Intent workoutIntent = new Intent(DayActivity.this, SaveWorkoutsActivity.class);
+                        Intent workoutIntent = new Intent(DayActivity.this, WorkoutsActivity.class);
                         startActivity(workoutIntent);
                         break;
                     case R.id.action_account:

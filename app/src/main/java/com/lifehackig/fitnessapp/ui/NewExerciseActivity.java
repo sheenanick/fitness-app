@@ -103,7 +103,7 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
                         startActivity(homeIntent);
                         break;
                     case R.id.action_workouts:
-                        Intent workoutIntent = new Intent(NewExerciseActivity.this, SaveWorkoutsActivity.class);
+                        Intent workoutIntent = new Intent(NewExerciseActivity.this, WorkoutsActivity.class);
                         startActivity(workoutIntent);
                         break;
                     case R.id.action_account:

@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_workouts:
-                        Intent workoutIntent = new Intent(MainActivity.this, SaveWorkoutsActivity.class);
+                        Intent workoutIntent = new Intent(MainActivity.this, WorkoutsActivity.class);
                         startActivity(workoutIntent);
                         break;
                     case R.id.action_account:

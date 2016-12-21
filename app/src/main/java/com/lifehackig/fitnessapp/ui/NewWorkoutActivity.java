@@ -12,14 +12,13 @@ import com.lifehackig.fitnessapp.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class AccountActivity extends AppCompatActivity {
-    @Bind(R.id.bottom_navigation)
-    BottomNavigationView mBottomNavigationView;
+public class NewWorkoutActivity extends AppCompatActivity {
+    @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
+        setContentView(R.layout.activity_new_workout);
         ButterKnife.bind(this);
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -27,11 +26,15 @@ public class AccountActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_home:
-                        Intent homeIntent = new Intent(AccountActivity.this, MainActivity.class);
+                        Intent homeIntent = new Intent(NewWorkoutActivity.this, MainActivity.class);
                         startActivity(homeIntent);
                         break;
                     case R.id.action_workouts:
-                        Intent accountIntent = new Intent(AccountActivity.this, WorkoutsActivity.class);
+                        Intent workoutIntent = new Intent(NewWorkoutActivity.this, WorkoutsActivity.class);
+                        startActivity(workoutIntent);
+                        break;
+                    case R.id.action_account:
+                        Intent accountIntent = new Intent(NewWorkoutActivity.this, AccountActivity.class);
                         startActivity(accountIntent);
                         break;
                 }
