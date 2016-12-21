@@ -8,6 +8,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lifehackig.fitnessapp.R;
@@ -15,8 +24,18 @@ import com.lifehackig.fitnessapp.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class NewWorkoutActivity extends AppCompatActivity {
+public class NewWorkoutActivity extends AppCompatActivity implements View.OnClickListener {
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
+    @Bind(R.id.workoutName) EditText mWorkoutName;
+    @Bind(R.id.nameEditText) EditText mExerciseName;
+    @Bind(R.id.repsOrDuration) EditText mRepsOrDuration;
+    @Bind(R.id.reps) RadioButton mReps;
+    @Bind(R.id.minutes) RadioButton mMinutes;
+    @Bind(R.id.weightEditText) EditText mWeight;
+    @Bind(R.id.caloriesEditText) EditText mCalories;
+    @Bind(R.id.muscleSpinner) Spinner mMuscleSpinner;
+    @Bind(R.id.saveButton) Button mSaveButton;
+    @Bind(R.id.addAnotherExerciseIcon) ImageView mAddExerciseIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +63,11 @@ public class NewWorkoutActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        ArrayAdapter<CharSequence> muscleAdapter = ArrayAdapter.createFromResource(this, R.array.muscles_array, android.R.layout.simple_spinner_dropdown_item);
+        mMuscleSpinner.setAdapter(muscleAdapter);
+
+        mAddExerciseIcon.setOnClickListener(this);
     }
 
     @Override
@@ -71,5 +95,12 @@ public class NewWorkoutActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == mAddExerciseIcon) {
+            Toast.makeText(NewWorkoutActivity.this, "Sorry, this feature not yet available", Toast.LENGTH_SHORT).show();
+        }
     }
 }
