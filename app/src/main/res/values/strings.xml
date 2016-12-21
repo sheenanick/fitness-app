@@ -26,6 +26,7 @@
     <string name="_30_min">30 min</string>
     <string name="_60_lb">60 lb</string>
     <string name="image_of_body_part_muscle">image of body part/muscle</string>
+    <string name="workout_name">Workout Name</string>
     <string-array name="muscles_array">
         <item>Neck</item>
         <item>Shoulders</item>
