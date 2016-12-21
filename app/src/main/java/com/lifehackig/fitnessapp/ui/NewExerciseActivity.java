@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
@@ -35,7 +36,13 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     @Bind(R.id.weightEditText) EditText mWeight;
     @Bind(R.id.caloriesEditText) EditText mCalories;
     @Bind(R.id.muscleSpinner) Spinner mMuscleSpinner;
+    @Bind(R.id.workoutSpinner) Spinner mWorkoutSpinner;
+    @Bind(R.id.selectButton) Button mSelectButton;
     @Bind(R.id.addButton) Button mAddButton;
+    @Bind(R.id.newExerciseButton) Button mNewExerciseButton;
+    @Bind(R.id.cancelButton) Button mCancelButton;
+    @Bind(R.id.workoutForm) LinearLayout mWorkoutForm;
+    @Bind(R.id.newExerciseForm) LinearLayout mNewExerciseForm;
 
     private Integer mYear;
     private Integer mMonth;
@@ -63,9 +70,15 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         String date = mMonth + "/" + mDay + "/" + mYear;
         getSupportActionBar().setTitle(date);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.muscles_array, android.R.layout.simple_spinner_dropdown_item);
-        mMuscleSpinner.setAdapter(adapter);
+        ArrayAdapter<CharSequence> muscleAdapter = ArrayAdapter.createFromResource(this, R.array.muscles_array, android.R.layout.simple_spinner_dropdown_item);
+        mMuscleSpinner.setAdapter(muscleAdapter);
 
+        ArrayAdapter<CharSequence> workoutAdapter = ArrayAdapter.createFromResource(this, R.array.temp_workouts_array, android.R.layout.simple_spinner_dropdown_item);
+        mWorkoutSpinner.setAdapter(workoutAdapter);
+
+        mSelectButton.setOnClickListener(this);
+        mNewExerciseButton.setOnClickListener(this);
+        mCancelButton.setOnClickListener(this);
         mAddButton.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -82,10 +95,24 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        if (v == mSelectButton) {
+            saveWorkout();
+        }
+        if (v == mNewExerciseButton) {
+            mNewExerciseForm.setVisibility(View.VISIBLE);
+            mWorkoutForm.setVisibility(View.GONE);
+        }
         if (v == mAddButton) {
             saveNewExercise();
-
         }
+        if (v == mCancelButton) {
+            mNewExerciseForm.setVisibility(View.GONE);
+            mWorkoutForm.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void saveWorkout() {
+        returnToDayActivity();
     }
 
     public void saveNewExercise() {
