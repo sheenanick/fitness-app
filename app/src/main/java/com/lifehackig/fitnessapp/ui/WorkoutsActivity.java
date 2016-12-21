@@ -45,7 +45,6 @@ public class WorkoutsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_exercise_menu, menu);
         inflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -53,11 +52,6 @@ public class WorkoutsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_add_exercise:
-                Intent intent = new Intent(WorkoutsActivity.this, NewWorkoutActivity.class);
-                startActivity(intent);
-                return true;
-
             case R.id.action_log_out:
                 logout();
                 return true;
