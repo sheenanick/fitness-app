@@ -11,7 +11,8 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="70dp"
-        android:src="@drawable/muscle"/>
+        android:src="@drawable/muscle"
+        android:contentDescription="@string/image_of_body_part_muscle"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,13 +26,13 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="Exercise Name"/>
+            android:text="@string/exercise_name"/>
         <TextView
             android:id="@+id/calories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
-            android:text="350 calories"/>
+            android:text="@string/_350_calories"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,14 +43,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
-                android:text="30 min"/>
+                android:layout_marginEnd="16dp"
+                android:text="@string/_30_min"/>
 
             <TextView
                 android:id="@+id/weight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:text="60 lb"/>
+                android:text="@string/_60_lb"/>
         </LinearLayout>
 
     </LinearLayout>

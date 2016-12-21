@@ -22,6 +22,10 @@
     <string name="calories">Calories</string>
     <string name="add">Add</string>
     <string name="did_you_workout_today_add_an_exercise_from_the_toolbar_above">Did you workout today? Add an exercise from the toolbar above!</string>
+    <string name="_350_calories">350 calories</string>
+    <string name="_30_min">30 min</string>
+    <string name="_60_lb">60 lb</string>
+    <string name="image_of_body_part_muscle">image of body part/muscle</string>
     <string-array name="muscles_array">
         <item>Neck</item>
         <item>Shoulders</item>
