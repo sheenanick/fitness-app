@@ -72,139 +72,139 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/newExerciseForm"
+    android:id="@+id/newExerciseForm"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:visibility="gone"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/nameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"
         android:padding="16dp"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:layout_marginBottom="5dp"
+        android:inputType="text"
+        android:hint="@string/exercise_name"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
         <EditText
-            android:id="@+id/nameEditText"
-            android:layout_width="match_parent"
+            android:id="@+id/repsOrDuration"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/colorTextLight"
             android:padding="16dp"
-            android:layout_marginBottom="5dp"
-            android:inputType="text"
-            android:hint="@string/exercise_name"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/repsOrDuration"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@color/colorTextLight"
-                android:padding="16dp"
-                android:inputType="number"
-                android:hint="@string/number"/>
-            <RadioGroup
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/reps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:checked="true"
-                    android:hint="@string/reps"/>
-                <RadioButton
-                    android:id="@+id/minutes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/minutes"/>
-            </RadioGroup>
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/weightEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/weightLabel"
-                android:layout_toStartOf="@+id/weightLabel"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp"
-                android:background="@color/colorTextLight"
-                android:padding="16dp"
-                android:inputType="number"
-                android:hint="@string/weight" />
-            <TextView
-                android:id="@+id/weightLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignBottom="@+id/weightEditText"
-                android:layout_alignParentTop="true"
-                android:text="@string/lbs_optional" />
-        </RelativeLayout>
-
-        <EditText
-            android:id="@+id/caloriesEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorTextLight"
-            android:padding="16dp"
-            android:layout_marginBottom="5dp"
             android:inputType="number"
-            android:hint="@string/calories"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorTextLight">
-            <Spinner
-                android:id="@+id/muscleSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:hint="@string/number"/>
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/cancelButton"
-                android:layout_width="0dp"
+            <RadioButton
+                android:id="@+id/reps"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginRight="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/colorPrimaryText"
-                android:textColor="@color/colorTextLight"
-                android:text="Cancel"/>
-
-            <Button
-                android:id="@+id/addButton"
-                android:layout_width="0dp"
+                android:checked="true"
+                android:hint="@string/reps"/>
+            <RadioButton
+                android:id="@+id/minutes"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:textColor="@color/colorTextLight"
-                android:text="@string/add"/>
-        </LinearLayout>
+                android:hint="@string/minutes"/>
+        </RadioGroup>
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/weightEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/weightLabel"
+            android:layout_toStartOf="@+id/weightLabel"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/colorTextLight"
+            android:padding="16dp"
+            android:inputType="number"
+            android:hint="@string/weight" />
+        <TextView
+            android:id="@+id/weightLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/weightEditText"
+            android:layout_alignParentTop="true"
+            android:text="@string/lbs_optional" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/caloriesEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTextLight"
+        android:padding="16dp"
+        android:layout_marginBottom="5dp"
+        android:inputType="number"
+        android:hint="@string/calories"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTextLight">
+        <Spinner
+            android:id="@+id/muscleSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorPrimaryText"
+            android:textColor="@color/colorTextLight"
+            android:text="Cancel"/>
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorTextLight"
+            android:text="@string/add"/>
+    </LinearLayout>
+</LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
