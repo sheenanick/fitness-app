@@ -2,6 +2,7 @@ package com.lifehackig.fitnessapp.ui;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -29,6 +30,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class NewExerciseActivity extends AppCompatActivity implements View.OnClickListener {
+    @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
     @Bind(R.id.nameEditText) EditText mExerciseName;
     @Bind(R.id.repsOrDuration) EditText mRepsOrDuration;
     @Bind(R.id.reps) RadioButton mReps;
@@ -91,6 +93,27 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
                 }
             }
         };
+
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_home:
+                        Intent homeIntent = new Intent(NewExerciseActivity.this, MainActivity.class);
+                        startActivity(homeIntent);
+                        break;
+                    case R.id.action_workouts:
+                        Intent workoutIntent = new Intent(NewExerciseActivity.this, SaveWorkoutsActivity.class);
+                        startActivity(workoutIntent);
+                        break;
+                    case R.id.action_account:
+                        Intent accountIntent = new Intent(NewExerciseActivity.this, AccountActivity.class);
+                        startActivity(accountIntent);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

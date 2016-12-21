@@ -2,6 +2,7 @@ package com.lifehackig.fitnessapp.ui;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +33,7 @@ public class DayActivity extends AppCompatActivity {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.emptyView) TextView mEmptyView;
     @Bind(R.id.calories) TextView mCalories;
+    @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
 
     private Integer mYear;
     private Integer mMonth;
@@ -89,6 +91,26 @@ public class DayActivity extends AppCompatActivity {
             }
         };
 
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_home:
+                        Intent homeIntent = new Intent(DayActivity.this, MainActivity.class);
+                        startActivity(homeIntent);
+                        break;
+                    case R.id.action_workouts:
+                        Intent workoutIntent = new Intent(DayActivity.this, SaveWorkoutsActivity.class);
+                        startActivity(workoutIntent);
+                        break;
+                    case R.id.action_account:
+                        Intent accountIntent = new Intent(DayActivity.this, AccountActivity.class);
+                        startActivity(accountIntent);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void setupFirebaseAdapter() {

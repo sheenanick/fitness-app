@@ -20,7 +20,9 @@
         </activity>
         <activity android:name=".ui.SignUpActivity" />
         <activity android:name=".ui.DayActivity" />
-        <activity android:name=".ui.NewExerciseActivity"></activity>
+        <activity android:name=".ui.NewExerciseActivity" />
+        <activity android:name=".ui.SaveWorkoutsActivity" />
+        <activity android:name=".ui.AccountActivity"></activity>
     </application>
 
 </manifest>

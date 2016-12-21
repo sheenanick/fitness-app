@@ -3,6 +3,7 @@ package com.lifehackig.fitnessapp.ui;
 import android.content.Intent;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.date) TextView mDateTextView;
     @Bind(R.id.calories) TextView mCalories;
     @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
+    @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -84,6 +86,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         mSeeDetailsButton.setOnClickListener(this);
+
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_workouts:
+                        Intent workoutIntent = new Intent(MainActivity.this, SaveWorkoutsActivity.class);
+                        startActivity(workoutIntent);
+                        break;
+                    case R.id.action_account:
+                        Intent accountIntent = new Intent(MainActivity.this, AccountActivity.class);
+                        startActivity(accountIntent);
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     public void setCaloriesTextView(String dateRefId) {
