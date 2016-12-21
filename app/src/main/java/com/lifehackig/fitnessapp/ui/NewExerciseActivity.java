@@ -77,27 +77,35 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         };
     }
 
-
     @Override
     public void onClick(View v) {
         if (v == mAddButton) {
             saveNewExercise();
-            updateCalories();
-            returnToDayActivity();
+
         }
     }
 
     public void saveNewExercise() {
         String name = mExerciseName.getText().toString().trim();
-        Integer repsOrDuration = Integer.parseInt(mRepsOrDuration.getText().toString().trim());
+        String repsDuration = mRepsOrDuration.getText().toString().trim();
+        String calories = mCalories.getText().toString().trim();
+
+        boolean validName = isValidName(name);
+        boolean validNumber = isValidNumber(repsDuration);
+        boolean validCalories = isValidCalories(calories);
+
+        if (!validName || !validNumber || !validCalories) return;
+
+        String muscle = mMuscleSpinner.getSelectedItem().toString();
+        Integer repsOrDuration = Integer.parseInt(repsDuration);
+        mIntCalories = Integer.parseInt(calories);
+
         boolean isReps = mReps.isChecked();
         Integer reps = 0;
         Integer minutes = 0;
-        mIntCalories = Integer.parseInt(mCalories.getText().toString().trim());
-        String muscle = mMuscleSpinner.getSelectedItem().toString();
+        Integer intWeight = 0;
 
         String weight = mWeight.getText().toString().trim();
-        Integer intWeight = 0;
         if (!weight.equals("")) {
             intWeight = Integer.parseInt(weight);
         }
@@ -112,6 +120,36 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         String pushId = exerciseRef.getKey();
         Exercise exercise = new Exercise(name, reps, minutes, intWeight, muscle, mIntCalories, pushId);
         exerciseRef.setValue(exercise);
+
+        updateCalories();
+        returnToDayActivity();
+    }
+
+    public boolean isValidName(String name) {
+        if (name.equals("")){
+            mExerciseName.setError("Please enter the exercise name");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean isValidNumber(String number) {
+        if (number.equals("")){
+            mRepsOrDuration.setError("Please enter a number");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean isValidCalories(String calories) {
+        if (calories.equals("")){
+            mCalories.setError("Please enter calories burned");
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void updateCalories() {
