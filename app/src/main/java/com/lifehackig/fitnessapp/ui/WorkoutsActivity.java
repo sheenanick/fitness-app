@@ -21,7 +21,7 @@ public class WorkoutsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_save_workouts);
+        setContentView(R.layout.activity_workouts);
         ButterKnife.bind(this);
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
