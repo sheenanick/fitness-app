@@ -6,20 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.WorkoutsActivity">
 
-    <TextView
-        android:id="@+id/workoutsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="My Workouts!"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/workoutsTitle"
+        android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation"/>
 
     <TextView
