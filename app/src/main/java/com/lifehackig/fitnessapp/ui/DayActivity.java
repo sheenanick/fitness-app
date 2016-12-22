@@ -86,6 +86,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                                 mRecyclerView.setVisibility(View.GONE);
                             } else {
                                 mRecyclerView.setVisibility(View.VISIBLE);
+                                mSaveButton.setVisibility(View.VISIBLE);
                                 mEmptyView.setVisibility(View.GONE);
                             }
                         }
