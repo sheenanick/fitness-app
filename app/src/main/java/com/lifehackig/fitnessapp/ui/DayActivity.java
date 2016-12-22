@@ -39,7 +39,7 @@ import butterknife.ButterKnife;
 public class DayActivity extends AppCompatActivity implements View.OnClickListener, SaveWorkoutDialogFragment.SaveWorkoutDialogListener {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.emptyView) TextView mEmptyView;
-//    @Bind(R.id.calories) TextView mCalories;
+    @Bind(R.id.calories) TextView mCalories;
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
     @Bind(R.id.saveButton) Button mSaveButton;
     @Bind(R.id.addButton) Button mAddButton;
@@ -96,7 +96,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                     });
 
                     setupFirebaseAdapter();
-//                    setCaloriesTextView();
+                    setCaloriesTextView();
                 }
             }
         };
@@ -137,28 +137,27 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         mRecyclerView.setAdapter(mAdapter);
     }
 
-//    public void setCaloriesTextView() {
-//        String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
-//        DatabaseReference caloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
-//        caloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.getValue() != null) {
-//                    String totalCalories = dataSnapshot.getValue().toString();
-//                    mCalories.setText(totalCalories);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
-//    }
+    public void setCaloriesTextView() {
+        String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
+        DatabaseReference caloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
+        caloriesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    String totalCalories = dataSnapshot.getValue().toString();
+                    mCalories.setText("Calories Burned: " + totalCalories);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.add_exercise_menu, menu);
         inflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -166,18 +165,9 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-//            case R.id.action_add_exercise:
-//                Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
-//                intent.putExtra("year", mYear);
-//                intent.putExtra("month", mMonth);
-//                intent.putExtra("day", mDay);
-//                startActivity(intent);
-//                return true;
-
             case R.id.action_log_out:
                 logout();
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -253,7 +243,6 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
     }
 
     @Override
