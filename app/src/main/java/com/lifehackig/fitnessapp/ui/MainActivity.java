@@ -112,9 +112,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String totalCalories;
                 if (dataSnapshot.getValue() == null) {
-                    totalCalories = "Calories: 0";
+                    totalCalories = "0";
                 } else {
-                    totalCalories = "Calories: " + dataSnapshot.getValue().toString();
+                    totalCalories = dataSnapshot.getValue().toString();
                 }
                 mCalories.setText(totalCalories);
             }
