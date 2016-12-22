@@ -7,9 +7,6 @@ public class Exercise {
     private Integer weight;
     private String muscle;
     private Integer calories;
-
-
-
     private String pushId;
 
     public Exercise() {}
@@ -50,5 +47,9 @@ public class Exercise {
 
     public String getPushId() {
         return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
     }
 }
