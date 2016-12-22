@@ -63,6 +63,8 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     private DatabaseReference mDateCaloriesRef;
     DatabaseReference mDateRef;
 
+    private List<Workout> mWorkoutObjects = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,13 +98,12 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             List<String> workoutNames = new ArrayList<>();
-                            List<Workout> workoutObjects = new ArrayList<>();
                             if (dataSnapshot.getValue() == null) {
                                 workoutNames.add("No saved workouts");
                             } else {
                                 for (DataSnapshot workoutSnapshot : dataSnapshot.getChildren()) {
                                     Workout workout = workoutSnapshot.getValue(Workout.class);
-                                    workoutObjects.add(workout);
+                                    mWorkoutObjects.add(workout);
                                     workoutNames.add(workout.getName());
                                 }
                             }
@@ -162,6 +163,18 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void saveWorkout() {
+        Integer position = mWorkoutSpinner.getSelectedItemPosition();
+        Workout workout = mWorkoutObjects.get(position);
+        List<Exercise> exercises = workout.getExercises();
+
+        mDateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString()).child("exercises");
+        for (Exercise exercise :  exercises) {
+            DatabaseReference exerciseRef = mDateRef.push();
+            String pushId = exerciseRef.getKey();
+            exercise.setPushId(pushId);
+            exerciseRef.setValue(exercise);
+        }
+
         returnToDayActivity();
     }
 
