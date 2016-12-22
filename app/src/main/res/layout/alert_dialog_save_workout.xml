@@ -23,6 +23,6 @@
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         android:padding="16dp"
-        android:background="@color/colorTextLight"
+        android:background="@color/colorPrimaryLight"
         android:hint="Workout Name" />
 </LinearLayout>
