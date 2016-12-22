@@ -73,7 +73,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textSize="42sp"
-                android:text="0"/>
+                android:text="850"/>
         </RelativeLayout>
 
         <RelativeLayout

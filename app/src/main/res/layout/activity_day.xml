@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.lifehackig.fitnessapp.ui.DayActivity">
+
+    <LinearLayout
+        android:id="@+id/caloriesLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/lightning_green"/>
+        <TextView
+            android:id="@+id/calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:text="Calories Burned: 0"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/caloriesLayout"
         android:orientation="horizontal">
 
         <Button
@@ -19,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="16dp"
-            android:background="@color/colorPrimaryText"
+            android:background="@color/colorPrimaryLight"
             android:textColor="@color/colorTextLight"
             android:text="Save This Workout"/>
 
