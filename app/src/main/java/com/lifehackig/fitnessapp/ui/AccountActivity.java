@@ -43,6 +43,7 @@ public class AccountActivity extends AppCompatActivity {
                 return false;
             }
         });
+        mBottomNavigationView.getMenu().getItem(2).setChecked(true);
     }
 
     @Override

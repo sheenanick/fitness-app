@@ -90,6 +90,8 @@ public class WorkoutsActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        mBottomNavigationView.getMenu().getItem(1).setChecked(true);
     }
 
     private void setupFirebaseAdapter() {
