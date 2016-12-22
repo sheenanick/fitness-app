@@ -25,6 +25,8 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         ButterKnife.bind(this);
 
+        getSupportActionBar().setTitle("Account Settings");
+
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
