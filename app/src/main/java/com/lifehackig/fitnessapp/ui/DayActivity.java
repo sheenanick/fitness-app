@@ -216,8 +216,14 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
             startActivity(intent);
         }
         if (v == mSaveButton) {
-            saveWorkout();
+            launchAlertDialog();
+//            saveWorkout();
         }
+    }
+
+    private void launchAlertDialog() {
+        SaveWorkoutDialogFragment dialogFragment = new SaveWorkoutDialogFragment();
+        dialogFragment.show(getSupportFragmentManager(), "saveWorkout");
     }
 
     private void saveWorkout() {
