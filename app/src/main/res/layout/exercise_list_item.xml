@@ -9,6 +9,7 @@
     android:paddingBottom="5dp">
 
     <ImageView
+        android:id="@+id/muscleImage"
         android:layout_width="100dp"
         android:layout_height="70dp"
         android:src="@drawable/muscle"
