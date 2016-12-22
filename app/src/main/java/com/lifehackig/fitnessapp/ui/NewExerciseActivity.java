@@ -59,7 +59,6 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
     private Integer mTotalCalories;
-    private Integer mIntCalories;
     private DatabaseReference mDateCaloriesRef;
     DatabaseReference mDateRef;
 
@@ -167,14 +166,18 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         Workout workout = mWorkoutObjects.get(position);
         List<Exercise> exercises = workout.getExercises();
 
-        mDateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString()).child("exercises");
+        mDateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString());
+        DatabaseReference exercisesRef = mDateRef.child("exercises");
+        Integer workoutTotalCalories = 0;
         for (Exercise exercise :  exercises) {
-            DatabaseReference exerciseRef = mDateRef.push();
+            workoutTotalCalories += exercise.getCalories();
+            DatabaseReference exerciseRef = exercisesRef.push();
             String pushId = exerciseRef.getKey();
             exercise.setPushId(pushId);
             exerciseRef.setValue(exercise);
         }
 
+        updateCalories(workoutTotalCalories);
         returnToDayActivity();
     }
 
@@ -191,7 +194,7 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
 
         String muscle = mMuscleSpinner.getSelectedItem().toString();
         Integer repsOrDuration = Integer.parseInt(repsDuration);
-        mIntCalories = Integer.parseInt(calories);
+        Integer intCalories = Integer.parseInt(calories);
 
         boolean isReps = mReps.isChecked();
         Integer reps = 0;
@@ -211,10 +214,10 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         mDateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString());
         DatabaseReference exerciseRef = mDateRef.child("exercises").push();
         String pushId = exerciseRef.getKey();
-        Exercise exercise = new Exercise(name, reps, minutes, intWeight, muscle, mIntCalories, pushId);
+        Exercise exercise = new Exercise(name, reps, minutes, intWeight, muscle, intCalories, pushId);
         exerciseRef.setValue(exercise);
 
-        updateCalories();
+        updateCalories(intCalories);
         returnToDayActivity();
     }
 
@@ -245,7 +248,7 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    public void updateCalories() {
+    public void updateCalories(final Integer exerciseCalories) {
         mDateCaloriesRef = mDateRef.child("calories");
         mDateCaloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -255,18 +258,13 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
                 } else {
                     mTotalCalories = Integer.parseInt(dataSnapshot.getValue().toString());
                 }
-                Integer newTotalCalories = mTotalCalories + mIntCalories;
+                Integer newTotalCalories = mTotalCalories + exerciseCalories;
                 mDateCaloriesRef.setValue(newTotalCalories);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-
-        if (mTotalCalories != null) {
-            Integer newTotalCalories = mTotalCalories + mIntCalories;
-            mDateCaloriesRef.setValue(newTotalCalories);
-        }
     }
 
     public void returnToDayActivity() {
