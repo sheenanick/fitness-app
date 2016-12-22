@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="22dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
             android:text="Select a workout from your favorites:"/>
 
         <RelativeLayout
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:background="@color/colorPrimary"
+                android:background="@color/colorPrimaryDark"
                 android:textColor="@color/colorTextLight"
                 android:text="Select"/>
 
@@ -62,6 +63,7 @@
             android:gravity="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="22dp"
+            android:textStyle="bold"
             android:text="OR"/>
 
         <Button
@@ -213,7 +215,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@color/colorPrimaryLight"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/bottom_navigation_main" />

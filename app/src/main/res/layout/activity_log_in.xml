@@ -12,17 +12,10 @@
         android:adjustViewBounds="true"
         android:src="@drawable/main_image"/>
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_below="@+id/imageView"
-        android:background="@color/colorAccent"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/divider"
+        android:layout_below="@+id/imageView"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="50dp"
