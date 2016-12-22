@@ -90,7 +90,7 @@
         android:background="@color/colorTextLight"
         android:padding="16dp"
         android:layout_marginBottom="5dp"
-        android:inputType="text"
+        android:inputType="textCapWords"
         android:hint="@string/exercise_name"/>
 
     <LinearLayout
