@@ -35,7 +35,6 @@ public class WorkoutsActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private FirebaseRecyclerAdapter mAdapter;
     private DatabaseReference mWorkouts;
 
     @Override
@@ -94,14 +93,14 @@ public class WorkoutsActivity extends AppCompatActivity {
     }
 
     private void setupFirebaseAdapter() {
-        mAdapter = new FirebaseRecyclerAdapter<Workout, FirebaseWorkoutViewHolder>(Workout.class, R.layout.workout_list_item, FirebaseWorkoutViewHolder.class, mWorkouts) {
+        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Workout, FirebaseWorkoutViewHolder>(Workout.class, R.layout.workout_list_item, FirebaseWorkoutViewHolder.class, mWorkouts) {
             @Override
             protected void populateViewHolder(FirebaseWorkoutViewHolder viewHolder, Workout model, int position) {
                 viewHolder.bindWorkout(model);
             }
         };
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -142,5 +141,4 @@ public class WorkoutsActivity extends AppCompatActivity {
         super.onStop();
         mAuth.removeAuthStateListener(mAuthStateListener);
     }
-
 }
