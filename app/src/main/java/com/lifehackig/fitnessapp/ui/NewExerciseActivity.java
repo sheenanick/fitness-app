@@ -79,8 +79,6 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         ArrayAdapter<CharSequence> muscleAdapter = ArrayAdapter.createFromResource(this, R.array.muscles_array, android.R.layout.simple_spinner_dropdown_item);
         mMuscleSpinner.setAdapter(muscleAdapter);
 
-
-
         mSelectButton.setOnClickListener(this);
         mNewExerciseButton.setOnClickListener(this);
         mCancelButton.setOnClickListener(this);
@@ -115,7 +113,6 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
                         }
                     });
                 }
@@ -147,7 +144,9 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         if (v == mSelectButton) {
-            saveWorkout();
+            if (!mWorkoutSpinner.getSelectedItem().toString().equals("No saved workouts")) {
+                saveWorkout();
+            }
         }
         if (v == mNewExerciseButton) {
             mNewExerciseForm.setVisibility(View.VISIBLE);
