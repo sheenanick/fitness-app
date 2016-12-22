@@ -25,6 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.models.Exercise;
+import com.lifehackig.fitnessapp.models.Workout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -75,8 +79,7 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         ArrayAdapter<CharSequence> muscleAdapter = ArrayAdapter.createFromResource(this, R.array.muscles_array, android.R.layout.simple_spinner_dropdown_item);
         mMuscleSpinner.setAdapter(muscleAdapter);
 
-        ArrayAdapter<CharSequence> workoutAdapter = ArrayAdapter.createFromResource(this, R.array.temp_workouts_array, android.R.layout.simple_spinner_dropdown_item);
-        mWorkoutSpinner.setAdapter(workoutAdapter);
+
 
         mSelectButton.setOnClickListener(this);
         mNewExerciseButton.setOnClickListener(this);
@@ -90,6 +93,31 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     mCurrentUid = user.getUid();
+                    DatabaseReference savedWorkoutsRef = FirebaseDatabase.getInstance().getReference("workouts").child(mCurrentUid);
+                    savedWorkoutsRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            List<String> workoutNames = new ArrayList<>();
+                            List<Workout> workoutObjects = new ArrayList<>();
+                            if (dataSnapshot.getValue() == null) {
+                                workoutNames.add("No saved workouts");
+                            } else {
+                                for (DataSnapshot workoutSnapshot : dataSnapshot.getChildren()) {
+                                    Workout workout = workoutSnapshot.getValue(Workout.class);
+                                    workoutObjects.add(workout);
+                                    workoutNames.add(workout.getName());
+                                }
+                            }
+                            ArrayAdapter<String> workoutAdapter = new ArrayAdapter<>(NewExerciseActivity.this, android.R.layout.simple_spinner_item, workoutNames);
+                            workoutAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            mWorkoutSpinner.setAdapter(workoutAdapter);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         };
