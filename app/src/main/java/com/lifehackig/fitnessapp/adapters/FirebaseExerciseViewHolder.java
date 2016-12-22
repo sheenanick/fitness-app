@@ -27,6 +27,23 @@ public class FirebaseExerciseViewHolder extends RecyclerView.ViewHolder {
     public void bindExercise(Exercise exercise) {
         TextView exerciseName = (TextView) mView.findViewById(R.id.name);
         TextView calories = (TextView) mView.findViewById(R.id.calories);
+        TextView repsOrMin = (TextView) mView.findViewById(R.id.repsOrDuration);
+        TextView weightView = (TextView) mView.findViewById(R.id.weight);
+
+        Integer duration = exercise.getDuration();
+        Integer reps = exercise.getReps();
+        Integer weight = exercise.getWeight();
+
+        if (duration != 0) {
+            repsOrMin.setText(duration + " min");
+        } else {
+            repsOrMin.setText(reps + " reps");
+        }
+
+        if (weight != 0) {
+            weightView.setText(weight + " lb");
+            weightView.setVisibility(View.VISIBLE);
+        }
 
         exerciseName.setText(exercise.getName());
         calories.setText(String.format(Locale.US, "%d Calories", exercise.getCalories()));
