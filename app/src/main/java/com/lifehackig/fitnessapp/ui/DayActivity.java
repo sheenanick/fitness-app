@@ -3,17 +3,19 @@ package com.lifehackig.fitnessapp.ui;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,7 +36,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DayActivity extends AppCompatActivity implements View.OnClickListener {
+public class DayActivity extends AppCompatActivity implements View.OnClickListener, SaveWorkoutDialogFragment.SaveWorkoutDialogListener {
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.emptyView) TextView mEmptyView;
 //    @Bind(R.id.calories) TextView mCalories;
@@ -217,7 +219,6 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         }
         if (v == mSaveButton) {
             launchAlertDialog();
-//            saveWorkout();
         }
     }
 
@@ -226,8 +227,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         dialogFragment.show(getSupportFragmentManager(), "saveWorkout");
     }
 
-    private void saveWorkout() {
-        String name = "name";
+    private void saveWorkout(String name) {
         final DatabaseReference workoutRef = FirebaseDatabase.getInstance().getReference("workouts").child(mCurrentUid).push();
         String pushId = workoutRef.getKey();
 
@@ -241,13 +241,26 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                     Exercise exercise = exerciseSnapshot.getValue(Exercise.class);
                     workoutExercises.add(exercise);
                 }
+
                 workout.setExercises(workoutExercises);
                 workoutRef.setValue(workout);
+                Toast toast = Toast.makeText(DayActivity.this,"Workout Saved", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, String name) {
+        saveWorkout(name);
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
     }
 }
