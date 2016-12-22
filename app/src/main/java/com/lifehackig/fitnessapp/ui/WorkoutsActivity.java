@@ -44,6 +44,8 @@ public class WorkoutsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workouts);
         ButterKnife.bind(this);
 
+        getSupportActionBar().setTitle("My Workouts");
+
         mAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
