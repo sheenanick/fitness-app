@@ -22,17 +22,17 @@ You will need the following things properly installed on your computer.
 ## Installation
 
 * `git clone https://github.com/sheenanick/fitness-app`
-* open Android Studio
-* select 'Open an existing Android Studio project' and find the cloned repository
+* Open Android Studio
+* Select 'Open an existing Android Studio project' and find the cloned repository
 
 ## Running / Development
 
-* Create a virtual device in Android studio and run the application
-* Or connect an android device to your computer and run the application on the device
+* Create a virtual device in Android Studio and run the application
+* Or connect an Android device to your computer and run the application on the device
 
 ## Support and Contact Details
 
-Please feel free to contact me at sheenanick@gmail.com if you have any issues or questions, ideas or concerns.
+Please feel free to contact sheenanick@gmail.com if you have any issues or questions, ideas or concerns.
 
 ### License
 
