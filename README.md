@@ -4,9 +4,9 @@
 
 #### By Sheena Nickerson
 
-This is a fitness application for Android. Users can log their exercises by day to keep track of their activity. Users can also save their favorite workout routines to log the entire workout at once.
+This is a fitness application for Android. Users can log their exercises to keep track of their daily activity. Users can also save their favorite workout routines to log the entire workout at once.
 
-This project is still a work in progress and the following features are not yet implemented:
+This project is still a work in progress. Features I plan to implement in the future include:
 * Pedometer functionality to track user's daily steps
 * Editing/Deleting exercises and workouts
 * Updating account information
