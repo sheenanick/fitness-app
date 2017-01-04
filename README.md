@@ -4,9 +4,9 @@
 
 #### By Sheena Nickerson
 
-This is a fitness application for Android. User's can log their exercises by day to keep track of their activity. User's can also save their favorite workout routines to log the entire workout at once.
+This is a fitness application for Android. Users can log their exercises to keep track of their daily activity. Users can also save their favorite workout routines to log the entire workout at once.
 
-This project is still a work in progress and the following features are not yet implemented:
+This project is still a work in progress. Features I plan to implement in the future include:
 * Pedometer functionality to track user's daily steps
 * Editing/Deleting exercises and workouts
 * Updating account information
@@ -22,17 +22,17 @@ You will need the following things properly installed on your computer.
 ## Installation
 
 * `git clone https://github.com/sheenanick/fitness-app`
-* open Android Studio
-* select 'Open an existing Android Studio project' and find the cloned repository
+* Open Android Studio
+* Select 'Open an existing Android Studio project' and find the cloned repository
 
 ## Running / Development
 
-* Create a virtual device in Android studio and run the application
-* Or connect an android device to your computer and run the application on the device
+* Create a virtual device in Android Studio and run the application
+* Or connect an Android device to your computer and run the application on the device
 
 ## Support and Contact Details
 
-Please feel free to contact me at sheenanick@gmail.com if you have any issues or questions, ideas or concerns.
+Please feel free to contact sheenanick@gmail.com if you have any issues or questions, ideas or concerns.
 
 ### License
 
