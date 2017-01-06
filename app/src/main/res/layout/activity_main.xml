@@ -13,17 +13,11 @@
         android:layout_height="300dp"
         android:background="@color/colorPrimaryLight"/>
 
-    <LinearLayout
-        android:id="@+id/calendarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/calendarView"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
         <RelativeLayout
+            android:id="@+id/calendarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/calendarView"
             android:background="@color/colorPrimary">
             <TextView
                 android:id="@+id/date"
@@ -32,56 +26,55 @@
                 android:padding="10dp"
                 android:textColor="@color/colorTextLight"
                 android:textSize="22sp"
-                android:text="Date: "/>
+                android:text="@string/date"/>
             <ImageView
                 android:id="@+id/lightningIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_toRightOf="@+id/date"
-                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@+id/date"
+                android:layout_marginStart="5dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/lightning_orange"/>
             <TextView
                 android:id="@+id/calories"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/lightningIcon"
+                android:layout_toEndOf="@+id/lightningIcon"
                 android:paddingTop="10dp"
-                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorTextLight"
                 android:textSize="22sp"
-                android:text="0" />
+                android:text="@string/_0" />
             <ImageView
                 android:id="@+id/footstepsIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_toRightOf="@+id/calories"
-                android:layout_marginLeft="5dp"
+                android:layout_toEndOf="@+id/calories"
+                android:layout_marginStart="5dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/footsteps_orange"/>
             <TextView
                 android:id="@+id/footsteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/footstepsIcon"
+                android:layout_toEndOf="@+id/footstepsIcon"
                 android:paddingTop="10dp"
-                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorTextLight"
                 android:textSize="22sp"
-                android:text="4.7k" />
+                android:text="@string/_4_7k" />
             <Button
                 android:id="@+id/seeDetailsButton"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
                 android:background="@color/colorPrimaryLight"
-                android:text="Details"/>
+                android:text="@string/details"/>
         </RelativeLayout>
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/motivationalImage"
@@ -90,7 +83,8 @@
         android:scaleType="centerCrop"
         android:layout_below="@+id/calendarLayout"
         android:layout_above="@+id/bottom_navigation"
-        android:src="@drawable/motivation"/>
+        android:src="@drawable/motivation"
+        android:contentDescription="@string/motivational_quote"/>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation"
