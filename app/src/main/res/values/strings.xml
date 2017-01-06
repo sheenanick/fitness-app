@@ -45,4 +45,7 @@
     <string name="date">Date:</string>
     <string name="footsteps_icon">footsteps icon</string>
     <string name="calories_burned_icon">calories burned icon</string>
+    <string name="calories_burned_0">Calories Burned: 0</string>
+    <string name="save_this_workout">Save This Workout</string>
+    <string name="add_an_exercise">Add An Exercise</string>
 </resources>

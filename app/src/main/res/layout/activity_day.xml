@@ -10,20 +10,21 @@
         android:id="@+id/caloriesLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/calories_burned_icon"
             android:src="@drawable/burn"/>
         <TextView
             android:id="@+id/calories"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="28sp"
-            android:text="Calories Burned: 0"/>
+            android:text="@string/calories_burned_0"/>
 
     </LinearLayout>
 
@@ -43,7 +44,7 @@
             android:layout_margin="16dp"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/colorTextLight"
-            android:text="Save This Workout"/>
+            android:text="@string/save_this_workout"/>
 
         <Button
             android:id="@+id/addButton"
@@ -53,7 +54,7 @@
             android:layout_margin="16dp"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorTextLight"
-            android:text="Add An Exercise"/>
+            android:text="@string/add_an_exercise"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
