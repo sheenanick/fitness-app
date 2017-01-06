@@ -34,6 +34,7 @@
                 android:layout_toEndOf="@+id/date"
                 android:layout_marginStart="5dp"
                 android:layout_centerVertical="true"
+                android:contentDescription="@string/lightning_icon"
                 android:src="@drawable/lightning_orange"/>
             <TextView
                 android:id="@+id/calories"
@@ -53,14 +54,15 @@
                 android:layout_toEndOf="@+id/calories"
                 android:layout_marginStart="5dp"
                 android:layout_centerVertical="true"
+                android:contentDescription="@string/footsteps_icon"
                 android:src="@drawable/footsteps_orange"/>
             <TextView
                 android:id="@+id/footsteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/footstepsIcon"
+                android:layout_toStartOf="@+id/seeDetailsButton"
                 android:paddingTop="10dp"
-                android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
                 android:textColor="@color/colorTextLight"
                 android:textSize="22sp"

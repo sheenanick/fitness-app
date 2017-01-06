@@ -43,4 +43,6 @@
     <string name="_4_7k">4.7k</string>
     <string name="_0">0</string>
     <string name="date">Date:</string>
+    <string name="footsteps_icon">footsteps icon</string>
+    <string name="lightning_icon">lightning icon</string>
 </resources>
