@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.lifehackig.fitnessapp.ui.AccountActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/sorry_this_feature_is_currently_under_construction"/>
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
