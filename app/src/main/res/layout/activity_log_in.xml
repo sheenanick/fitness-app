@@ -10,6 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/image_of_feet_of_person_walking_up_stairs"
         android:src="@drawable/main_image"/>
 
     <LinearLayout
