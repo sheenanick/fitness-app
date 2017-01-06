@@ -49,4 +49,10 @@
     <string name="save_this_workout">Save This Workout</string>
     <string name="add_an_exercise">Add An Exercise</string>
     <string name="image_of_feet_of_person_walking_up_stairs">image of feet of person walking up stairs</string>
+    <string name="select_a_workout_from_your_favorites">Select a workout from your favorites:</string>
+    <string name="select">Select</string>
+    <string name="or">OR</string>
+    <string name="add_a_new_exercise">Add a New Exercise</string>
+    <string name="you_don_t_have_any_workouts_saved_yet">You don\'t have any workouts saved yet!</string>
+    <string name="save_as">SAVE AS</string>
 </resources>

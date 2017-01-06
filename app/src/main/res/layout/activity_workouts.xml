@@ -19,7 +19,7 @@
         android:layout_marginTop="40dp"
         android:visibility="gone"
         android:gravity="center_horizontal"
-        android:text="You don't have any workouts saved yet!"
+        android:text="@string/you_don_t_have_any_workouts_saved_yet"
         android:textSize="18sp"/>
 
     <android.support.design.widget.BottomNavigationView

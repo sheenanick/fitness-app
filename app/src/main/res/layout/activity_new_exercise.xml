@@ -19,8 +19,8 @@
             android:layout_marginBottom="10dp"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
-            android:textSize="18dp"
-            android:text="Select a workout from your favorites:"/>
+            android:textSize="18sp"
+            android:text="@string/select_a_workout_from_your_favorites"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -30,12 +30,10 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/selectButton"
+                android:layout_alignParentStart="true"
                 android:layout_toStartOf="@+id/selectButton"
                 android:layout_alignBottom="@+id/selectButton"
                 android:layout_alignTop="@+id/selectButton"
-                android:layout_marginRight="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@color/colorTextLight">
                 <Spinner
@@ -48,11 +46,10 @@
                 android:id="@+id/selectButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:background="@color/colorPrimaryDark"
                 android:textColor="@color/colorTextLight"
-                android:text="Select"/>
+                android:text="@string/select"/>
 
         </RelativeLayout>
 
@@ -62,9 +59,9 @@
             android:layout_margin="16dp"
             android:gravity="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="22dp"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:text="OR"/>
+            android:text="@string/or"/>
 
         <Button
             android:id="@+id/newExerciseButton"
@@ -72,7 +69,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorTextLight"
-            android:text="Add a New Exercise" />
+            android:text="@string/add_a_new_exercise" />
     </LinearLayout>
 
     <LinearLayout
@@ -103,7 +100,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
             android:background="@color/colorTextLight"
             android:padding="16dp"
@@ -119,7 +115,6 @@
                 android:id="@+id/reps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
                 android:layout_marginEnd="16dp"
                 android:checked="true"
                 android:hint="@string/reps"/>
@@ -140,11 +135,8 @@
             android:id="@+id/weightEditText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/weightLabel"
             android:layout_toStartOf="@+id/weightLabel"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
             android:background="@color/colorTextLight"
             android:padding="16dp"
@@ -155,7 +147,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignBottom="@+id/weightEditText"
             android:layout_alignParentTop="true"
@@ -193,11 +184,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp"
             android:background="@color/colorAccent"
             android:textColor="@color/colorTextLight"
-            android:text="Cancel"/>
+            android:text="@string/cancel"/>
 
         <Button
             android:id="@+id/addButton"

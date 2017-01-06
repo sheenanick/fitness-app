@@ -13,7 +13,7 @@
         android:paddingLeft="24dp"
         android:paddingTop="24dp"
         android:paddingBottom="20dp"
-        android:text="SAVE AS"/>
+        android:text="@string/save_as"/>
     <EditText
         android:id="@+id/workoutName"
         android:inputType="textCapWords"
@@ -24,5 +24,5 @@
         android:layout_marginRight="24dp"
         android:padding="16dp"
         android:background="@color/colorPrimaryLight"
-        android:hint="Workout Name" />
+        android:hint="@string/workout_name" />
 </LinearLayout>
