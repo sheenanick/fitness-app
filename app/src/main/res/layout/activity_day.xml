@@ -6,33 +6,23 @@
     android:layout_height="match_parent"
     tools:context="com.lifehackig.fitnessapp.ui.DayActivity">
 
-    <LinearLayout
-        android:id="@+id/caloriesLayout"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/calories"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
+        android:drawableStart="@drawable/burn"
         android:gravity="center"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/calories_burned_icon"
-            android:src="@drawable/burn"/>
-        <TextView
-            android:id="@+id/calories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="28sp"
-            android:text="@string/calories_burned_0"/>
-
-    </LinearLayout>
+        android:textSize="28sp"
+        android:text="@string/calories_burned_0" />
 
     <LinearLayout
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/caloriesLayout"
+        android:layout_below="@+id/calories"
         android:orientation="horizontal">
 
         <Button
@@ -78,14 +68,14 @@
             android:textSize="18sp"/>
     </LinearLayout>
 
-        <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorPrimaryLight"
-            app:itemIconTint="@drawable/selector_false"
-            app:itemTextColor="@drawable/selector_false"
-            app:menu="@menu/bottom_navigation_main" />
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryLight"
+        app:itemIconTint="@drawable/selector_false"
+        app:itemTextColor="@drawable/selector_false"
+        app:menu="@menu/bottom_navigation_main" />
 
 </RelativeLayout>
