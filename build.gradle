@@ -17,9 +17,5 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-//android {
-//    compileSdkVersion 23
-//    buildToolsVersion '23.0.3'
-//}
 dependencies {
 }
