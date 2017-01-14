@@ -1,6 +1,12 @@
 package com.lifehackig.fitnessapp.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -56,6 +64,8 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     private FirebaseRecyclerAdapter mAdapter;
     private DatabaseReference mExercises;
 
+    private Paint p = new Paint();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +108,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
 
                     setupFirebaseAdapter();
                     setCaloriesTextView();
+                    setupSwipe();
                 }
             }
         };
@@ -138,7 +149,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    public void setCaloriesTextView() {
+    private void setCaloriesTextView() {
         String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
         DatabaseReference caloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
         caloriesRef.addValueEventListener(new ValueEventListener() {
@@ -154,6 +165,46 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    private void setupSwipe() {
+        final ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+
+                    View itemView = viewHolder.itemView;
+
+                    float right = itemView.getRight();
+                    float left = itemView.getLeft();
+                    float top = itemView.getTop();
+                    float bottom = itemView.getBottom();
+                    float height = itemView.getHeight();
+                    float rectWidth = height / 3;
+
+                    p.setColor(Color.RED);
+                    RectF background = new RectF(left, top, right, bottom);
+                    c.drawRect(background,p);
+                    Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_forever_white_24dp);
+                    RectF icon_dest = new RectF(right - 2*rectWidth ,top + rectWidth, right - rectWidth, bottom - rectWidth);
+                    c.drawBitmap(icon,null,icon_dest,p);
+
+                }
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     @Override
