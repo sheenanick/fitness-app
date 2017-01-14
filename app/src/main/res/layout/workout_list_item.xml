@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:layout_marginBottom="5dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     android:background="@color/colorPrimaryLight">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="center_vertical">
+    <TextView
+        android:id="@+id/workoutName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/details"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryText"
+        android:text="@string/workout_name" />
 
-        <TextView
-            android:id="@+id/workoutName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/details"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimaryText"
-            android:text="@string/workout_name" />
-
-        <TextView
-            android:id="@+id/details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:textSize="14sp"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="DETAILS"/>
-
-    </RelativeLayout>
-</LinearLayout>
+    <TextView
+        android:id="@+id/details"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/details" />
+</RelativeLayout>
