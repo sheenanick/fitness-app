@@ -65,8 +65,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
 
     private FirebaseExerciseListAdapter mAdapter;
     private DatabaseReference mExercises;
-
-//    private Paint p = new Paint();
+    private DatabaseReference mCaloriesRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +107,8 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                         }
                     });
 
+                    mCaloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
+
                     setupFirebaseAdapter();
                     attachItemTouchHelper();
                     setCaloriesTextView();
@@ -141,7 +142,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void setupFirebaseAdapter() {
-        mAdapter = new FirebaseExerciseListAdapter(Exercise.class, R.layout.exercise_list_item, FirebaseExerciseViewHolder.class, mExercises);
+        mAdapter = new FirebaseExerciseListAdapter(Exercise.class, R.layout.exercise_list_item, FirebaseExerciseViewHolder.class, mExercises, mCaloriesRef);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -153,9 +154,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void setCaloriesTextView() {
-        String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
-        DatabaseReference caloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
-        caloriesRef.addValueEventListener(new ValueEventListener() {
+        mCaloriesRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
