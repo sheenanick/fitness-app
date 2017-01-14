@@ -52,4 +52,10 @@ public class FirebaseExerciseListAdapter extends FirebaseRecyclerAdapter<Exercis
         mExercises.remove(position);
         getRef(position).removeValue();
     }
+
+    @Override
+    public void cleanup() {
+        super.cleanup();
+        mRef.removeEventListener(mChildEventListener);
+    }
 }
