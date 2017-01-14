@@ -35,9 +35,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.R;
+import com.lifehackig.fitnessapp.adapters.FirebaseExerciseListAdapter;
 import com.lifehackig.fitnessapp.adapters.FirebaseExerciseViewHolder;
 import com.lifehackig.fitnessapp.models.Exercise;
 import com.lifehackig.fitnessapp.models.Workout;
+import com.lifehackig.fitnessapp.util.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,10 +63,10 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    private FirebaseRecyclerAdapter mAdapter;
+    private FirebaseExerciseListAdapter mAdapter;
     private DatabaseReference mExercises;
 
-    private Paint p = new Paint();
+//    private Paint p = new Paint();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,8 +109,8 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                     });
 
                     setupFirebaseAdapter();
+                    attachItemTouchHelper();
                     setCaloriesTextView();
-                    setupSwipe();
                 }
             }
         };
@@ -139,14 +141,15 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void setupFirebaseAdapter() {
-        mAdapter = new FirebaseRecyclerAdapter<Exercise, FirebaseExerciseViewHolder>(Exercise.class, R.layout.exercise_list_item, FirebaseExerciseViewHolder.class, mExercises) {
-            @Override
-            protected void populateViewHolder(FirebaseExerciseViewHolder viewHolder, Exercise model, int position) {
-                viewHolder.bindExercise(model);
-            }
-        };
+        mAdapter = new FirebaseExerciseListAdapter(Exercise.class, R.layout.exercise_list_item, FirebaseExerciseViewHolder.class, mExercises);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void attachItemTouchHelper() {
+        SimpleItemTouchHelperCallback simpleCallback = new SimpleItemTouchHelperCallback(0, ItemTouchHelper.LEFT, mAdapter, getApplicationContext());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     private void setCaloriesTextView() {
@@ -160,51 +163,10 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                     mCalories.setText("Calories Burned: " + totalCalories);
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-    }
-
-    private void setupSwipe() {
-        final ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
-            }
-
-            @Override
-            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-                if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
-
-                    View itemView = viewHolder.itemView;
-
-                    float right = itemView.getRight();
-                    float left = itemView.getLeft();
-                    float top = itemView.getTop();
-                    float bottom = itemView.getBottom();
-                    float height = itemView.getHeight();
-                    float rectWidth = height / 3;
-
-                    p.setColor(Color.RED);
-                    RectF background = new RectF(left, top, right, bottom);
-                    c.drawRect(background,p);
-                    Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_delete_forever_white_24dp);
-                    RectF icon_dest = new RectF(right - 2*rectWidth ,top + rectWidth, right - rectWidth, bottom - rectWidth);
-                    c.drawBitmap(icon,null,icon_dest,p);
-
-                }
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-            }
-        };
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     @Override
