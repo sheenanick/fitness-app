@@ -1,12 +1,6 @@
 package com.lifehackig.fitnessapp.ui;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +19,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -169,6 +161,61 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
+    public void onClick(View v) {
+        if (v == mFab) {
+            Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
+            intent.putExtra("year", mYear);
+            intent.putExtra("month", mMonth);
+            intent.putExtra("day", mDay);
+            startActivity(intent);
+        }
+        if (v == mSaveButton) {
+            launchAlertDialog();
+        }
+    }
+
+    private void launchAlertDialog() {
+        SaveWorkoutDialogFragment dialogFragment = new SaveWorkoutDialogFragment();
+        dialogFragment.show(getSupportFragmentManager(), "saveWorkout");
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, String name) {
+        saveWorkout(name);
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+    }
+
+    private void saveWorkout(String name) {
+        final DatabaseReference workoutRef = FirebaseDatabase.getInstance().getReference("workouts").child(mCurrentUid).push();
+        String pushId = workoutRef.getKey();
+
+        final Workout workout = new Workout(name, pushId);
+
+        mExercises.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Exercise> workoutExercises = new ArrayList<>();
+                for (DataSnapshot exerciseSnapshot : dataSnapshot.getChildren()) {
+                    Exercise exercise = exerciseSnapshot.getValue(Exercise.class);
+                    workoutExercises.add(exercise);
+                }
+
+                workout.setExercises(workoutExercises);
+                workoutRef.setValue(workout);
+                Toast toast = Toast.makeText(DayActivity.this,"Workout Saved", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
@@ -210,60 +257,5 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     public void onDestroy() {
         super.onDestroy();
         mAdapter.cleanup();
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == mFab) {
-            Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
-            intent.putExtra("year", mYear);
-            intent.putExtra("month", mMonth);
-            intent.putExtra("day", mDay);
-            startActivity(intent);
-        }
-        if (v == mSaveButton) {
-            launchAlertDialog();
-        }
-    }
-
-    private void launchAlertDialog() {
-        SaveWorkoutDialogFragment dialogFragment = new SaveWorkoutDialogFragment();
-        dialogFragment.show(getSupportFragmentManager(), "saveWorkout");
-    }
-
-    private void saveWorkout(String name) {
-        final DatabaseReference workoutRef = FirebaseDatabase.getInstance().getReference("workouts").child(mCurrentUid).push();
-        String pushId = workoutRef.getKey();
-
-        final Workout workout = new Workout(name, pushId);
-
-        mExercises.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Exercise> workoutExercises = new ArrayList<>();
-                for (DataSnapshot exerciseSnapshot : dataSnapshot.getChildren()) {
-                    Exercise exercise = exerciseSnapshot.getValue(Exercise.class);
-                    workoutExercises.add(exercise);
-                }
-
-                workout.setExercises(workoutExercises);
-                workoutRef.setValue(workout);
-                Toast toast = Toast.makeText(DayActivity.this,"Workout Saved", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog, String name) {
-        saveWorkout(name);
-    }
-
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
     }
 }
