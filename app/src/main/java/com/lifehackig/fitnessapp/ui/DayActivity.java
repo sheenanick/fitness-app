@@ -3,6 +3,7 @@ package com.lifehackig.fitnessapp.ui;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,7 +43,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     @Bind(R.id.calories) TextView mCalories;
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
     @Bind(R.id.saveButton) Button mSaveButton;
-    @Bind(R.id.addButton) Button mAddButton;
+    @Bind(R.id.fab) FloatingActionButton mFab;
 
     private Integer mYear;
     private Integer mMonth;
@@ -123,7 +124,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
         });
 
         mSaveButton.setOnClickListener(this);
-        mAddButton.setOnClickListener(this);
+        mFab.setOnClickListener(this);
     }
 
     private void setupFirebaseAdapter() {
@@ -201,7 +202,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        if (v == mAddButton) {
+        if (v == mFab) {
             Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
             intent.putExtra("year", mYear);
             intent.putExtra("month", mMonth);
