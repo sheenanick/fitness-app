@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.LogInActivity" android:theme="@style/NoBarTheme">
+        <activity
+            android:name=".ui.LogInActivity"
+            android:theme="@style/NoBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,6 +25,7 @@
         <activity android:name=".ui.NewExerciseActivity" />
         <activity android:name=".ui.WorkoutsActivity" />
         <activity android:name=".ui.AccountActivity" />
+        <activity android:name=".ui.WorkoutDetailsActivity"></activity>
     </application>
 
 </manifest>
