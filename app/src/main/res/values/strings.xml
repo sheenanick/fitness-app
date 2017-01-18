@@ -56,4 +56,6 @@
     <string name="you_don_t_have_any_workouts_saved_yet">You don\'t have any workouts saved yet!</string>
     <string name="save_as">SAVE AS</string>
     <string name="sorry_this_feature_is_currently_under_construction">Sorry, this feature is currently under construction!</string>
+    <string name="welcome_to_fitness_tracker">Welcome to Fitness Tracker.</string>
+    <string name="tagline">Get fit for life. Not just for summer.</string>
 </resources>

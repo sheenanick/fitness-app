@@ -1,28 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.lifehackig.fitnessapp.ui.LogInActivity">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/image_of_feet_of_person_walking_up_stairs"
         android:src="@drawable/main_image"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/imageView"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingBottom="50dp"
         android:gravity="center"
+        android:background="@color/colorPrimary"
         android:orientation="vertical" >
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextLight"
+            android:textSize="28sp"
+            android:text="@string/welcome_to_fitness_tracker"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/colorTextLight"
+            android:textSize="20sp"
+            android:text="@string/tagline"/>
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
@@ -32,7 +47,6 @@
             android:layout_marginBottom="5dp"
             android:inputType="textEmailAddress"
             android:hint="@string/email" />
-
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
@@ -43,23 +57,22 @@
             android:fontFamily="sans-serif"
             android:inputType="textPassword"
             android:hint="@string/password"/>
-
         <Button
             android:id="@+id/logInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorTextLight"
+            android:background="@color/colorAccent"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="18sp"
             android:text="@string/log_in" />
-
         <TextView
             android:id="@+id/signUpText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:textSize="18sp"
+            android:textColor="@color/colorTextLight"
             android:text="@string/don_t_have_an_account_sign_up"/>
-
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
