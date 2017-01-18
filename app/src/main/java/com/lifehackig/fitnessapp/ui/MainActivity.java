@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.calories) TextView mCalories;
     @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
+    @Bind(R.id.editImage) TextView mEditImage;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         mSeeDetailsButton.setOnClickListener(this);
+        mEditImage.setOnClickListener(this);
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -133,6 +136,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("month", mMonth);
             intent.putExtra("day", mDay);
             startActivity(intent);
+        }
+        if (v == mEditImage) {
+            Toast.makeText(this, "Upload your own photo! Coming soon!", Toast.LENGTH_SHORT).show();
         }
     }
 
