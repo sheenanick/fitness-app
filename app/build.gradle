@@ -46,6 +46,7 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:9.2.1'
     compile 'com.android.support:design:25.1.0'
     compile 'com.android.support:support-v4:25.1.0'
+    compile 'com.roomorama:caldroid:3.0.1'
     testCompile 'junit:junit:4.12'
 }
 
