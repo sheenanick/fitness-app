@@ -6,17 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <CalendarView
-        android:id="@+id/calendarView"
+    <LinearLayout
+        android:id="@+id/calendar"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@color/colorPrimaryLight"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/calendarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/calendarView"
+        android:layout_below="@+id/calendar"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingStart="16dp"
