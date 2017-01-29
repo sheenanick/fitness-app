@@ -50,9 +50,9 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     @Bind(R.id.workoutForm) LinearLayout mWorkoutForm;
     @Bind(R.id.newExerciseForm) LinearLayout mNewExerciseForm;
 
-    private Integer mYear;
-    private Integer mMonth;
-    private Integer mDay;
+    private String mYear;
+    private String mMonth;
+    private String mDay;
 
     private String mCurrentUid;
     private FirebaseAuth mAuth;
@@ -71,9 +71,9 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        mYear = intent.getIntExtra("year", 0);
-        mMonth = intent.getIntExtra("month", 0);
-        mDay = intent.getIntExtra("day", 0);
+        mYear = intent.getStringExtra("year");
+        mMonth = intent.getStringExtra("month");
+        mDay = intent.getStringExtra("day");
         String date = mMonth + "/" + mDay + "/" + mYear;
         getSupportActionBar().setTitle(date);
 
