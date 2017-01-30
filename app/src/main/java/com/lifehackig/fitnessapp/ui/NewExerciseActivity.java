@@ -60,7 +60,8 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
 
     private Integer mTotalCalories;
     private DatabaseReference mDateCaloriesRef;
-    DatabaseReference mDateRef;
+    private DatabaseReference mDateRef;
+    private String mDate;
 
     private List<Workout> mWorkoutObjects = new ArrayList<>();
 
@@ -76,6 +77,7 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         mDay = intent.getStringExtra("day");
         String date = mMonth + "/" + mDay + "/" + mYear;
         getSupportActionBar().setTitle(date);
+        mDate = mMonth + mDay + mYear;
 
         ArrayAdapter<CharSequence> muscleAdapter = ArrayAdapter.createFromResource(this, R.array.muscles_array, android.R.layout.simple_spinner_dropdown_item);
         mMuscleSpinner.setAdapter(muscleAdapter);
@@ -92,6 +94,7 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     mCurrentUid = user.getUid();
+                    mDateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child("days").child(mDate);
                     DatabaseReference savedWorkoutsRef = FirebaseDatabase.getInstance().getReference("workouts").child(mCurrentUid);
                     savedWorkoutsRef.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -145,7 +148,7 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v == mSelectButton) {
             if (!mWorkoutSpinner.getSelectedItem().toString().equals("No saved workouts")) {
-                saveWorkout();
+                addSavedWorkout();
             }
         }
         if (v == mNewExerciseButton) {
@@ -161,12 +164,11 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    public void saveWorkout() {
+    public void addSavedWorkout() {
         Integer position = mWorkoutSpinner.getSelectedItemPosition();
         Workout workout = mWorkoutObjects.get(position);
         List<Exercise> exercises = workout.getExercises();
 
-        mDateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString());
         DatabaseReference exercisesRef = mDateRef.child("exercises");
         Integer workoutTotalCalories = 0;
         for (Exercise exercise :  exercises) {
@@ -177,6 +179,7 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
             exerciseRef.setValue(exercise);
         }
 
+        mDateRef.child("date").setValue(mDate);
         updateCalories(workoutTotalCalories);
         returnToDayActivity();
     }
@@ -211,11 +214,12 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
             minutes = repsOrDuration;
         }
 
-        mDateRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(mMonth.toString() + mDay.toString() + mYear.toString());
         DatabaseReference exerciseRef = mDateRef.child("exercises").push();
         String pushId = exerciseRef.getKey();
         Exercise exercise = new Exercise(name, reps, minutes, intWeight, muscle, intCalories, pushId);
         exerciseRef.setValue(exercise);
+
+        mDateRef.child("date").setValue(mDate);
 
         updateCalories(intCalories);
         returnToDayActivity();
