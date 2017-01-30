@@ -12,9 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.calories) TextView mCalories;
     @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
-    @Bind(R.id.editImage) ImageView mEditImage;
 
     private String mMemberId;
     private DatabaseReference mMemberRef;
@@ -114,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         mSeeDetailsButton.setOnClickListener(this);
-        mEditImage.setOnClickListener(this);
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -188,9 +184,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("month", monthFormat.format(mDate));
             intent.putExtra("day", dayFormat.format(mDate));
             startActivity(intent);
-        }
-        if (v == mEditImage) {
-            Toast.makeText(this, "Upload your own photo! Coming soon!", Toast.LENGTH_SHORT).show();
         }
     }
 
