@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lifehackig.fitnessapp.R;
+import com.lifehackig.fitnessapp.util.UserManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -66,7 +67,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void logout() {
-        FirebaseAuth.getInstance().signOut();
+        UserManager.logoutActiveUser();
         Intent intent = new Intent(AccountActivity.this, LogInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

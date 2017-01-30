@@ -32,6 +32,7 @@ import com.lifehackig.fitnessapp.adapters.FirebaseExerciseViewHolder;
 import com.lifehackig.fitnessapp.models.Exercise;
 import com.lifehackig.fitnessapp.models.Workout;
 import com.lifehackig.fitnessapp.util.SimpleItemTouchHelperCallback;
+import com.lifehackig.fitnessapp.util.UserManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -234,7 +235,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     public void logout() {
-        FirebaseAuth.getInstance().signOut();
+        UserManager.logoutActiveUser();
         Intent intent = new Intent(DayActivity.this, LogInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
 
-    private String mMemberId;
     private DatabaseReference mMemberRef;
 
     private DateFormat dateFormatter;
@@ -54,8 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mMemberId = UserManager.getCurrentUser().getUid();
-        mMemberRef = FirebaseDatabase.getInstance().getReference("members").child(mMemberId);
+        FirebaseUser user = UserManager.getCurrentUser();
+        mMemberRef = FirebaseDatabase.getInstance().getReference("members").child(user.getUid());
+        getSupportActionBar().setTitle(user.getDisplayName());
         setCalendarBackgroundColors();
 
         mDate = new Date();
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void setCalendarBackgroundColors() {
-        FirebaseDatabase.getInstance().getReference("members").child(mMemberId).child("days").addListenerForSingleValueEvent(new ValueEventListener() {
+        mMemberRef.child("days").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ColorDrawable yellow = new ColorDrawable(getResources().getColor(R.color.colorAccent));
