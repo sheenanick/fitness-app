@@ -10,15 +10,17 @@
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryLight"
         android:orientation="vertical">
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/calendarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/calendar"
         android:layout_alignBottom="@+id/bottom_navigation"
+        android:orientation="horizontal"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:paddingStart="16dp"
@@ -26,56 +28,36 @@
         android:background="@color/colorPrimary">
         <TextView
             android:id="@+id/date"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:textColor="@color/colorTextLight"
             android:textSize="22sp"
             android:text="@string/date"/>
         <ImageView
-            android:id="@+id/lightningIcon"
-            android:layout_width="20dp"
+            android:id="@+id/caloriesIcon"
+            android:layout_width="0dp"
             android:layout_height="20dp"
-            android:layout_toEndOf="@+id/date"
+            android:layout_weight="1"
             android:layout_marginStart="16dp"
-            android:layout_centerVertical="true"
             android:contentDescription="@string/calories_burned_icon"
             android:src="@drawable/burn"/>
         <TextView
             android:id="@+id/calories"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/lightningIcon"
+            android:layout_weight="1"
             android:textColor="@color/colorTextLight"
             android:textSize="22sp"
             android:text="@string/_0" />
-        <ImageView
-            android:id="@+id/footstepsIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_toEndOf="@+id/calories"
-            android:layout_marginStart="16dp"
-            android:layout_centerVertical="true"
-            android:contentDescription="@string/footsteps_icon"
-            android:src="@drawable/footsteps_orange"/>
-        <TextView
-            android:id="@+id/footsteps"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/footstepsIcon"
-            android:layout_toStartOf="@+id/seeDetailsButton"
-            android:textColor="@color/colorTextLight"
-            android:textSize="22sp"
-            android:text="@string/_4_7k" />
         <Button
             android:id="@+id/seeDetailsButton"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
+            android:layout_weight="1"
             android:background="@color/colorPrimaryLight"
             android:text="@string/details"/>
-    </RelativeLayout>
-
+    </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
