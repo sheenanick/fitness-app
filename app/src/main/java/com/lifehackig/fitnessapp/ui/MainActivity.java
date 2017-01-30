@@ -1,35 +1,33 @@
 package com.lifehackig.fitnessapp.ui;
 
 import android.content.Intent;
-
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.R;
+import com.lifehackig.fitnessapp.util.UserManager;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,11 +40,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.calories) TextView mCalories;
     @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
-    @Bind(R.id.editImage) TextView mEditImage;
+    @Bind(R.id.editImage) ImageView mEditImage;
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private String mCurrentUid;
+    private String mMemberId;
+    private DatabaseReference mMemberRef;
 
     private DateFormat dateFormatter;
     private DateFormat refIdFormatter;
@@ -60,27 +57,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        mMemberId = UserManager.getCurrentUser().getUid();
+        mMemberRef = FirebaseDatabase.getInstance().getReference("members").child(mMemberId);
+        setCalendarBackgroundColors();
+
         mDate = new Date();
         dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
         String formattedDate = dateFormatter.format(mDate);
         mDateTextView.setText(formattedDate);
 
         refIdFormatter = new SimpleDateFormat("MMddyyyy");
-
-        mAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
-                    getSupportActionBar().setTitle(user.getDisplayName());
-                    mCurrentUid = user.getUid();
-                    String dateRefId = refIdFormatter.format(mDate);
-                    setCaloriesTextView(dateRefId);
-                }
-            }
-        };
+        String dateRefId = refIdFormatter.format(mDate);
+        setCaloriesTextView(dateRefId);
 
         caldroidFragment = new CaldroidFragment();
         // If Activity is created after rotation
@@ -106,14 +94,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onSelectDate(Date date, View view) {
                 mDate = date;
+
+                caldroidFragment.clearSelectedDates();
+                caldroidFragment.setSelectedDates(date, date);
+                caldroidFragment.refreshView();
+
                 String formattedDate = dateFormatter.format(date);
                 mDateTextView.setText(formattedDate);
 
                 String dateRefId = refIdFormatter.format(date);
                 setCaloriesTextView(dateRefId);
             }
+            @Override
+            public void onCaldroidViewCreated() {
+                if (caldroidFragment.getLeftArrowButton() != null) {
+                    setCalendarBackgroundColors();
+                }
+            }
         });
-
 
         mSeeDetailsButton.setOnClickListener(this);
         mEditImage.setOnClickListener(this);
@@ -136,8 +134,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    public void setCalendarBackgroundColors() {
+        FirebaseDatabase.getInstance().getReference("members").child(mMemberId).child("days").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ColorDrawable yellow = new ColorDrawable(getResources().getColor(R.color.colorAccent));
+                for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
+                    String stringDate = daySnapshot.child("date").getValue().toString();
+                    try {
+                        Date date = refIdFormatter.parse(stringDate);
+                        caldroidFragment.setBackgroundDrawableForDate(yellow, date);
+                        caldroidFragment.refreshView();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
     public void setCaloriesTextView(String dateRefId) {
-        DatabaseReference caloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
+        DatabaseReference caloriesRef = mMemberRef.child("days").child(dateRefId).child("calories");
         caloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -194,23 +214,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void logout() {
-        FirebaseAuth.getInstance().signOut();
+        UserManager.logoutActiveUser();
         Intent intent = new Intent(MainActivity.this, LogInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthStateListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mAuth.removeAuthStateListener(mAuthStateListener);
     }
 
     @Override
