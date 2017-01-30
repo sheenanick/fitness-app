@@ -80,8 +80,8 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                 if (user != null) {
                     mCurrentUid = user.getUid();
 
-                    String dateRefId = mMonth.toString() + mDay.toString() + mYear.toString();
-                    mExercises = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("exercises");
+                    String dateRefId = mMonth + mDay + mYear;
+                    mExercises = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child("days").child(dateRefId).child("exercises");
                     mExercises.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -99,7 +99,7 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                         }
                     });
 
-                    mCaloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child(dateRefId).child("calories");
+                    mCaloriesRef = FirebaseDatabase.getInstance().getReference("members").child(mCurrentUid).child("days").child(dateRefId).child("calories");
 
                     setupFirebaseAdapter();
                     attachItemTouchHelper();
