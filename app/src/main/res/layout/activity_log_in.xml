@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorSecondaryLight"
     android:orientation="vertical"
     tools:context="com.lifehackig.fitnessapp.ui.LogInActivity">
 
@@ -22,28 +23,27 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:gravity="center"
-        android:background="@color/colorPrimary"
         android:orientation="vertical" >
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorTextLight"
-            android:textSize="32sp"
+            android:textSize="36sp"
             android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
             android:text="@string/welcome_to_fitness_tracker"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="38dp"
-            android:textColor="@color/colorTextLight"
             android:textSize="20sp"
             android:textStyle="italic"
+            android:textColor="@color/colorPrimaryDark"
             android:text="@string/tagline"/>
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorTextLight"
+            android:background="@color/colorPrimaryLight"
             android:padding="16dp"
             android:layout_marginBottom="5dp"
             android:inputType="textEmailAddress"
@@ -52,7 +52,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorTextLight"
+            android:background="@color/colorPrimaryLight"
             android:padding="16dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif"
@@ -62,8 +62,8 @@
             android:id="@+id/logInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:textColor="@color/colorSecondaryText"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorTextLight"
             android:textSize="18sp"
             android:text="@string/log_in" />
         <TextView

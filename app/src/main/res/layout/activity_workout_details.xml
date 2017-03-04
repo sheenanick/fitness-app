@@ -5,6 +5,7 @@
     android:id="@+id/activity_workout_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorSecondaryLight"
     tools:context="com.lifehackig.fitnessapp.ui.WorkoutDetailsActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -13,6 +14,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_above="@+id/bottom_navigation"/>
+
+    <View
+        android:id="@+id/horizontalDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/black" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
