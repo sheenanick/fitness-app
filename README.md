@@ -2,7 +2,7 @@
 
 #### _Epicodus - Android Independent Capstone Project, 12.22.2016_
 
-#### By Sheena Nickerson
+#### By Sheena Do
 
 This is a fitness application for Android. Users can log their exercises to keep track of their daily activity. Users can also save their favorite workout routines to log the entire workout at once.
 
@@ -30,6 +30,10 @@ You will need the following things properly installed on your computer.
 * Create a virtual device in Android Studio and run the application
 * Or connect an Android device to your computer and run the application on the device
 
+## Known Bugs
+
+* Calendar is still highlighted even when all exercises have been deleted for that day.
+
 ## Support and Contact Details
 
 Please feel free to contact sheenanick@gmail.com if you have any issues or questions, ideas or concerns.
@@ -38,4 +42,4 @@ Please feel free to contact sheenanick@gmail.com if you have any issues or quest
 
 This software is licensed under the MIT license.
 
-Copyright (c) 2016 **_Sheena Nickerson_**
+Copyright (c) 2016 **_Sheena Do_**
