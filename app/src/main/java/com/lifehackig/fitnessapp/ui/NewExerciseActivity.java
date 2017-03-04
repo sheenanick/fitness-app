@@ -301,6 +301,12 @@ public class NewExerciseActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public void logout() {
         UserManager.logoutActiveUser();
         Intent intent = new Intent(NewExerciseActivity.this, LogInActivity.class);
