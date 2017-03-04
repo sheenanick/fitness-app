@@ -153,6 +153,9 @@ public class DayActivity extends AppCompatActivity implements View.OnClickListen
                 if (dataSnapshot.getValue() != null) {
                     String totalCalories = dataSnapshot.getValue().toString();
                     mCalories.setText("Calories Burned: " + totalCalories);
+                    if (Integer.parseInt(totalCalories) == 0) {
+                        mSaveButton.setVisibility(View.GONE);
+                    }
                 }
             }
             @Override
