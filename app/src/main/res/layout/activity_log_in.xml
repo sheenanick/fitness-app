@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="22dp"
             android:textSize="18sp"
-            android:textColor="@color/colorTextLight"
+            android:textColor="@color/colorPrimaryText"
             android:text="@string/don_t_have_an_account_sign_up"/>
     </LinearLayout>
 
