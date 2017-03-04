@@ -21,7 +21,6 @@
         android:layout_weight="1.5"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:paddingBottom="50dp"
         android:gravity="center"
         android:background="@color/colorPrimary"
         android:orientation="vertical" >
@@ -29,14 +28,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/colorTextLight"
-            android:textSize="28sp"
+            android:textSize="32sp"
+            android:textStyle="bold"
             android:text="@string/welcome_to_fitness_tracker"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="38dp"
             android:textColor="@color/colorTextLight"
             android:textSize="20sp"
+            android:textStyle="italic"
             android:text="@string/tagline"/>
         <EditText
             android:id="@+id/email"
@@ -69,7 +70,7 @@
             android:id="@+id/signUpText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="22dp"
             android:textSize="18sp"
             android:textColor="@color/colorTextLight"
             android:text="@string/don_t_have_an_account_sign_up"/>
