@@ -14,6 +14,7 @@ public class FirebaseWorkoutViewHolder extends RecyclerView.ViewHolder implement
     private View mView;
     private Context mContext;
     private TextView mDetails;
+    private TextView mWorkoutNameView;
     private String mWorkoutId;
     private String mWorkoutName;
 
@@ -24,17 +25,20 @@ public class FirebaseWorkoutViewHolder extends RecyclerView.ViewHolder implement
     }
 
     public void bindWorkout(Workout workout) {
-        TextView workoutName = (TextView) mView.findViewById(R.id.workoutName);
+        mWorkoutNameView = (TextView) mView.findViewById(R.id.workoutName);
         mDetails = (TextView) mView.findViewById(R.id.details);
+
         mWorkoutId = workout.getPushId();
         mWorkoutName = workout.getName();
-        workoutName.setText(workout.getName());
+
+        mWorkoutNameView.setText(workout.getName());
+        mWorkoutNameView.setOnClickListener(this);
         mDetails.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if (v == mDetails) {
+        if (v == mDetails || v == mWorkoutNameView) {
             Intent intent = new Intent(mContext, WorkoutDetailsActivity.class);
             intent.putExtra("workoutId", mWorkoutId);
             intent.putExtra("workoutName", mWorkoutName);
