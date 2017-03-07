@@ -15,7 +15,6 @@ public interface LogInContract {
         void signInWithEmailAndPassword(String email, String password);
     }
     interface MvpView extends BaseMvpView {
-        void navigateToMain();
         void displayLogInError();
     }
 }

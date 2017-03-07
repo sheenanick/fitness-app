@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.lifehackig.fitnessapp.ui.MainActivity;
 import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
 import com.lifehackig.fitnessapp.util.UserManager;
 
@@ -29,6 +30,14 @@ public class BaseActivity extends AppCompatActivity implements BaseMvpView {
     @Override
     public void hideLoadingAnimation() {
         mProgressDialog.dismiss();
+    }
+
+    @Override
+    public void navigateToMain() {
+        Intent intent = new Intent(BaseActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     @Override

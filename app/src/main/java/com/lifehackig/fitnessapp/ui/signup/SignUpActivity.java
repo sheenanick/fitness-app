@@ -1,4 +1,4 @@
-package com.lifehackig.fitnessapp.ui;
+package com.lifehackig.fitnessapp.ui.signup;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.lifehackig.fitnessapp.R;
+import com.lifehackig.fitnessapp.ui.MainActivity;
 import com.lifehackig.fitnessapp.util.UserManager;
 
 import butterknife.Bind;

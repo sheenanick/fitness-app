@@ -9,9 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lifehackig.fitnessapp.R;
-import com.lifehackig.fitnessapp.ui.MainActivity;
-import com.lifehackig.fitnessapp.ui.SignUpActivity;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
+import com.lifehackig.fitnessapp.ui.signup.SignUpActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -63,14 +62,6 @@ public class LogInActivity extends BaseActivity implements LogInContract.MvpView
         if (invalidEmail || invalidPassword) return;
 
         mPresenter.signInWithEmailAndPassword(email, password);
-    }
-
-    @Override
-    public void navigateToMain() {
-        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
     }
 
     @Override
