@@ -45,7 +45,9 @@ public class LogInPresenter implements LogInContract.Presenter {
 
     @Override
     public void removeAuthStateListener() {
-        mAuth.removeAuthStateListener(mAuthStateListener);
+        if (mAuthStateListener != null) {
+            mAuth.removeAuthStateListener(mAuthStateListener);
+        }
     }
 
     @Override
