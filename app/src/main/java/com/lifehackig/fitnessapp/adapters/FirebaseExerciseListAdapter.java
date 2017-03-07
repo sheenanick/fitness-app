@@ -1,6 +1,5 @@
 package com.lifehackig.fitnessapp.adapters;
 
-
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -58,17 +57,17 @@ public class FirebaseExerciseListAdapter extends FirebaseRecyclerAdapter<Exercis
         mExercises.remove(position);
     }
 
-    private void updateCalories(Exercise exercise) {
-        final Exercise deletedExercise = exercise;
+    private void updateCalories(final Exercise exercise) {
         mCaloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mCalories = Integer.parseInt(dataSnapshot.getValue().toString());
-                mCalories -= deletedExercise.getCalories();
+                mCalories -= exercise.getCalories();
                 mCaloriesRef.setValue(mCalories);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 

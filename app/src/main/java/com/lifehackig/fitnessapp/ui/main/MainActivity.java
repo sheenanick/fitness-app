@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.lifehackig.fitnessapp.R;
-import com.lifehackig.fitnessapp.ui.DayActivity;
+import com.lifehackig.fitnessapp.ui.day.DayActivity;
 import com.lifehackig.fitnessapp.ui.WorkoutsActivity;
 import com.lifehackig.fitnessapp.ui.account.AccountActivity;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;

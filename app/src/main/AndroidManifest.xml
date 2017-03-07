@@ -25,7 +25,7 @@
                 android:value=".ui.signin.LogInActivity" />
         </activity>
         <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".ui.DayActivity">
+        <activity android:name=".ui.day.DayActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.main.MainActivity" />
@@ -33,7 +33,7 @@
         <activity android:name=".ui.NewExerciseActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.DayActivity" />
+                android:value=".ui.day.DayActivity" />
         </activity>
         <activity android:name=".ui.WorkoutsActivity" />
         <activity android:name=".ui.WorkoutDetailsActivity">
