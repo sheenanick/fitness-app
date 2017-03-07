@@ -19,18 +19,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.SignUpActivity" >
+        <activity android:name=".ui.SignUpActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.LogInActivity" />
         </activity>
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.DayActivity" >
+        <activity android:name=".ui.DayActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.NewExerciseActivity" >
+        <activity android:name=".ui.NewExerciseActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.DayActivity" />
@@ -42,6 +42,7 @@
                 android:value=".ui.WorkoutsActivity" />
         </activity>
         <activity android:name=".ui.AccountActivity" />
+        <activity android:name=".ui.base.BaseActivity"></activity>
     </application>
 
 </manifest>
