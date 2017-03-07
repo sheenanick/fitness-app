@@ -22,10 +22,10 @@ public class LogInPresenter implements LogInContract.Presenter {
     public LogInPresenter(LogInContract.MvpView view) {
         mView = view;
         mAuth = FirebaseAuth.getInstance();
+        createAuthStateListener();
     }
 
-    @Override
-    public void createAuthStateListener() {
+    private void createAuthStateListener() {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

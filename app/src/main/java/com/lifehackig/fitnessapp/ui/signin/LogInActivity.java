@@ -30,7 +30,6 @@ public class LogInActivity extends BaseActivity implements LogInContract.MvpView
         ButterKnife.bind(this);
 
         mPresenter = new LogInPresenter(this);
-        mPresenter.createAuthStateListener();
 
         mLogInButton.setOnClickListener(this);
         mSignUp.setOnClickListener(this);

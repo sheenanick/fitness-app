@@ -9,7 +9,6 @@ import com.lifehackig.fitnessapp.ui.base.BasePresenter;
 
 public interface LogInContract {
     interface Presenter extends BasePresenter {
-        void createAuthStateListener();
         void addAuthStateListener();
         void removeAuthStateListener();
         void signInWithEmailAndPassword(String email, String password);
