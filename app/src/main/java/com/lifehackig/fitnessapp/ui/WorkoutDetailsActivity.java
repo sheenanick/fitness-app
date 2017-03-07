@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.adapters.FirebaseExerciseViewHolder;
 import com.lifehackig.fitnessapp.models.Exercise;
+import com.lifehackig.fitnessapp.ui.account.AccountActivity;
+import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

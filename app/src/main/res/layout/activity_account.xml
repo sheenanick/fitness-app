@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryLight"
-    tools:context="com.lifehackig.fitnessapp.ui.AccountActivity">
+    tools:context="com.lifehackig.fitnessapp.ui.account.AccountActivity">
 
     <TextView
         android:layout_width="wrap_content"

@@ -1,22 +1,22 @@
-package com.lifehackig.fitnessapp.ui;
+package com.lifehackig.fitnessapp.ui.account;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.lifehackig.fitnessapp.R;
-import com.lifehackig.fitnessapp.util.UserManager;
+import com.lifehackig.fitnessapp.ui.MainActivity;
+import com.lifehackig.fitnessapp.ui.WorkoutsActivity;
+import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends BaseActivity {
     @Bind(R.id.bottom_navigation)
     BottomNavigationView mBottomNavigationView;
 
@@ -64,13 +64,5 @@ public class AccountActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void logout() {
-        UserManager.logoutActiveUser();
-        Intent intent = new Intent(AccountActivity.this, LogInActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
     }
 }

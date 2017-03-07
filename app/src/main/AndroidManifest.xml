@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.LogInActivity"
+            android:name=".ui.signin.LogInActivity"
             android:theme="@style/NoBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
         <activity android:name=".ui.SignUpActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.LogInActivity" />
+                android:value=".ui.signin.LogInActivity" />
         </activity>
         <activity android:name=".ui.MainActivity" />
         <activity android:name=".ui.DayActivity">
@@ -41,7 +41,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.WorkoutsActivity" />
         </activity>
-        <activity android:name=".ui.AccountActivity" />
+        <activity android:name=".ui.account.AccountActivity" />
         <activity android:name=".ui.base.BaseActivity"></activity>
     </application>
 

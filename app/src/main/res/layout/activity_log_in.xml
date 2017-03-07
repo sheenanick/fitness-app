@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorSecondaryLight"
     android:orientation="vertical"
-    tools:context="com.lifehackig.fitnessapp.ui.LogInActivity">
+    tools:context="com.lifehackig.fitnessapp.ui.signin.LogInActivity">
 
     <ImageView
         android:id="@+id/imageView"
