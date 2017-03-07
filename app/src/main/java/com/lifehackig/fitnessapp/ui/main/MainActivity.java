@@ -1,4 +1,4 @@
-package com.lifehackig.fitnessapp.ui;
+package com.lifehackig.fitnessapp.ui.main;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.R;
+import com.lifehackig.fitnessapp.ui.DayActivity;
+import com.lifehackig.fitnessapp.ui.WorkoutsActivity;
 import com.lifehackig.fitnessapp.ui.account.AccountActivity;
 import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
 import com.lifehackig.fitnessapp.util.UserManager;

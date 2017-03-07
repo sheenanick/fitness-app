@@ -77,6 +77,8 @@ public class SignUpPresenter implements SignUpContract.Presenter {
 
     @Override
     public void detach() {
-
+        mView = null;
+        mAuth = null;
+        mAuthStateListener = null;
     }
 }
