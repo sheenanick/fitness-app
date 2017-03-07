@@ -8,18 +8,18 @@ import com.google.firebase.auth.FirebaseUser;
  */
 
 public class UserManager {
-    private static FirebaseUser currentUser;
+    private static FirebaseUser mCurrentUser;
 
     public static void logoutActiveUser() {
         FirebaseAuth.getInstance().signOut();
-        currentUser = null;
+        mCurrentUser = null;
     }
 
     public static void setCurrentUser(FirebaseUser user) {
-        currentUser = user;
+        mCurrentUser = user;
     }
 
     public static FirebaseUser getCurrentUser() {
-        return currentUser;
+        return mCurrentUser;
     }
 }
