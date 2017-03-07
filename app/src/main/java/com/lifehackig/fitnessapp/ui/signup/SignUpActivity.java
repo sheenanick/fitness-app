@@ -1,9 +1,5 @@
 package com.lifehackig.fitnessapp.ui.signup;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -11,20 +7,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.lifehackig.fitnessapp.R;
-import com.lifehackig.fitnessapp.ui.MainActivity;
-import com.lifehackig.fitnessapp.util.UserManager;
+import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
+public class SignUpActivity extends BaseActivity implements SignUpContract.MvpView, View.OnClickListener{
     @Bind(R.id.firstName) EditText mFirstName;
     @Bind(R.id.lastName) EditText mLastName;
     @Bind(R.id.email) EditText mEmail;
@@ -32,10 +21,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     @Bind(R.id.confirmPassword) EditText mConfirmPassword;
     @Bind(R.id.signUpButton) Button mSignUpButton;
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private ProgressDialog mAuthProgressDialog;
-    private String mNameString;
+    private SignUpPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,34 +29,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
 
-        mAuth = FirebaseAuth.getInstance();
+        mPresenter = new SignUpPresenter(this);
+
         mSignUpButton.setOnClickListener(this);
-
-        createProgressDialog();
-        createAuthStateListener();
-    }
-
-    private void createProgressDialog() {
-        mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading...");
-        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
-        mAuthProgressDialog.setCancelable(false);
-    }
-
-    private void createAuthStateListener() {
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    UserManager.setCurrentUser(user);
-                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
-                }
-            }
-        };
     }
 
     @Override
@@ -83,7 +44,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void createNewUser() {
         String firstName = mFirstName.getText().toString().trim();
         String lastName = mLastName.getText().toString().trim();
-        mNameString = firstName + " " + lastName;
+        String fullName = firstName + " " + lastName;
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         String confirmPassword = mConfirmPassword.getText().toString().trim();
@@ -93,23 +54,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         boolean validEmail = isValidEmail(email);
         boolean validPassword = isValidPassword(password, confirmPassword);
 
-        if (!validFirstName || !validLastName || !validEmail || !validPassword) return;
-
-        mAuthProgressDialog.show();
-
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                mAuthProgressDialog.dismiss();
-
-                if (task.isSuccessful()) {
-                    addNameToFirebaseProfile(task.getResult().getUser());
-                } else {
-                    Toast.makeText(SignUpActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        if (validFirstName && validLastName && validEmail && validPassword) {
+            mPresenter.createUserWithEmailAndPassword(email, password, fullName);
+        }
     }
 
     public boolean isValidName(String name, View v) {
@@ -141,23 +88,29 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         return true;
     }
 
-    public void addNameToFirebaseProfile(FirebaseUser user) {
-        UserProfileChangeRequest addName = new UserProfileChangeRequest.Builder()
-                .setDisplayName(mNameString).build();
-        user.updateProfile(addName);
+    @Override
+    public void displaySignUpError() {
+        Toast.makeText(SignUpActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthStateListener);
+        mPresenter.addAuthStateListener();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthStateListener != null) {
-            mAuth.removeAuthStateListener(mAuthStateListener);
-        }
+        mPresenter.removeAuthStateListener();
     }
+
+    @Override
+    public void onDestroy() {
+        if (mPresenter != null) {
+            mPresenter.detach();
+        }
+        super.onDestroy();
+    }
+
 }
