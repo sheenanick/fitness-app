@@ -86,5 +86,6 @@ public class LogInActivity extends BaseActivity implements LogInContract.MvpView
         if (mPresenter != null) {
             mPresenter.detach();
         }
+        super.onDestroy();
     }
 }
