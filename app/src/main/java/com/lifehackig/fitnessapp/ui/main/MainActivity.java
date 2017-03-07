@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,18 +14,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.ui.DayActivity;
 import com.lifehackig.fitnessapp.ui.WorkoutsActivity;
 import com.lifehackig.fitnessapp.ui.account.AccountActivity;
-import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
-import com.lifehackig.fitnessapp.util.UserManager;
+import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -38,19 +32,18 @@ import java.util.Date;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements MainContract.MvpView, View.OnClickListener{
     @Bind(R.id.date) TextView mDateTextView;
     @Bind(R.id.calories) TextView mCalories;
     @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
 
-    private DatabaseReference mMemberRef;
+    private MainPresenter mPresenter;
+    private CaldroidFragment mCaldroidFragment;
 
-    private DateFormat dateFormatter;
-    private DateFormat refIdFormatter;
     private Date mDate;
-
-    private CaldroidFragment caldroidFragment;
+    private DateFormat mDateFormatter;
+    private DateFormat mRefIdFormatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,24 +51,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        FirebaseUser user = UserManager.getCurrentUser();
-        mMemberRef = FirebaseDatabase.getInstance().getReference("members").child(user.getUid());
-        getSupportActionBar().setTitle(user.getDisplayName());
-        setCalendarBackgroundColors();
+        mPresenter = new MainPresenter(this);
+        mPresenter.getUser();
 
         mDate = new Date();
-        dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
-        String formattedDate = dateFormatter.format(mDate);
+        mDateFormatter = new SimpleDateFormat("MM/dd/yyyy");
+        mRefIdFormatter = new SimpleDateFormat("MMddyyyy");
+
+        setDateTextView(mDate);
+        getCalories(mDate);
+
+        initCaldroidFragment(savedInstanceState);
+        initBottomNav();
+
+        mSeeDetailsButton.setOnClickListener(this);
+    }
+
+    private void setDateTextView(Date date) {
+        String formattedDate = mDateFormatter.format(date);
         mDateTextView.setText(formattedDate);
+    }
 
-        refIdFormatter = new SimpleDateFormat("MMddyyyy");
-        String dateRefId = refIdFormatter.format(mDate);
-        setCaloriesTextView(dateRefId);
+    private void getCalories(Date date) {
+        String dateRefId = mRefIdFormatter.format(date);
+        mPresenter.getCalories(dateRefId);
+    }
 
-        caldroidFragment = new CaldroidFragment();
+    private void initCaldroidFragment(Bundle savedInstanceState) {
+        mCaldroidFragment = new CaldroidFragment();
         // If Activity is created after rotation
         if (savedInstanceState != null) {
-            caldroidFragment.restoreStatesFromKey(savedInstanceState,
+            mCaldroidFragment.restoreStatesFromKey(savedInstanceState,
                     "CALDROID_SAVED_STATE");
         }
         // If activity is created from fresh
@@ -85,38 +91,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
             args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
             args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-            caldroidFragment.setArguments(args);
+            mCaldroidFragment.setArguments(args);
         }
 
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.calendar, caldroidFragment);
+        t.replace(R.id.calendar, mCaldroidFragment);
         t.commit();
 
-        caldroidFragment.setCaldroidListener(new CaldroidListener() {
+        setCaldroidListener();
+    }
+
+    private void setCaldroidListener() {
+        mCaldroidFragment.setCaldroidListener(new CaldroidListener() {
             @Override
             public void onSelectDate(Date date, View view) {
                 mDate = date;
 
-                caldroidFragment.clearSelectedDates();
-                caldroidFragment.setSelectedDates(date, date);
-                caldroidFragment.refreshView();
+                mCaldroidFragment.clearSelectedDates();
+                mCaldroidFragment.setSelectedDates(date, date);
+                mCaldroidFragment.refreshView();
 
-                String formattedDate = dateFormatter.format(date);
-                mDateTextView.setText(formattedDate);
-
-                String dateRefId = refIdFormatter.format(date);
-                setCaloriesTextView(dateRefId);
+                setDateTextView(date);
+                getCalories(date);
             }
             @Override
             public void onCaldroidViewCreated() {
-                if (caldroidFragment.getLeftArrowButton() != null) {
-                    setCalendarBackgroundColors();
+                if (mCaldroidFragment.getLeftArrowButton() != null) {
+                    mPresenter.getExercisedDays();
                 }
             }
         });
+    }
 
-        mSeeDetailsButton.setOnClickListener(this);
-
+    private void initBottomNav() {
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -135,46 +142,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    public void setCalendarBackgroundColors() {
-        mMemberRef.child("days").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                ColorDrawable yellow = new ColorDrawable(getResources().getColor(R.color.colorAccent));
-                for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
-                    String stringDate = daySnapshot.child("date").getValue().toString();
-                    try {
-                        Date date = refIdFormatter.parse(stringDate);
-                        caldroidFragment.setBackgroundDrawableForDate(yellow, date);
-                        caldroidFragment.refreshView();
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+    @Override
+    public void setAppBarTitle(String title) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(title);
+        }
     }
 
-    public void setCaloriesTextView(String dateRefId) {
-        DatabaseReference caloriesRef = mMemberRef.child("days").child(dateRefId).child("calories");
-        caloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String totalCalories;
-                if (dataSnapshot.getValue() == null) {
-                    totalCalories = "0";
-                } else {
-                    totalCalories = dataSnapshot.getValue().toString();
-                }
-                mCalories.setText(totalCalories);
+    @Override
+    public void setCalendarBackgroundColors(DataSnapshot dataSnapshot) {
+        ColorDrawable yellow = new ColorDrawable(getResources().getColor(R.color.colorAccent));
+        for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
+            String stringDate = daySnapshot.child("date").getValue().toString();
+            try {
+                Date date = mRefIdFormatter.parse(stringDate);
+                mCaldroidFragment.setBackgroundDrawableForDate(yellow, date);
+                mCaldroidFragment.refreshView();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+        }
+    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+    @Override
+    public void setCaloriesTextView(String totalCalories) {
+        mCalories.setText(totalCalories);
     }
 
     @Override
@@ -211,20 +204,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void logout() {
-        UserManager.logoutActiveUser();
-        Intent intent = new Intent(MainActivity.this, LogInActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (caldroidFragment != null) {
-            caldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
+        if (mCaldroidFragment != null) {
+            mCaldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.detach();
+        }
+    }
 }

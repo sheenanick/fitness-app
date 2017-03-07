@@ -9,7 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.lifehackig.fitnessapp.R;
-import com.lifehackig.fitnessapp.ui.MainActivity;
+import com.lifehackig.fitnessapp.ui.main.MainActivity;
 import com.lifehackig.fitnessapp.ui.WorkoutsActivity;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 

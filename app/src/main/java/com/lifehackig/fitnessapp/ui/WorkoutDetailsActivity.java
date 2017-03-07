@@ -20,6 +20,7 @@ import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.adapters.FirebaseExerciseViewHolder;
 import com.lifehackig.fitnessapp.models.Exercise;
 import com.lifehackig.fitnessapp.ui.account.AccountActivity;
+import com.lifehackig.fitnessapp.ui.main.MainActivity;
 import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
 
 import butterknife.Bind;

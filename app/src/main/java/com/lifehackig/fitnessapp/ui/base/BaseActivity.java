@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.lifehackig.fitnessapp.ui.MainActivity;
+import com.lifehackig.fitnessapp.ui.main.MainActivity;
 import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
 import com.lifehackig.fitnessapp.util.UserManager;
 

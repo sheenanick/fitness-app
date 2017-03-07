@@ -32,6 +32,7 @@ import com.lifehackig.fitnessapp.adapters.FirebaseExerciseViewHolder;
 import com.lifehackig.fitnessapp.models.Exercise;
 import com.lifehackig.fitnessapp.models.Workout;
 import com.lifehackig.fitnessapp.ui.account.AccountActivity;
+import com.lifehackig.fitnessapp.ui.main.MainActivity;
 import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
 import com.lifehackig.fitnessapp.util.SimpleItemTouchHelperCallback;
 import com.lifehackig.fitnessapp.util.UserManager;

@@ -24,11 +24,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.signin.LogInActivity" />
         </activity>
-        <activity android:name=".ui.MainActivity" />
+        <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.DayActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.MainActivity" />
+                android:value=".ui.main.MainActivity" />
         </activity>
         <activity android:name=".ui.NewExerciseActivity">
             <meta-data
