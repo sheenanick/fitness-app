@@ -2,6 +2,7 @@ package com.lifehackig.fitnessapp.ui.signin;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -53,6 +54,7 @@ public class LogInPresenter implements LogInContract.Presenter {
     @Override
     public void signInWithEmailAndPassword(String email, String password) {
         mView.displayLoadingAnimation();
+        Log.d("SignIn", email + " " +  password);
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener((Activity) mView, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -70,5 +72,4 @@ public class LogInPresenter implements LogInContract.Presenter {
         mAuthStateListener = null;
         mAuth = null;
     }
-
 }

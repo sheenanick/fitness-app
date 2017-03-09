@@ -45,6 +45,7 @@ public class NewExerciseActivity extends BaseActivity implements NewExerciseCont
         mDate = mMonth + mDay + mYear;
 
         setAppBarTitle("New Exercise");
+        setBottomNavChecked(0);
         initMuscleSpinner();
         mAddButton.setOnClickListener(this);
 

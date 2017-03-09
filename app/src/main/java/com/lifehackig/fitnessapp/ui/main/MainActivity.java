@@ -3,23 +3,15 @@ package com.lifehackig.fitnessapp.ui.main;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.lifehackig.fitnessapp.R;
-import com.lifehackig.fitnessapp.ui.day.DayActivity;
-import com.lifehackig.fitnessapp.ui.workouts.WorkoutsActivity;
-import com.lifehackig.fitnessapp.ui.account.AccountActivity;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
+import com.lifehackig.fitnessapp.ui.day.DayActivity;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -36,7 +28,6 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
     @Bind(R.id.date) TextView mDateTextView;
     @Bind(R.id.calories) TextView mCalories;
     @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
-    @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
 
     private MainPresenter mPresenter;
     private CaldroidFragment mCaldroidFragment;
@@ -62,7 +53,7 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
         getCalories(mDate);
 
         initCaldroidFragment(savedInstanceState);
-        initBottomNav();
+        setBottomNavChecked(0);
 
         mSeeDetailsButton.setOnClickListener(this);
     }
@@ -123,25 +114,6 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
         });
     }
 
-    private void initBottomNav() {
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_workouts:
-                        Intent workoutIntent = new Intent(MainActivity.this, WorkoutsActivity.class);
-                        startActivity(workoutIntent);
-                        break;
-                    case R.id.action_account:
-                        Intent accountIntent = new Intent(MainActivity.this, AccountActivity.class);
-                        startActivity(accountIntent);
-                        break;
-                }
-                return false;
-            }
-        });
-    }
-
     @Override
     public void setCalendarBackgroundColors(DataSnapshot dataSnapshot) {
         ColorDrawable yellow = new ColorDrawable(getResources().getColor(R.color.colorAccent));
@@ -174,25 +146,6 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
             intent.putExtra("month", monthFormat.format(mDate));
             intent.putExtra("day", dayFormat.format(mDate));
             startActivity(intent);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_log_out:
-                logout();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 

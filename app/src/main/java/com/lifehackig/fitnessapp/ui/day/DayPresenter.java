@@ -1,6 +1,5 @@
 package com.lifehackig.fitnessapp.ui.day;
 
-import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.database.DataSnapshot;

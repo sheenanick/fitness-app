@@ -2,23 +2,15 @@ package com.lifehackig.fitnessapp.ui.log_exercise;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
 import com.lifehackig.fitnessapp.R;
-import com.lifehackig.fitnessapp.ui.account.AccountActivity;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.day.DayActivity;
-import com.lifehackig.fitnessapp.ui.main.MainActivity;
 import com.lifehackig.fitnessapp.ui.new_exercise.NewExerciseActivity;
-import com.lifehackig.fitnessapp.ui.workouts.WorkoutsActivity;
 
 import java.util.ArrayList;
 
@@ -26,7 +18,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class LogExerciseActivity extends BaseActivity implements LogExerciseContract.MvpView, View.OnClickListener {
-    @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
     @Bind(R.id.workoutSpinner) Spinner mWorkoutSpinner;
     @Bind(R.id.selectButton) Button mSelectButton;
     @Bind(R.id.newExerciseButton) Button mNewExerciseButton;
@@ -51,36 +42,13 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
         mDate = mMonth + mDay + mYear;
 
         setAppBarTitle("Log Exercise");
-        initBottomNav();
+        setBottomNavChecked(0);
 
         mSelectButton.setOnClickListener(this);
         mNewExerciseButton.setOnClickListener(this);
 
         mPresenter = new LogExercisePresenter(this);
         mPresenter.getWorkoutNames();
-    }
-
-    private void initBottomNav() {
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                        Intent homeIntent = new Intent(LogExerciseActivity.this, MainActivity.class);
-                        startActivity(homeIntent);
-                        break;
-                    case R.id.action_workouts:
-                        Intent workoutIntent = new Intent(LogExerciseActivity.this, WorkoutsActivity.class);
-                        startActivity(workoutIntent);
-                        break;
-                    case R.id.action_account:
-                        Intent accountIntent = new Intent(LogExerciseActivity.this, AccountActivity.class);
-                        startActivity(accountIntent);
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
     @Override
@@ -111,7 +79,6 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
         startActivity(intent);
     }
 
-
     @Override
     public void navigateToDayActivity() {
         Intent intent = new Intent(LogExerciseActivity.this, DayActivity.class);
@@ -121,25 +88,6 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_log_out:
-                logout();
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     @Override

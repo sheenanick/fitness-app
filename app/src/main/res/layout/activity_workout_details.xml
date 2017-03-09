@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_workout_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,25 +10,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/bottom_navigation"/>
+        android:layout_height="wrap_content" />
 
-    <View
-        android:id="@+id/horizontalDivider"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_above="@+id/bottom_navigation"
-        android:layout_gravity="center_vertical"
-        android:background="@android:color/black" />
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimaryLight"
-        app:itemIconTint="@drawable/selector_false"
-        app:itemTextColor="@drawable/selector_false"
-        app:menu="@menu/bottom_navigation_main" />
-</RelativeLayout>
+</FrameLayout>

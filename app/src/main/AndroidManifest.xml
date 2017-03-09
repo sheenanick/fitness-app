@@ -43,7 +43,11 @@
         </activity>
         <activity android:name=".ui.account.AccountActivity" />
         <activity android:name=".ui.base.BaseActivity" />
-        <activity android:name=".ui.new_exercise.NewExerciseActivity"></activity>
+        <activity android:name=".ui.new_exercise.NewExerciseActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.log_exercise.LogExerciseActivity" />
+        </activity>
     </application>
 
 </manifest>

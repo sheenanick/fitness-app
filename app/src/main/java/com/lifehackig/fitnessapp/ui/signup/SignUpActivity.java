@@ -2,6 +2,7 @@ package com.lifehackig.fitnessapp.ui.signup;
 
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,8 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.MvpVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
+
+        hideBottomNav();
 
         mPresenter = new SignUpPresenter(this);
 
@@ -91,6 +94,11 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.MvpVi
     @Override
     public void displaySignUpError() {
         Toast.makeText(SignUpActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 
     @Override

@@ -29,6 +29,7 @@ public class LogInActivity extends BaseActivity implements LogInContract.MvpView
         setContentView(R.layout.activity_log_in);
         ButterKnife.bind(this);
 
+        hideBottomNav();
         mPresenter = new LogInPresenter(this);
 
         mLogInButton.setOnClickListener(this);
