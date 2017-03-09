@@ -1,4 +1,4 @@
-package com.lifehackig.fitnessapp.ui;
+package com.lifehackig.fitnessapp.ui.day;
 
 import android.app.Activity;
 import android.app.AlertDialog;

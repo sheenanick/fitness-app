@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -24,8 +23,7 @@ import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.adapters.FirebaseExerciseListAdapter;
 import com.lifehackig.fitnessapp.adapters.FirebaseExerciseViewHolder;
 import com.lifehackig.fitnessapp.models.Exercise;
-import com.lifehackig.fitnessapp.ui.NewExerciseActivity;
-import com.lifehackig.fitnessapp.ui.SaveWorkoutDialogFragment;
+import com.lifehackig.fitnessapp.ui.log_exercise.LogExerciseActivity;
 import com.lifehackig.fitnessapp.ui.workouts.WorkoutsActivity;
 import com.lifehackig.fitnessapp.ui.account.AccountActivity;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
@@ -143,7 +141,7 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
     @Override
     public void onClick(View v) {
         if (v == mFab) {
-            Intent intent = new Intent(DayActivity.this, NewExerciseActivity.class);
+            Intent intent = new Intent(DayActivity.this, LogExerciseActivity.class);
             intent.putExtra("year", mYear);
             intent.putExtra("month", mMonth);
             intent.putExtra("day", mDay);

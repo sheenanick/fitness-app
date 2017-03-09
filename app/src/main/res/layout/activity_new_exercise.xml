@@ -2,78 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_new_exercise2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondaryLight"
-    tools:context="com.lifehackig.fitnessapp.ui.NewExerciseActivity">
-
-    <LinearLayout
-        android:id="@+id/workoutForm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:text="@string/select_a_workout_from_your_favorites"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/selectButton"
-                android:layout_alignBottom="@+id/selectButton"
-                android:layout_alignTop="@+id/selectButton"
-                android:layout_marginEnd="10dp"
-                android:background="@color/colorTextLight">
-                <Spinner
-                    android:id="@+id/workoutSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </RelativeLayout>
-            <Button
-                android:id="@+id/selectButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:background="@color/colorPrimaryDark"
-                android:textColor="@color/colorTextLight"
-                android:text="@string/select"/>
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:gravity="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/or"/>
-        <Button
-            android:id="@+id/newExerciseButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorTextLight"
-            android:text="@string/add_a_new_exercise" />
-    </LinearLayout>
+    tools:context="com.lifehackig.fitnessapp.ui.new_exercise.NewExerciseActivity">
 
     <LinearLayout
         android:id="@+id/newExerciseForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:visibility="gone"
         android:orientation="vertical">
 
         <EditText
@@ -159,7 +97,7 @@
             android:inputType="number"
             android:hint="@string/calories"/>
 
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorTextLight">
@@ -167,34 +105,18 @@
                 android:id="@+id/muscleSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
+        </FrameLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/addButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/cancelButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="16dp"
-                android:background="@color/colorPrimary"
-                android:textColor="@color/colorTextLight"
-                android:text="@string/cancel"/>
-
-            <Button
-                android:id="@+id/addButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/colorPrimaryDark"
-                android:textColor="@color/colorTextLight"
-                android:text="@string/add"/>
-        </LinearLayout>
+            android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorTextLight"
+            android:text="@string/add"/>
     </LinearLayout>
+
 
     <View
         android:id="@+id/horizontalDivider"
