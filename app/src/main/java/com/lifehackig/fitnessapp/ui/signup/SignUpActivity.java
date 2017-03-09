@@ -3,7 +3,6 @@ package com.lifehackig.fitnessapp.ui.signup;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
