@@ -143,14 +143,6 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
     }
 
     @Override
-    public void setAppBarTitle(String title) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(title);
-        }
-    }
-
-    @Override
     public void setCalendarBackgroundColors(DataSnapshot dataSnapshot) {
         ColorDrawable yellow = new ColorDrawable(getResources().getColor(R.color.colorAccent));
         for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {

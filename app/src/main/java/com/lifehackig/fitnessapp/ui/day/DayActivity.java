@@ -74,13 +74,6 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
         mFab.setOnClickListener(this);
     }
 
-    private void setAppBarTitle(String title) {
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(title);
-        }
-    }
-
     private void initBottomNav() {
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

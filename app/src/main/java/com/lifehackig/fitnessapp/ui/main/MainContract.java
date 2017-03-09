@@ -15,7 +15,6 @@ public interface MainContract {
         void getCalories(String dateRefId);
     }
     interface MvpView extends BaseMvpView {
-        void setAppBarTitle(String title);
         void setCalendarBackgroundColors(DataSnapshot dataSnapshot);
         void setCaloriesTextView(String calories);
     }

@@ -7,6 +7,7 @@ package com.lifehackig.fitnessapp.ui.base;
 public interface BaseMvpView {
     boolean displayLoadingAnimation();
     void hideLoadingAnimation();
+    void setAppBarTitle(String title);
     void navigateToMain();
     void logout();
 }
