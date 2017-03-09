@@ -10,13 +10,13 @@ import com.lifehackig.fitnessapp.ui.base.BasePresenter;
 
 public interface DayContract {
     interface Presenter extends BasePresenter {
-        void initFirebaseAdapter();
+        void initFirebaseAdapter(String dateRefId);
         void getExercises();
         void getCalories();
         void saveWorkout(String name);
     }
     interface MvpView extends BaseMvpView {
-        void setupFirebaseAdapter(DatabaseReference exercises, DatabaseReference calories);
+        void setupFirebaseAdapter(DatabaseReference exercises, DatabaseReference calories, DatabaseReference day);
         void noExercisesView();
         void hasExercisesView();
         void setCaloriesTextView(int totalCalories);

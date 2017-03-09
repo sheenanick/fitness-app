@@ -53,8 +53,8 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
         setAppBarTitle(mMonth + "/" + mDay + "/" + mYear);
         setBottomNavChecked(0);
 
-        mPresenter = new DayPresenter(this, mMonth + mDay + mYear);
-        mPresenter.initFirebaseAdapter();
+        mPresenter = new DayPresenter(this);
+        mPresenter.initFirebaseAdapter(mMonth + mDay + mYear);
         mPresenter.getExercises();
         mPresenter.getCalories();
 
@@ -71,8 +71,8 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
     }
 
     @Override
-    public void setupFirebaseAdapter(DatabaseReference exercises, DatabaseReference calories) {
-        mAdapter = new FirebaseExerciseListAdapter(Exercise.class, R.layout.exercise_list_item, FirebaseExerciseViewHolder.class, exercises, calories);
+    public void setupFirebaseAdapter(DatabaseReference exercises, DatabaseReference calories, DatabaseReference day) {
+        mAdapter = new FirebaseExerciseListAdapter(Exercise.class, R.layout.exercise_list_item, FirebaseExerciseViewHolder.class, exercises, calories, day);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
     }

@@ -25,20 +25,19 @@ public class DayPresenter implements DayContract.Presenter {
     private DatabaseReference mExercises;
     private DatabaseReference mCalories;
 
-    public DayPresenter(DayContract.MvpView view, String dateRefId) {
+    public DayPresenter(DayContract.MvpView view) {
         mView = view;
 
         mDatabase = FirebaseDatabase.getInstance();
         mCurrentUid = UserManager.getCurrentUser().getUid();
-
-        DatabaseReference dateRef = mDatabase.getReference("members").child(mCurrentUid).child("days").child(dateRefId);
-        mExercises = dateRef.child("exercises");
-        mCalories = dateRef.child("calories");
     }
 
     @Override
-    public void initFirebaseAdapter() {
-        mView.setupFirebaseAdapter(mExercises, mCalories);
+    public void initFirebaseAdapter(String dateRefId) {
+        DatabaseReference dateRef = mDatabase.getReference("members").child(mCurrentUid).child("days").child(dateRefId);
+        mExercises = dateRef.child("exercises");
+        mCalories = dateRef.child("calories");
+        mView.setupFirebaseAdapter(mExercises, mCalories, dateRef);
     }
 
     @Override

@@ -118,13 +118,16 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
     public void setCalendarBackgroundColors(DataSnapshot dataSnapshot) {
         ColorDrawable yellow = new ColorDrawable(getResources().getColor(R.color.colorAccent));
         for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
-            String stringDate = daySnapshot.child("date").getValue().toString();
-            try {
-                Date date = mRefIdFormatter.parse(stringDate);
-                mCaldroidFragment.setBackgroundDrawableForDate(yellow, date);
-                mCaldroidFragment.refreshView();
-            } catch (ParseException e) {
-                e.printStackTrace();
+            Object day = daySnapshot.child("date").getValue();
+            if (day != null) {
+                String stringDate = day.toString();
+                try {
+                    Date date = mRefIdFormatter.parse(stringDate);
+                    mCaldroidFragment.setBackgroundDrawableForDate(yellow, date);
+                    mCaldroidFragment.refreshView();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

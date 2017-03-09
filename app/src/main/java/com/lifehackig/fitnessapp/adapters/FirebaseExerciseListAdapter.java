@@ -13,14 +13,16 @@ import java.util.ArrayList;
 public class FirebaseExerciseListAdapter extends FirebaseRecyclerAdapter<Exercise, FirebaseExerciseViewHolder> {
     private DatabaseReference mRef;
     private DatabaseReference mCaloriesRef;
+    private DatabaseReference mDateRef;
     private ChildEventListener mChildEventListener;
     private ArrayList<Exercise> mExercises;
     private Integer mCalories;
 
-    public FirebaseExerciseListAdapter(Class<Exercise> modelClass, int modelLayout, Class<FirebaseExerciseViewHolder> viewHolderClass, DatabaseReference ref, DatabaseReference caloriesRef) {
+    public FirebaseExerciseListAdapter(Class<Exercise> modelClass, int modelLayout, Class<FirebaseExerciseViewHolder> viewHolderClass, DatabaseReference ref, DatabaseReference caloriesRef, DatabaseReference dateRef) {
         super(modelClass, modelLayout, viewHolderClass, ref);
         mRef = ref;
         mCaloriesRef = caloriesRef;
+        mDateRef = dateRef;
         mExercises = new ArrayList<>();
         mChildEventListener = mRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -55,6 +57,10 @@ public class FirebaseExerciseListAdapter extends FirebaseRecyclerAdapter<Exercis
         updateCalories(mExercises.get(position));
         getRef(position).removeValue();
         mExercises.remove(position);
+
+        if (mExercises.size() == 0) {
+            deleteDayFromFirebase();
+        }
     }
 
     private void updateCalories(final Exercise exercise) {
@@ -70,7 +76,10 @@ public class FirebaseExerciseListAdapter extends FirebaseRecyclerAdapter<Exercis
 
             }
         });
+    }
 
+    private void deleteDayFromFirebase() {
+        mDateRef.removeValue();
     }
 
     @Override
