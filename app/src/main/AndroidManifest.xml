@@ -36,7 +36,7 @@
                 android:value=".ui.day.DayActivity" />
         </activity>
         <activity android:name=".ui.workouts.WorkoutsActivity" />
-        <activity android:name=".ui.WorkoutDetailsActivity">
+        <activity android:name=".ui.workout_details.WorkoutDetailsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.workouts.WorkoutsActivity" />

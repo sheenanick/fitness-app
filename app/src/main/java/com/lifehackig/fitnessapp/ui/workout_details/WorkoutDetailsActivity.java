@@ -1,4 +1,4 @@
-package com.lifehackig.fitnessapp.ui;
+package com.lifehackig.fitnessapp.ui.workout_details;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;

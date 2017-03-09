@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.models.Workout;
-import com.lifehackig.fitnessapp.ui.WorkoutDetailsActivity;
+import com.lifehackig.fitnessapp.ui.workout_details.WorkoutDetailsActivity;
 
 public class FirebaseWorkoutViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     private View mView;
