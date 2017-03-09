@@ -29,6 +29,8 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.MvpVi
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
 
+        hideBottomNav();
+
         mPresenter = new SignUpPresenter(this);
 
         mSignUpButton.setOnClickListener(this);

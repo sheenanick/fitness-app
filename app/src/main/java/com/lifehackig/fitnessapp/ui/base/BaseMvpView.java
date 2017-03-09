@@ -8,6 +8,8 @@ public interface BaseMvpView {
     boolean displayLoadingAnimation();
     void hideLoadingAnimation();
     void setAppBarTitle(String title);
+    void initBottomNav();
+    void setBottomNavChecked(int position);
+    void hideBottomNav();
     void navigateToMain();
-    void logout();
 }
