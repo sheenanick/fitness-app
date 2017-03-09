@@ -1,10 +1,10 @@
-package com.lifehackig.fitnessapp.ui;
+package com.lifehackig.fitnessapp.ui.workouts;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -14,32 +14,23 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.adapters.FirebaseWorkoutViewHolder;
 import com.lifehackig.fitnessapp.models.Workout;
 import com.lifehackig.fitnessapp.ui.account.AccountActivity;
+import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.main.MainActivity;
-import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
-import com.lifehackig.fitnessapp.util.UserManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class WorkoutsActivity extends AppCompatActivity {
+public class WorkoutsActivity extends BaseActivity implements WorkoutsContract.MvpView {
     @Bind(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.emptyView) TextView mEmptyView;
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private DatabaseReference mWorkouts;
+    private WorkoutsPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,37 +38,22 @@ public class WorkoutsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workouts);
         ButterKnife.bind(this);
 
-        getSupportActionBar().setTitle("My Workouts");
+        setAppBarTitle(getString(R.string.my_workouts));
+        initBottomNav();
+        setBottomNavChecked();
 
-        mAuth = FirebaseAuth.getInstance();
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    String uid = user.getUid();
-                    mWorkouts = FirebaseDatabase.getInstance().getReference("workouts").child(uid);
-                    mWorkouts.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() == null) {
-                                mEmptyView.setVisibility(View.VISIBLE);
-                                mRecyclerView.setVisibility(View.GONE);
-                            } else {
-                                mRecyclerView.setVisibility(View.VISIBLE);
-                                mEmptyView.setVisibility(View.GONE);
-                            }
-                        }
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
+        mPresenter = new WorkoutsPresenter(this);
+        mPresenter.getWorkouts();
+    }
 
-                    setupFirebaseAdapter();
-                }
-            }
-        };
+    private void setAppBarTitle(String title) {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(title);
+        }
+    }
 
+    private void initBottomNav() {
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -94,12 +70,15 @@ public class WorkoutsActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
 
+    private void setBottomNavChecked() {
         mBottomNavigationView.getMenu().getItem(1).setChecked(true);
     }
 
-    private void setupFirebaseAdapter() {
-        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Workout, FirebaseWorkoutViewHolder>(Workout.class, R.layout.workout_list_item, FirebaseWorkoutViewHolder.class, mWorkouts) {
+    @Override
+    public void setupFirebaseAdapter(DatabaseReference workouts) {
+        FirebaseRecyclerAdapter adapter = new FirebaseRecyclerAdapter<Workout, FirebaseWorkoutViewHolder>(Workout.class, R.layout.workout_list_item, FirebaseWorkoutViewHolder.class, workouts) {
             @Override
             protected void populateViewHolder(FirebaseWorkoutViewHolder viewHolder, Workout model, int position) {
                 viewHolder.bindWorkout(model);
@@ -107,6 +86,18 @@ public class WorkoutsActivity extends AppCompatActivity {
         };
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showEmptyView() {
+        mEmptyView.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideEmptyView() {
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mEmptyView.setVisibility(View.GONE);
     }
 
     @Override
@@ -128,23 +119,11 @@ public class WorkoutsActivity extends AppCompatActivity {
         }
     }
 
-    public void logout() {
-        UserManager.logoutActiveUser();
-        Intent intent = new Intent(WorkoutsActivity.this, LogInActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-        finish();
-    }
-
     @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthStateListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        mAuth.removeAuthStateListener(mAuthStateListener);
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.detach();
+        }
     }
 }

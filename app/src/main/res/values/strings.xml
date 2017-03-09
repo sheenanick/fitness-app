@@ -61,4 +61,5 @@
     <string name="photo_icon">add photo icon</string>
     <string name="EDIT">EDIT</string>
     <string name="log_exercise">LOG EXERCISE</string>
+    <string name="my_workouts">My Workouts</string>
 </resources>

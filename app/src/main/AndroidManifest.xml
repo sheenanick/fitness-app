@@ -35,11 +35,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.day.DayActivity" />
         </activity>
-        <activity android:name=".ui.WorkoutsActivity" />
+        <activity android:name=".ui.workouts.WorkoutsActivity" />
         <activity android:name=".ui.WorkoutDetailsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.WorkoutsActivity" />
+                android:value=".ui.workouts.WorkoutsActivity" />
         </activity>
         <activity android:name=".ui.account.AccountActivity" />
         <activity android:name=".ui.base.BaseActivity"></activity>

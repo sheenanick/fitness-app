@@ -30,6 +30,7 @@ import com.lifehackig.fitnessapp.ui.account.AccountActivity;
 import com.lifehackig.fitnessapp.ui.day.DayActivity;
 import com.lifehackig.fitnessapp.ui.main.MainActivity;
 import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
+import com.lifehackig.fitnessapp.ui.workouts.WorkoutsActivity;
 import com.lifehackig.fitnessapp.util.UserManager;
 
 import java.util.ArrayList;
