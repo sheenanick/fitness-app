@@ -33,10 +33,11 @@ public class WorkoutDetailsActivity extends BaseActivity implements WorkoutDetai
         final String workoutId = intent.getStringExtra("workoutId");
         String workoutName = intent.getStringExtra("workoutName");
 
+        setAppBarTitle(workoutName);
+        setBottomNavChecked(1);
+
         mPresenter = new WorkoutDetailsPresenter(this);
         mPresenter.getWorkoutDetails(workoutId);
-
-        setAppBarTitle(workoutName);
     }
 
     @Override

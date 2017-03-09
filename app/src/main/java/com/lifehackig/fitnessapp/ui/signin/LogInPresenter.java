@@ -64,7 +64,6 @@ public class LogInPresenter implements LogInContract.Presenter {
                 }
             }
         });
-
     }
 
     @Override

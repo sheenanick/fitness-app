@@ -51,6 +51,7 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
         mDay = intent.getStringExtra("day");
 
         setAppBarTitle(mMonth + "/" + mDay + "/" + mYear);
+        setBottomNavChecked(0);
 
         mPresenter = new DayPresenter(this, mMonth + mDay + mYear);
         mPresenter.initFirebaseAdapter();

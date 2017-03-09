@@ -42,6 +42,7 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
         mDate = mMonth + mDay + mYear;
 
         setAppBarTitle("Log Exercise");
+        setBottomNavChecked(0);
 
         mSelectButton.setOnClickListener(this);
         mNewExerciseButton.setOnClickListener(this);
