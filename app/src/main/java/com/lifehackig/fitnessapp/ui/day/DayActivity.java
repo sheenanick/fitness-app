@@ -20,6 +20,7 @@ import com.lifehackig.fitnessapp.adapters.FirebaseExerciseViewHolder;
 import com.lifehackig.fitnessapp.models.Exercise;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.log_exercise.LogExerciseActivity;
+import com.lifehackig.fitnessapp.ui.main.MainActivity;
 import com.lifehackig.fitnessapp.util.SimpleItemTouchHelperCallback;
 
 import butterknife.Bind;
@@ -136,7 +137,14 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
     public void onDialogNegativeClick(DialogFragment dialog) { }
 
     @Override
-    public void onDestroy() {
+    public boolean onSupportNavigateUp() {
+        Intent intent = new Intent(DayActivity.this, MainActivity.class);
+        startActivity(intent);
+        return true;
+    }
+
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
         mAdapter.cleanup();
         if (mPresenter != null) {
