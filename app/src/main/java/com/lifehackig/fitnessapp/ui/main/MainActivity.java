@@ -2,6 +2,7 @@ package com.lifehackig.fitnessapp.ui.main;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -103,7 +104,11 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
             }
             @Override
             public void onCaldroidViewCreated() {
-                if (mCaldroidFragment.getLeftArrowButton() != null) {
+                Button leftButton = mCaldroidFragment.getLeftArrowButton();
+                Button rightButton = mCaldroidFragment.getRightArrowButton();
+                leftButton.setBackground(getResources().getDrawable(R.drawable.left));
+                rightButton.setBackground(getResources().getDrawable(R.drawable.right));
+                if (leftButton != null) {
                     mPresenter.getExercisedDays();
                 }
             }
