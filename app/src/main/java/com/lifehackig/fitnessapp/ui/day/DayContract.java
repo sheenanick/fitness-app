@@ -20,7 +20,6 @@ public interface DayContract {
         void noExercisesView();
         void hasExercisesView();
         void setCaloriesTextView(int totalCalories);
-        void setSaveButtonVisibility(int visibility);
         void displayWorkoutSaved();
     }
 }

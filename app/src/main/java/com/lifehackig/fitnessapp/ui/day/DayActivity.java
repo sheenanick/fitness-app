@@ -80,8 +80,9 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
 
     @Override
     public void noExercisesView() {
-        mEmptyView.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.GONE);
+        mSaveButton.setVisibility(View.GONE);
+        mEmptyView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -95,11 +96,6 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
     public void setCaloriesTextView(int totalCalories) {
         String caloriesText = "Calories Burned: " + totalCalories;
         mCalories.setText(caloriesText);
-    }
-
-    @Override
-    public void setSaveButtonVisibility(int visibility) {
-        mSaveButton.setVisibility(visibility);
     }
 
     @Override

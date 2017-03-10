@@ -2,10 +2,8 @@ package com.lifehackig.fitnessapp.ui.main;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,14 +43,12 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Log.d("MainActivity", "created");
-
         mPresenter = new MainPresenter(this);
         mPresenter.getUser();
 
         mDate = new Date();
-        mDateFormatter = new SimpleDateFormat("MM/dd/yyyy");
-        mRefIdFormatter = new SimpleDateFormat("MMddyyyy");
+        mDateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        mRefIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
 
         setDateTextView(mDate);
         getCalories(mDate);
@@ -108,9 +105,8 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
                 Button rightButton = mCaldroidFragment.getRightArrowButton();
                 leftButton.setBackground(getResources().getDrawable(R.drawable.left));
                 rightButton.setBackground(getResources().getDrawable(R.drawable.right));
-                if (leftButton != null) {
-                    mPresenter.getExercisedDays();
-                }
+
+                mPresenter.getExercisedDays();
             }
         });
     }
@@ -142,9 +138,9 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
     public void onClick(View v) {
         if (v == mSeeDetailsButton) {
             Intent intent = new Intent(MainActivity.this, DayActivity.class);
-            DateFormat yearFormat = new SimpleDateFormat("yyyy");
-            DateFormat monthFormat = new SimpleDateFormat("MM");
-            DateFormat dayFormat = new SimpleDateFormat("dd");
+            DateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.US);
+            DateFormat monthFormat = new SimpleDateFormat("MM", Locale.US);
+            DateFormat dayFormat = new SimpleDateFormat("dd", Locale.US);
 
             intent.putExtra("year", yearFormat.format(mDate));
             intent.putExtra("month", monthFormat.format(mDate));

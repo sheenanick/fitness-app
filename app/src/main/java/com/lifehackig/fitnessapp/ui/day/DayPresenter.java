@@ -1,7 +1,5 @@
 package com.lifehackig.fitnessapp.ui.day;
 
-import android.view.View;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,7 +66,8 @@ public class DayPresenter implements DayContract.Presenter {
                     if (mView != null) {
                         mView.setCaloriesTextView(totalCalories);
                         if (totalCalories == 0) {
-                            mView.setSaveButtonVisibility(View.GONE);
+                            mView.noExercisesView();
+
                         }
                     }
                 }
@@ -107,7 +106,6 @@ public class DayPresenter implements DayContract.Presenter {
             }
         });
     }
-
 
     @Override
     public void detach() {
