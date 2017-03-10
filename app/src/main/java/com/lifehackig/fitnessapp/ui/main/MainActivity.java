@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,6 +43,8 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        Log.d("MainActivity", "created");
+
         mPresenter = new MainPresenter(this);
         mPresenter.getUser();
 
@@ -52,7 +55,7 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
         setDateTextView(mDate);
         getCalories(mDate);
 
-        initCaldroidFragment(savedInstanceState);
+        initCaldroidFragment();
         setBottomNavChecked(0);
 
         mSeeDetailsButton.setOnClickListener(this);
@@ -68,22 +71,15 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
         mPresenter.getCalories(dateRefId);
     }
 
-    private void initCaldroidFragment(Bundle savedInstanceState) {
+    private void initCaldroidFragment() {
         mCaldroidFragment = new CaldroidFragment();
-        // If Activity is created after rotation
-        if (savedInstanceState != null) {
-            mCaldroidFragment.restoreStatesFromKey(savedInstanceState,
-                    "CALDROID_SAVED_STATE");
-        }
-        // If activity is created from fresh
-        else {
-            Bundle args = new Bundle();
-            Calendar cal = Calendar.getInstance();
-            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-            args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-            mCaldroidFragment.setArguments(args);
-        }
+
+        Bundle args = new Bundle();
+        Calendar cal = Calendar.getInstance();
+        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+        args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+        mCaldroidFragment.setArguments(args);
 
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar, mCaldroidFragment);
@@ -153,15 +149,7 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mCaldroidFragment != null) {
-            mCaldroidFragment.saveStatesToKey(outState, "CALDROID_SAVED_STATE");
-        }
-    }
-
-    @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.detach();
