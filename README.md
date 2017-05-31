@@ -30,10 +30,6 @@ You will need the following things properly installed on your computer.
 * Create a virtual device in Android Studio and run the application
 * Or connect an Android device to your computer and run the application on the device
 
-## Known Bugs
-
-* Calendar is still highlighted even when all exercises have been deleted for that day.
-
 ## Support and Contact Details
 
 Please feel free to contact sheenanick@gmail.com if you have any issues or questions, ideas or concerns.
