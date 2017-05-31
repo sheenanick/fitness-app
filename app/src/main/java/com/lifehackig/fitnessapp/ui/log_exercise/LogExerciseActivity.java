@@ -12,7 +12,11 @@ import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.day.DayActivity;
 import com.lifehackig.fitnessapp.ui.new_exercise.NewExerciseActivity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,11 +26,7 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
     @Bind(R.id.selectButton) Button mSelectButton;
     @Bind(R.id.newExerciseButton) Button mNewExerciseButton;
 
-    private String mYear;
-    private String mMonth;
-    private String mDay;
-    private String mDate;
-
+    private Date mDate;
     private LogExercisePresenter mPresenter;
 
     @Override
@@ -36,10 +36,8 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        mYear = intent.getStringExtra("year");
-        mMonth = intent.getStringExtra("month");
-        mDay = intent.getStringExtra("day");
-        mDate = mMonth + mDay + mYear;
+        mDate = new Date();
+        mDate.setTime(intent.getLongExtra("date", -1));
 
         setAppBarTitle("Log Exercise");
         setBottomNavChecked(0);
@@ -63,7 +61,8 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
         if (v == mSelectButton) {
             if (!mWorkoutSpinner.getSelectedItem().toString().equals("No saved workouts")) {
                 int position = mWorkoutSpinner.getSelectedItemPosition();
-                mPresenter.addSavedWorkout(position, mDate);
+                DateFormat refIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
+                mPresenter.addSavedWorkout(position, refIdFormatter.format(mDate));
             }
         }
         if (v == mNewExerciseButton) {
@@ -73,18 +72,14 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
 
     private void navigateToNewExerciseActivity() {
         Intent intent = new Intent(LogExerciseActivity.this, NewExerciseActivity.class);
-        intent.putExtra("year", mYear);
-        intent.putExtra("month", mMonth);
-        intent.putExtra("day", mDay);
+        intent.putExtra("date", mDate.getTime());
         startActivity(intent);
     }
 
     @Override
     public void navigateToDayActivity() {
         Intent intent = new Intent(LogExerciseActivity.this, DayActivity.class);
-        intent.putExtra("year", mYear);
-        intent.putExtra("month", mMonth);
-        intent.putExtra("day", mDay);
+        intent.putExtra("date", mDate.getTime());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();

@@ -34,7 +34,6 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
     private CaldroidFragment mCaldroidFragment;
 
     private Date mDate;
-    private DateFormat mDateFormatter;
     private DateFormat mRefIdFormatter;
 
     @Override
@@ -47,7 +46,6 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
         mPresenter.getUser();
 
         mDate = new Date();
-        mDateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         mRefIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
 
         setDateTextView(mDate);
@@ -60,8 +58,8 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
     }
 
     private void setDateTextView(Date date) {
-        String formattedDate = mDateFormatter.format(date);
-        mDateTextView.setText(formattedDate);
+        DateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        mDateTextView.setText(dateFormatter.format(date));
     }
 
     private void getCalories(Date date) {
@@ -138,13 +136,7 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
     public void onClick(View v) {
         if (v == mSeeDetailsButton) {
             Intent intent = new Intent(MainActivity.this, DayActivity.class);
-            DateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.US);
-            DateFormat monthFormat = new SimpleDateFormat("MM", Locale.US);
-            DateFormat dayFormat = new SimpleDateFormat("dd", Locale.US);
-
-            intent.putExtra("year", yearFormat.format(mDate));
-            intent.putExtra("month", monthFormat.format(mDate));
-            intent.putExtra("day", dayFormat.format(mDate));
+            intent.putExtra("date", mDate.getTime());
             startActivity(intent);
         }
     }

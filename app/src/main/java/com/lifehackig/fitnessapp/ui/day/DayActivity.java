@@ -23,6 +23,11 @@ import com.lifehackig.fitnessapp.ui.log_exercise.LogExerciseActivity;
 import com.lifehackig.fitnessapp.ui.main.MainActivity;
 import com.lifehackig.fitnessapp.util.SimpleItemTouchHelperCallback;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -33,10 +38,7 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
     @Bind(R.id.saveButton) Button mSaveButton;
     @Bind(R.id.fab) FloatingActionButton mFab;
 
-    private String mYear;
-    private String mMonth;
-    private String mDay;
-
+    private Date mDate;
     private DayPresenter mPresenter;
     private FirebaseExerciseListAdapter mAdapter;
 
@@ -47,15 +49,16 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        mYear = intent.getStringExtra("year");
-        mMonth = intent.getStringExtra("month");
-        mDay = intent.getStringExtra("day");
+        mDate = new Date();
+        mDate.setTime(intent.getLongExtra("date", -1));
+        DateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        DateFormat refIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
 
-        setAppBarTitle(mMonth + "/" + mDay + "/" + mYear);
+        setAppBarTitle(dateFormatter.format(mDate));
         setBottomNavChecked(0);
 
         mPresenter = new DayPresenter(this);
-        mPresenter.initFirebaseAdapter(mMonth + mDay + mYear);
+        mPresenter.initFirebaseAdapter(refIdFormatter.format(mDate));
         mPresenter.getExercises();
         mPresenter.getCalories();
 
@@ -109,9 +112,7 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
     public void onClick(View v) {
         if (v == mFab) {
             Intent intent = new Intent(DayActivity.this, LogExerciseActivity.class);
-            intent.putExtra("year", mYear);
-            intent.putExtra("month", mMonth);
-            intent.putExtra("day", mDay);
+            intent.putExtra("date", mDate.getTime());
             startActivity(intent);
         }
         if (v == mSaveButton) {

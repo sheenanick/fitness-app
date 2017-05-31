@@ -13,6 +13,11 @@ import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.day.DayActivity;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -25,11 +30,7 @@ public class NewExerciseActivity extends BaseActivity implements NewExerciseCont
     @Bind(R.id.muscleSpinner) Spinner mMuscleSpinner;
     @Bind(R.id.addButton) Button mAddButton;
 
-    private String mYear;
-    private String mMonth;
-    private String mDay;
-    private String mDate;
-
+    private Date mDate;
     private NewExercisePresenter mPresenter;
 
     @Override
@@ -39,10 +40,8 @@ public class NewExerciseActivity extends BaseActivity implements NewExerciseCont
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        mYear = intent.getStringExtra("year");
-        mMonth = intent.getStringExtra("month");
-        mDay = intent.getStringExtra("day");
-        mDate = mMonth + mDay + mYear;
+        mDate = new Date();
+        mDate.setTime(intent.getLongExtra("date", -1));
 
         setAppBarTitle("New Exercise");
         setBottomNavChecked(0);
@@ -94,7 +93,8 @@ public class NewExerciseActivity extends BaseActivity implements NewExerciseCont
             minutes = repsOrDuration;
         }
 
-        mPresenter.saveExercise(name, reps, minutes, intWeight, muscle, intCalories, mDate);
+        DateFormat refIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
+        mPresenter.saveExercise(name, reps, minutes, intWeight, muscle, intCalories, refIdFormatter.format(mDate));
     }
 
     private boolean isValidName(String name) {
@@ -127,9 +127,7 @@ public class NewExerciseActivity extends BaseActivity implements NewExerciseCont
     @Override
     public void navigateToDayActivity() {
         Intent intent = new Intent(NewExerciseActivity.this, DayActivity.class);
-        intent.putExtra("year", mYear);
-        intent.putExtra("month", mMonth);
-        intent.putExtra("day", mDay);
+        intent.putExtra("date", mDate.getTime());
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
