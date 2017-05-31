@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.day.DayActivity;
+import com.lifehackig.fitnessapp.util.Utilities;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -39,16 +40,16 @@ public class NewExerciseActivity extends BaseActivity implements NewExerciseCont
         setContentView(R.layout.activity_new_exercise);
         ButterKnife.bind(this);
 
+        setAppBarTitle("New Exercise");
+        setBottomNavChecked(0);
+
         Intent intent = getIntent();
         mDate = new Date();
         mDate.setTime(intent.getLongExtra("date", -1));
 
-        setAppBarTitle("New Exercise");
-        setBottomNavChecked(0);
-        initMuscleSpinner();
-        mAddButton.setOnClickListener(this);
-
         mPresenter = new NewExercisePresenter(this);
+        mAddButton.setOnClickListener(this);
+        initMuscleSpinner();
     }
 
     @Override
@@ -68,9 +69,9 @@ public class NewExerciseActivity extends BaseActivity implements NewExerciseCont
         String repsDuration = mRepsOrDuration.getText().toString().trim();
         String calories = mCalories.getText().toString().trim();
 
-        boolean validName = isValidName(name);
-        boolean validNumber = isValidNumber(repsDuration);
-        boolean validCalories = isValidCalories(calories);
+        boolean validName = !Utilities.isInputEmpty(name, mExerciseName);
+        boolean validNumber = !Utilities.isInputEmpty(repsDuration, mRepsOrDuration);
+        boolean validCalories = !Utilities.isInputEmpty(calories, mCalories);
 
         if (!validName || !validNumber || !validCalories) return;
 
@@ -95,33 +96,6 @@ public class NewExerciseActivity extends BaseActivity implements NewExerciseCont
 
         DateFormat refIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
         mPresenter.saveExercise(name, reps, minutes, intWeight, muscle, intCalories, refIdFormatter.format(mDate));
-    }
-
-    private boolean isValidName(String name) {
-        if (name.equals("")){
-            mExerciseName.setError("Please enter the exercise name");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean isValidNumber(String number) {
-        if (number.equals("")){
-            mRepsOrDuration.setError("Please enter a number");
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private boolean isValidCalories(String calories) {
-        if (calories.equals("")){
-            mCalories.setError("Please enter calories burned");
-            return false;
-        } else {
-            return true;
-        }
     }
 
     @Override
