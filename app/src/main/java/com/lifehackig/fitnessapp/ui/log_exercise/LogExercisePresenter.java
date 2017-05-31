@@ -21,20 +21,22 @@ public class LogExercisePresenter implements LogExerciseContract.Presenter {
     private FirebaseDatabase mDatabase;
     private String mCurrentUid;
     private DatabaseReference mDateRef;
-    private DatabaseReference mDateCaloriesRef;
-    private List<Workout> mWorkoutObjects = new ArrayList<>();
+    private DatabaseReference mSavedWorkoutsRef;
+    private List<Workout> mWorkoutObjects;
     private int mTotalCalories;
+    private ValueEventListener mWorkoutsListener;
 
     public LogExercisePresenter(LogExerciseContract.MvpView view) {
         mView = view;
         mDatabase = FirebaseDatabase.getInstance();
         mCurrentUid = UserManager.getCurrentUser().getUid();
+        mWorkoutObjects = new ArrayList<>();
     }
 
     @Override
     public void getWorkoutNames() {
-        DatabaseReference savedWorkoutsRef = mDatabase.getReference("workouts").child(mCurrentUid);
-        savedWorkoutsRef.addValueEventListener(new ValueEventListener() {
+        mSavedWorkoutsRef = mDatabase.getReference("workouts").child(mCurrentUid);
+        mWorkoutsListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> workoutNames = new ArrayList<>();
@@ -54,7 +56,8 @@ public class LogExercisePresenter implements LogExerciseContract.Presenter {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+        mSavedWorkoutsRef.addValueEventListener(mWorkoutsListener);
     }
 
     @Override
@@ -81,8 +84,8 @@ public class LogExercisePresenter implements LogExerciseContract.Presenter {
     }
 
     private void updateCalories(final Integer exerciseCalories) {
-        mDateCaloriesRef = mDateRef.child("calories");
-        mDateCaloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        final DatabaseReference dateCaloriesRef = mDateRef.child("calories");
+        dateCaloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
@@ -91,7 +94,7 @@ public class LogExercisePresenter implements LogExerciseContract.Presenter {
                     mTotalCalories = Integer.parseInt(dataSnapshot.getValue().toString());
                 }
                 int newTotalCalories = mTotalCalories + exerciseCalories;
-                mDateCaloriesRef.setValue(newTotalCalories);
+                dateCaloriesRef.setValue(newTotalCalories);
             }
 
             @Override
@@ -105,7 +108,7 @@ public class LogExercisePresenter implements LogExerciseContract.Presenter {
         mView = null;
         mDatabase = null;
         mDateRef = null;
-        mDateCaloriesRef = null;
         mWorkoutObjects = null;
+        mSavedWorkoutsRef.removeEventListener(mWorkoutsListener);
     }
 }

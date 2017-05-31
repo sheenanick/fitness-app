@@ -14,6 +14,8 @@ import com.lifehackig.fitnessapp.util.UserManager;
 
 public class WorkoutsPresenter implements WorkoutsContract.Presenter {
     private WorkoutsContract.MvpView mView;
+    private ValueEventListener mListener;
+    private DatabaseReference mWorkoutsRef;
 
     public WorkoutsPresenter(WorkoutsContract.MvpView view) {
         mView = view;
@@ -24,8 +26,8 @@ public class WorkoutsPresenter implements WorkoutsContract.Presenter {
         FirebaseUser user = UserManager.getCurrentUser();
         if (user != null) {
             String uid = user.getUid();
-            DatabaseReference workouts = FirebaseDatabase.getInstance().getReference("workouts").child(uid);
-            workouts.addValueEventListener(new ValueEventListener() {
+            mWorkoutsRef = FirebaseDatabase.getInstance().getReference("workouts").child(uid);
+            mListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() == null) {
@@ -37,14 +39,16 @@ public class WorkoutsPresenter implements WorkoutsContract.Presenter {
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
-            });
+            };
+            mWorkoutsRef.addValueEventListener(mListener);
 
-            mView.setupFirebaseAdapter(workouts);
+            mView.setupFirebaseAdapter(mWorkoutsRef);
         }
     }
 
     @Override
     public void detach() {
         mView = null;
+        mWorkoutsRef.removeEventListener(mListener);
     }
 }

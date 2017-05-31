@@ -22,6 +22,7 @@ public class DayPresenter implements DayContract.Presenter {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mExercises;
     private DatabaseReference mCalories;
+    private ValueEventListener mCaloriesListener;
 
     public DayPresenter(DayContract.MvpView view) {
         mView = view;
@@ -58,7 +59,7 @@ public class DayPresenter implements DayContract.Presenter {
 
     @Override
     public void getCalories() {
-        mCalories.addValueEventListener(new ValueEventListener() {
+        mCaloriesListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
@@ -76,7 +77,8 @@ public class DayPresenter implements DayContract.Presenter {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+        mCalories.addValueEventListener(mCaloriesListener);
     }
 
     @Override
@@ -113,6 +115,6 @@ public class DayPresenter implements DayContract.Presenter {
         mCurrentUid = null;
         mDatabase = null;
         mExercises = null;
-        mCalories = null;
+        mCalories.removeEventListener(mCaloriesListener);
     }
 }
