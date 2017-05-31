@@ -14,10 +14,7 @@ import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.day.DayActivity;
 import com.lifehackig.fitnessapp.util.Utilities;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -94,8 +91,7 @@ public class NewExerciseActivity extends BaseActivity implements NewExerciseCont
             minutes = repsOrDuration;
         }
 
-        DateFormat refIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
-        mPresenter.saveExercise(name, reps, minutes, intWeight, muscle, intCalories, refIdFormatter.format(mDate));
+        mPresenter.saveExercise(name, reps, minutes, intWeight, muscle, intCalories, mDate);
     }
 
     @Override

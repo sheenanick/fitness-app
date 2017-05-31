@@ -8,6 +8,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.lifehackig.fitnessapp.models.Exercise;
 import com.lifehackig.fitnessapp.util.UserManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by Sheena on 3/9/17.
  */
@@ -27,8 +32,9 @@ public class NewExercisePresenter implements NewExerciseContract.Presenter {
     }
 
     @Override
-    public void saveExercise(String name, int reps, int minutes, int intWeight, String muscle, int intCalories, String date) {
-        mDateRef = mDatabase.getReference("members").child(mCurrentUid).child("days").child(date);
+    public void saveExercise(String name, int reps, int minutes, int intWeight, String muscle, int intCalories, Date date) {
+        DateFormat refIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
+        mDateRef = mDatabase.getReference("members").child(mCurrentUid).child("days").child(refIdFormatter.format(date));
 
         DatabaseReference exerciseRef = mDateRef.child("exercises").push();
         String pushId = exerciseRef.getKey();
