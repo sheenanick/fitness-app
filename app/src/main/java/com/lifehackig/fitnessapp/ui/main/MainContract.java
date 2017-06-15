@@ -12,10 +12,8 @@ public interface MainContract {
     interface Presenter extends BasePresenter {
         void getUser();
         void getExercisedDays();
-        void getCalories(String dateRefId);
     }
     interface MvpView extends BaseMvpView {
         void setCalendarBackgroundColors(DataSnapshot dataSnapshot);
-        void setCaloriesTextView(String calories);
     }
 }

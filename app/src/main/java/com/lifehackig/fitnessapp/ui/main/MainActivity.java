@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.day.DayActivity;
+import com.lifehackig.fitnessapp.ui.log_exercise.LogExerciseActivity;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
@@ -22,49 +22,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
-public class MainActivity extends BaseActivity implements MainContract.MvpView, View.OnClickListener{
-    @Bind(R.id.date) TextView mDateTextView;
-    @Bind(R.id.calories) TextView mCalories;
-    @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
-
+public class MainActivity extends BaseActivity implements MainContract.MvpView{
     private MainPresenter mPresenter;
     private CaldroidFragment mCaldroidFragment;
-
-    private Date mDate;
-    private DateFormat mRefIdFormatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
         mPresenter = new MainPresenter(this);
         mPresenter.getUser();
 
-        mDate = new Date();
-        mRefIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
-
-        setDateTextView(mDate);
-        getCalories(mDate);
-
         initCaldroidFragment();
         setBottomNavChecked(0);
-
-        mSeeDetailsButton.setOnClickListener(this);
-    }
-
-    private void setDateTextView(Date date) {
-        DateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
-        mDateTextView.setText(dateFormatter.format(date));
-    }
-
-    private void getCalories(Date date) {
-        String dateRefId = mRefIdFormatter.format(date);
-        mPresenter.getCalories(dateRefId);
     }
 
     private void initCaldroidFragment() {
@@ -88,14 +59,13 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
         mCaldroidFragment.setCaldroidListener(new CaldroidListener() {
             @Override
             public void onSelectDate(Date date, View view) {
-                mDate = date;
-
                 mCaldroidFragment.clearSelectedDates();
                 mCaldroidFragment.setSelectedDates(date, date);
                 mCaldroidFragment.refreshView();
 
-                setDateTextView(date);
-                getCalories(date);
+                Intent intent = new Intent(MainActivity.this, DayActivity.class);
+                intent.putExtra("date", date.getTime());
+                startActivity(intent);
             }
             @Override
             public void onCaldroidViewCreated() {
@@ -117,6 +87,7 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
             if (day != null) {
                 String stringDate = day.toString();
                 try {
+                    DateFormat mRefIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
                     Date date = mRefIdFormatter.parse(stringDate);
                     mCaldroidFragment.setBackgroundDrawableForDate(yellow, date);
                     mCaldroidFragment.refreshView();
@@ -124,20 +95,6 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView, 
                     e.printStackTrace();
                 }
             }
-        }
-    }
-
-    @Override
-    public void setCaloriesTextView(String totalCalories) {
-        mCalories.setText(totalCalories);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v == mSeeDetailsButton) {
-            Intent intent = new Intent(MainActivity.this, DayActivity.class);
-            intent.putExtra("date", mDate.getTime());
-            startActivity(intent);
         }
     }
 

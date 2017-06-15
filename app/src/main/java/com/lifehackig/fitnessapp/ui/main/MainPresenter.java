@@ -41,27 +41,6 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void getCalories(String dateRefId) {
-        DatabaseReference caloriesRef = mMemberRef.child("days").child(dateRefId).child("calories");
-        caloriesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String totalCalories;
-                if (dataSnapshot.getValue() == null) {
-                    totalCalories = "0";
-                } else {
-                    totalCalories = dataSnapshot.getValue().toString();
-                }
-                mView.setCaloriesTextView(totalCalories);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-
-    @Override
     public void detach() {
         mView = null;
         mMemberRef = null;
