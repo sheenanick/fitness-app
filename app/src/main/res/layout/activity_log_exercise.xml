@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondaryLight"
+    android:background="@color/colorPrimaryLight"
     tools:context="com.lifehackig.fitnessapp.ui.log_exercise.LogExerciseActivity">
 
     <LinearLayout
@@ -18,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryText"
             android:textSize="18sp"
             android:text="@string/select_a_workout_from_your_favorites"/>
 
@@ -34,7 +32,7 @@
                 android:layout_alignBottom="@+id/selectButton"
                 android:layout_alignTop="@+id/selectButton"
                 android:layout_marginEnd="10dp"
-                android:background="@color/colorTextLight">
+                android:background="@drawable/gray_border">
                 <Spinner
                     android:id="@+id/workoutSpinner"
                     android:layout_width="match_parent"
@@ -50,15 +48,29 @@
                 android:text="@string/select"/>
         </RelativeLayout>
 
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:gravity="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:text="@string/or"/>
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorSecondaryText"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="8dp"
+                android:textColor="@color/colorPrimaryText"
+                android:background="@color/colorPrimaryLight"
+                android:textSize="22sp"
+                android:text="@string/or"/>
+        </FrameLayout>
+
         <Button
             android:id="@+id/newExerciseButton"
             android:layout_width="match_parent"

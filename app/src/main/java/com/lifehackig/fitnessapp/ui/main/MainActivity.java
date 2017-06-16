@@ -2,8 +2,10 @@ package com.lifehackig.fitnessapp.ui.main;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,11 +48,16 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView{
         args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
         args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+        args.putInt(CaldroidFragment.THEME_RESOURCE, R.style.CaldroidCustomTheme);
         mCaldroidFragment.setArguments(args);
 
         FragmentTransaction t = getSupportFragmentManager().beginTransaction();
         t.replace(R.id.calendar, mCaldroidFragment);
         t.commit();
+
+        Drawable border = getResources().getDrawable(R.drawable.today_border, null);
+        mCaldroidFragment.setBackgroundDrawableForDate(border, new Date());
+        mCaldroidFragment.refreshView();
 
         setCaldroidListener();
     }
@@ -71,8 +78,8 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView{
             public void onCaldroidViewCreated() {
                 Button leftButton = mCaldroidFragment.getLeftArrowButton();
                 Button rightButton = mCaldroidFragment.getRightArrowButton();
-                leftButton.setBackground(getResources().getDrawable(R.drawable.left));
-                rightButton.setBackground(getResources().getDrawable(R.drawable.right));
+                leftButton.setBackground(getResources().getDrawable(R.drawable.left, null));
+                rightButton.setBackground(getResources().getDrawable(R.drawable.right, null));
 
                 mPresenter.getExercisedDays();
             }
@@ -81,15 +88,20 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView{
 
     @Override
     public void setCalendarBackgroundColors(DataSnapshot dataSnapshot) {
-        ColorDrawable yellow = new ColorDrawable(getResources().getColor(R.color.colorAccent));
+        ColorDrawable highlight = new ColorDrawable(getResources().getColor(R.color.colorAccent));
         for (DataSnapshot daySnapshot : dataSnapshot.getChildren()) {
             Object day = daySnapshot.child("date").getValue();
             if (day != null) {
                 String stringDate = day.toString();
                 try {
-                    DateFormat mRefIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
-                    Date date = mRefIdFormatter.parse(stringDate);
-                    mCaldroidFragment.setBackgroundDrawableForDate(yellow, date);
+                    DateFormat dateFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
+                    Date date = dateFormatter.parse(stringDate);
+                    if (dateFormatter.format(date).equals(dateFormatter.format(new Date()))) {
+                        Drawable today = getResources().getDrawable(R.drawable.today_background, null);
+                        mCaldroidFragment.setBackgroundDrawableForDate(today, date);
+                    } else {
+                        mCaldroidFragment.setBackgroundDrawableForDate(highlight, date);
+                    }
                     mCaldroidFragment.refreshView();
                 } catch (ParseException e) {
                     e.printStackTrace();

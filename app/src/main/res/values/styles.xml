@@ -20,4 +20,29 @@
         <item name="android:colorAccent">@color/colorPrimaryDark</item>
     </style>
 
+    <!-- Calendar theme. -->
+    <style name="CaldroidCustomTheme" parent="CaldroidDefault">
+        <item name="styleCaldroidViewLayout">@style/CaldroidCustomCalendarViewLayout</item>
+        <item name="styleCaldroidMonthName">@style/CaldroidCustomMonthName</item>
+        <item name="styleCaldroidGridView">@style/CaldroidCustomGridView</item>
+        <item name="styleCaldroidSquareCell">@style/CaldroidCustomSquareCell</item>
+    </style>
+
+    <style name="CaldroidCustomCalendarViewLayout">
+        <item name="android:background">@color/colorPrimaryLight</item>
+    </style>
+
+    <style name="CaldroidCustomMonthName" parent="CaldroidDefaultMonthName">
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="CaldroidCustomGridView" parent="CaldroidDefaultGridView">
+        <item name="android:background">@color/colorSecondaryText</item>
+        <item name="android:paddingBottom">0dp</item>
+    </style>
+
+    <style name="CaldroidCustomSquareCell" parent="CaldroidDefaultCell" >
+        <item name="android:background">@color/colorPrimaryLight</item>
+    </style>
+
 </resources>

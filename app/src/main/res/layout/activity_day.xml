@@ -11,8 +11,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="2dp"
         android:background="@color/colorPrimaryLight"
         android:orientation="vertical">
         <TextView
@@ -20,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableStart="@drawable/burn"
+            android:layout_margin="16dp"
             android:gravity="center"
             android:textSize="28sp"
             android:text="@string/calories_burned_0" />
@@ -29,7 +28,8 @@
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="0dp"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/colorTextLight"
             android:text="@string/save_this_workout"/>
@@ -43,7 +43,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/colorSecondaryLight"/>
         <TextView
             android:id="@+id/emptyView"
@@ -63,6 +63,7 @@
         android:layout_margin="16dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal"
         android:src="@drawable/ic_add_white_24dp"/>
 
