@@ -1,18 +1,47 @@
 <resources>
-    <string name="app_name">FITNESS TRACKER</string>
+    <string name="app_name">Fitness Tracker</string>
+
+    <!--Welcome Screen-->
+    <string name="welcome_to_fitness_tracker">Fitness Tracker</string>
+    <string name="tagline">Get fit for life. Not just for summer.</string>
+    <string name="image_of_feet_of_person_walking_up_stairs">image of feet of person walking up stairs</string>
+
+    <!--Onboarding-->
+    <string name="sign_up">Sign Up</string>
     <string name="log_in">Log In</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="create_password">Create Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? <u>Sign up</u></string>
     <string name="already_have_an_account">Already have an account? <u>Log in</u></string>
-    <string name="sign_up">Sign Up</string>
-    <string name="log_out">Log Out</string>
-    <string name="personal_information">PERSONAL INFORMATION</string>
-    <string name="first_name">First Name</string>
-    <string name="last_name">Last Name</string>
-    <string name="account_security">ACCOUNT SECURITY</string>
-    <string name="create_password">Create Password</string>
+
+    <!--Day View-->
+    <string name="calories_burned_0">Calories Burned: 0</string>
+    <string name="save_this_workout">Save This Workout</string>
+
+    <!--Save Workout Dialog-->
+    <string name="save_as">SAVE AS</string>
+    <string name="workout_name">Workout Name</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+
+    <!--Exercise list item-->
+    <string name="_350_calories">350 calories</string>
+    <string name="_30_min">30 min</string>
+    <string name="_60_lb">60 lb</string>
+    <string name="image_of_body_part_muscle">Image of body part/muscle</string>
+
+    <!--Log Exercise-->
+    <string name="log_exercise">LOG EXERCISE</string>
+    <string name="select_a_workout_from_your_favorites">Select a workout from your favorites:</string>
+    <string name="select">Select</string>
+    <string name="or">OR</string>
+    <string name="add_a_new_exercise">Add a New Exercise</string>
+    <string name="you_don_t_have_any_workouts_saved_yet">You don\'t have any workouts saved yet!</string>
+
+    <!--New Exercise-->
+    <string name="did_you_workout_today">Did you workout today? Add an exercise!</string>
     <string name="exercise_name">Exercise Name</string>
     <string name="number">Number</string>
     <string name="reps">reps</string>
@@ -20,13 +49,6 @@
     <string name="weight">Weight</string>
     <string name="lbs_optional">lbs <i>(optional)</i></string>
     <string name="calories">Calories</string>
-    <string name="add">Add</string>
-    <string name="did_you_workout_today">Did you workout today? Add an exercise!</string>
-    <string name="_350_calories">350 calories</string>
-    <string name="_30_min">30 min</string>
-    <string name="_60_lb">60 lb</string>
-    <string name="image_of_body_part_muscle">Image of body part/muscle</string>
-    <string name="workout_name">Workout Name</string>
     <string-array name="muscles_array">
         <item>Abs</item>
         <item>Arms</item>
@@ -37,36 +59,22 @@
         <item>Cardio</item>
         <item>Other</item>
     </string-array>
-    <string name="cancel">Cancel</string>
-    <string name="save">Save</string>
-    <string name="motivational_quote">motivational quote</string>
-    <string name="details">DETAILS</string>
-    <string name="_4_7k">4.7k</string>
-    <string name="_0">0</string>
-    <string name="date">Date:</string>
-    <string name="footsteps_icon">footsteps icon</string>
-    <string name="calories_burned_icon">calories burned icon</string>
-    <string name="calories_burned_0">Calories Burned: 0</string>
-    <string name="save_this_workout">Save This Workout</string>
-    <string name="add_an_exercise">Add An Exercise</string>
-    <string name="image_of_feet_of_person_walking_up_stairs">image of feet of person walking up stairs</string>
-    <string name="select_a_workout_from_your_favorites">Select a workout from your favorites:</string>
-    <string name="select">Select</string>
-    <string name="or">OR</string>
-    <string name="add_a_new_exercise">Add a New Exercise</string>
-    <string name="you_don_t_have_any_workouts_saved_yet">You don\'t have any workouts saved yet!</string>
-    <string name="save_as">SAVE AS</string>
+    <string name="add">Add</string>
+
+    <!--Account Settings-->
     <string name="sorry_this_feature_is_currently_under_construction">Sorry, this feature is currently under construction!</string>
-    <string name="welcome_to_fitness_tracker">Fitness Tracker</string>
-    <string name="tagline">Get fit for life. Not just for summer.</string>
-    <string name="photo_icon">add photo icon</string>
-    <string name="EDIT">EDIT</string>
-    <string name="log_exercise">LOG EXERCISE</string>
+    <string name="log_out">Log Out</string>
+
+    <!--Workouts-->
     <string name="my_workouts">My Workouts</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Bottom nav menu-->
     <string name="home">Home</string>
     <string name="workouts">Workouts</string>
     <string name="account">Account</string>
+
+    <!--Facebook authentication-->
+    <string name="facebook_app_id">346517682432515</string>
+    <string name="fb_login_protocol_scheme">fb346517682432515</string>
+
 </resources>

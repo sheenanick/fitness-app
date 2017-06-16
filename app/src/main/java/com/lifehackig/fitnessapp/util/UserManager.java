@@ -1,5 +1,6 @@
 package com.lifehackig.fitnessapp.util;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -12,6 +13,7 @@ public class UserManager {
 
     public static void logoutActiveUser() {
         FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
         mCurrentUser = null;
     }
 

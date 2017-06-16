@@ -1,5 +1,6 @@
 package com.lifehackig.fitnessapp.ui.signin;
 
+import com.facebook.AccessToken;
 import com.lifehackig.fitnessapp.ui.base.BaseMvpView;
 import com.lifehackig.fitnessapp.ui.base.BasePresenter;
 
@@ -12,6 +13,7 @@ public interface LogInContract {
         void addAuthStateListener();
         void removeAuthStateListener();
         void signInWithEmailAndPassword(String email, String password);
+        void handleFacebookAccessToken(AccessToken token);
     }
     interface MvpView extends BaseMvpView {
         void displayLogInError();
