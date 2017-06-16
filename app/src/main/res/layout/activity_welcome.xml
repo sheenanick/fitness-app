@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lifehackig.fitnessapp.ui.welcome.WelcomeActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/image_of_feet_of_person_walking_up_stairs"
+        android:src="@drawable/main_image"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorTextLight"
+        android:text="@string/welcome_to_fitness_tracker"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:textColor="@color/colorTextLight"
+        android:text="@string/tagline"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="9dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryLight"
+        style="?android:attr/buttonBarStyle">
+
+        <Button
+            android:id="@+id/signUpButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/big_button_height"
+            android:layout_weight="1"
+            android:layout_marginEnd="0.5dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/sign_up"
+            android:textColor="@color/colorPrimaryText"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/logInButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/big_button_height"
+            android:layout_weight="1"
+            android:layout_marginStart="0.5dp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/log_in"
+            android:textColor="@color/colorPrimaryText"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

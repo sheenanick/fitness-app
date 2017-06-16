@@ -1,26 +1,25 @@
 package com.lifehackig.fitnessapp.ui.signup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
+import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class SignUpActivity extends BaseActivity implements SignUpContract.MvpView, View.OnClickListener{
-    @BindView(R.id.firstName) EditText mFirstName;
-    @BindView(R.id.lastName) EditText mLastName;
+public class SignUpActivity extends BaseActivity implements SignUpContract.MvpView {
     @BindView(R.id.email) EditText mEmail;
     @BindView(R.id.password) EditText mPassword;
     @BindView(R.id.confirmPassword) EditText mConfirmPassword;
-    @BindView(R.id.signUpButton) Button mSignUpButton;
 
     private SignUpPresenter mPresenter;
 
@@ -29,46 +28,27 @@ public class SignUpActivity extends BaseActivity implements SignUpContract.MvpVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-
         hideBottomNav();
-
         mPresenter = new SignUpPresenter(this);
-
-        mSignUpButton.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == mSignUpButton) {
-            createNewUser();
-        }
+    @OnClick(R.id.logInText)
+    public void navigateToLogIn() {
+        Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
+        startActivity(intent);
     }
 
-    private void createNewUser() {
-        String firstName = mFirstName.getText().toString().trim();
-        String lastName = mLastName.getText().toString().trim();
-        String fullName = firstName + " " + lastName;
+    @OnClick(R.id.signUpButton)
+    public void createNewUser() {
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         String confirmPassword = mConfirmPassword.getText().toString().trim();
 
-        boolean validFirstName = isValidName(firstName, mFirstName);
-        boolean validLastName = isValidName(lastName, mLastName);
         boolean validEmail = isValidEmail(email);
         boolean validPassword = isValidPassword(password, confirmPassword);
 
-        if (validFirstName && validLastName && validEmail && validPassword) {
-            mPresenter.createUserWithEmailAndPassword(email, password, fullName);
-        }
-    }
-
-    public boolean isValidName(String name, View v) {
-        if (name.equals("")) {
-            if (v == mFirstName) mFirstName.setError("Please enter your first name");
-            if (v == mLastName) mLastName.setError("Please enter your last name");
-            return false;
-        } else {
-            return true;
+        if (validEmail && validPassword) {
+            mPresenter.createUserWithEmailAndPassword(email, password);
         }
     }
 

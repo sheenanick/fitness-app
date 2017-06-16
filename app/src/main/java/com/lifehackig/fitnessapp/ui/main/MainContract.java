@@ -10,7 +10,6 @@ import com.lifehackig.fitnessapp.ui.base.BasePresenter;
 
 public interface MainContract {
     interface Presenter extends BasePresenter {
-        void getUser();
         void getExercisedDays();
     }
     interface MvpView extends BaseMvpView {

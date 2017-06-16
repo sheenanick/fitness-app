@@ -3,77 +3,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorSecondaryLight"
     android:orientation="vertical"
+    android:background="@color/colorPrimaryLight"
+    android:padding="@dimen/activity_padding"
     tools:context="com.lifehackig.fitnessapp.ui.signin.LogInActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <EditText
+        android:id="@+id/email"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/image_of_feet_of_person_walking_up_stairs"
-        android:src="@drawable/main_image"/>
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_border"
+        android:padding="16dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email" />
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/password"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:gravity="center"
-        android:orientation="vertical" >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="36sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/welcome_to_fitness_tracker"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="38dp"
-            android:textSize="20sp"
-            android:textStyle="italic"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/tagline"/>
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryLight"
-            android:padding="16dp"
-            android:layout_marginBottom="5dp"
-            android:inputType="textEmailAddress"
-            android:hint="@string/email" />
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryLight"
-            android:padding="16dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="sans-serif"
-            android:inputType="textPassword"
-            android:hint="@string/password"/>
-        <Button
-            android:id="@+id/logInButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@color/colorTextLight"
-            android:textSize="18sp"
-            android:text="@string/log_in" />
-        <TextView
-            android:id="@+id/signUpText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:textSize="18sp"
-            android:textColor="@color/colorPrimaryText"
-            android:text="@string/don_t_have_an_account_sign_up"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="@drawable/gray_border"
+        android:padding="16dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:fontFamily="sans-serif"
+        android:inputType="textPassword"
+        android:hint="@string/password"/>
+
+    <Button
+        android:id="@+id/logInButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/colorTextLight"
+        android:text="@string/log_in" />
+
+    <TextView
+        android:id="@+id/signUpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryText"
+        android:text="@string/don_t_have_an_account_sign_up"/>
 
 </LinearLayout>

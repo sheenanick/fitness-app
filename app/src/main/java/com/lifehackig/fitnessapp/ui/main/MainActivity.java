@@ -32,8 +32,6 @@ public class MainActivity extends BaseActivity implements MainContract.MvpView{
         setContentView(R.layout.activity_main);
 
         mPresenter = new MainPresenter(this);
-        mPresenter.getUser();
-
         initCaldroidFragment();
         setBottomNavChecked(0);
     }

@@ -52,7 +52,7 @@ public class SignUpPresenter implements SignUpContract.Presenter {
     }
 
     @Override
-    public void createUserWithEmailAndPassword(String email, String password, final String fullName) {
+    public void createUserWithEmailAndPassword(String email, String password) {
         mView.displayLoadingAnimation();
 
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener((Activity) mView, new OnCompleteListener<AuthResult>() {
@@ -60,19 +60,11 @@ public class SignUpPresenter implements SignUpContract.Presenter {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 mView.hideLoadingAnimation();
 
-                if (task.isSuccessful()) {
-                    addNameToFirebaseProfile(task.getResult().getUser(), fullName);
-                } else {
+                if (!task.isSuccessful()) {
                     mView.displaySignUpError();
                 }
             }
         });
-    }
-
-    private void addNameToFirebaseProfile(FirebaseUser user, String fullName) {
-        UserProfileChangeRequest addName = new UserProfileChangeRequest.Builder()
-                .setDisplayName(fullName).build();
-        user.updateProfile(addName);
     }
 
     @Override

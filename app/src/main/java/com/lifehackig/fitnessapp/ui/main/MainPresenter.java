@@ -1,6 +1,5 @@
 package com.lifehackig.fitnessapp.ui.main;
 
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,15 +20,10 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void getUser() {
-        FirebaseUser user = UserManager.getCurrentUser();
-        mMemberRef = FirebaseDatabase.getInstance().getReference("members").child(user.getUid());
-        mView.setAppBarTitle(user.getDisplayName());
-    }
-
-    @Override
     public void getExercisedDays() {
-        mMemberRef.child("days").addListenerForSingleValueEvent(new ValueEventListener() {
+        String userId = UserManager.getCurrentUser().getUid();
+        mMemberRef = FirebaseDatabase.getInstance().getReference("members").child(userId).child("days");
+        mMemberRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 mView.setCalendarBackgroundColors(dataSnapshot);

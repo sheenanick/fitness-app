@@ -11,7 +11,7 @@ public interface SignUpContract {
     interface Presenter extends BasePresenter {
         void addAuthStateListener();
         void removeAuthStateListener();
-        void createUserWithEmailAndPassword(String email, String password, String fullName);
+        void createUserWithEmailAndPassword(String email, String password);
     }
     interface MvpView extends BaseMvpView {
         void displaySignUpError();

@@ -4,55 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:background="@color/colorPrimaryLight"
+    android:padding="@dimen/activity_padding"
     tools:context="com.lifehackig.fitnessapp.ui.signup.SignUpActivity">
-
-    <TextView
-        android:id="@+id/personalInfoTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="@string/personal_information"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"/>
-
-    <EditText
-        android:id="@+id/firstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorTextLight"
-        android:padding="16dp"
-        android:layout_marginBottom="5dp"
-        android:inputType="textCapWords"
-        android:hint="@string/first_name" />
-
-    <EditText
-        android:id="@+id/lastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorTextLight"
-        android:padding="16dp"
-        android:layout_marginBottom="5dp"
-        android:inputType="textCapWords"
-        android:hint="@string/last_name" />
-
-    <TextView
-        android:id="@+id/accountInfoTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/account_security"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"/>
 
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorTextLight"
+        android:background="@drawable/gray_border"
         android:padding="16dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:inputType="textEmailAddress"
         android:hint="@string/email" />
 
@@ -60,9 +22,9 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorTextLight"
+        android:background="@drawable/gray_border"
         android:padding="16dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:fontFamily="sans-serif"
         android:inputType="textPassword"
         android:hint="@string/create_password" />
@@ -71,9 +33,9 @@
         android:id="@+id/confirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorTextLight"
+        android:background="@drawable/gray_border"
         android:padding="16dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:fontFamily="sans-serif"
         android:inputType="textPassword"
         android:hint="@string/confirm_password" />
@@ -82,8 +44,20 @@
         android:id="@+id/signUpButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:background="@color/colorPrimaryDark"
         android:textColor="@color/colorTextLight"
         android:text="@string/sign_up" />
+
+    <TextView
+        android:id="@+id/logInText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimaryText"
+        android:text="@string/already_have_an_account"/>
+
 </LinearLayout>

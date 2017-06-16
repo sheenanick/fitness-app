@@ -18,7 +18,7 @@ import android.widget.RelativeLayout;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.ui.account.AccountActivity;
 import com.lifehackig.fitnessapp.ui.main.MainActivity;
-import com.lifehackig.fitnessapp.ui.signin.LogInActivity;
+import com.lifehackig.fitnessapp.ui.welcome.WelcomeActivity;
 import com.lifehackig.fitnessapp.ui.workouts.WorkoutsActivity;
 import com.lifehackig.fitnessapp.util.UserManager;
 
@@ -60,7 +60,7 @@ public class BaseActivity extends AppCompatActivity implements BaseMvpView {
     public void setAppBarTitle(String title) {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(title);
+            actionBar.setTitle(title.toUpperCase());
         }
     }
 
@@ -134,7 +134,7 @@ public class BaseActivity extends AppCompatActivity implements BaseMvpView {
 
     private void logout() {
         UserManager.logoutActiveUser();
-        Intent intent = new Intent(BaseActivity.this, LogInActivity.class);
+        Intent intent = new Intent(BaseActivity.this, WelcomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
