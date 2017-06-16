@@ -11,16 +11,16 @@ import android.widget.Toast;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SignUpActivity extends BaseActivity implements SignUpContract.MvpView, View.OnClickListener{
-    @Bind(R.id.firstName) EditText mFirstName;
-    @Bind(R.id.lastName) EditText mLastName;
-    @Bind(R.id.email) EditText mEmail;
-    @Bind(R.id.password) EditText mPassword;
-    @Bind(R.id.confirmPassword) EditText mConfirmPassword;
-    @Bind(R.id.signUpButton) Button mSignUpButton;
+    @BindView(R.id.firstName) EditText mFirstName;
+    @BindView(R.id.lastName) EditText mLastName;
+    @BindView(R.id.email) EditText mEmail;
+    @BindView(R.id.password) EditText mPassword;
+    @BindView(R.id.confirmPassword) EditText mConfirmPassword;
+    @BindView(R.id.signUpButton) Button mSignUpButton;
 
     private SignUpPresenter mPresenter;
 

@@ -28,15 +28,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DayActivity extends BaseActivity implements DayContract.MvpView, View.OnClickListener, SaveWorkoutDialogFragment.SaveWorkoutDialogListener {
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    @Bind(R.id.emptyView) TextView mEmptyView;
-    @Bind(R.id.calories) TextView mCalories;
-    @Bind(R.id.saveButton) Button mSaveButton;
-    @Bind(R.id.fab) FloatingActionButton mFab;
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.emptyView) TextView mEmptyView;
+    @BindView(R.id.calories) TextView mCalories;
+    @BindView(R.id.saveButton) Button mSaveButton;
+    @BindView(R.id.fab) FloatingActionButton mFab;
 
     private Date mDate;
     private DayPresenter mPresenter;

@@ -16,17 +16,17 @@ import com.lifehackig.fitnessapp.util.Utilities;
 
 import java.util.Date;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NewExerciseActivity extends BaseActivity implements NewExerciseContract.MvpView, View.OnClickListener {
-    @Bind(R.id.nameEditText) EditText mExerciseName;
-    @Bind(R.id.repsOrDuration) EditText mRepsOrDuration;
-    @Bind(R.id.reps) RadioButton mReps;
-    @Bind(R.id.weightEditText) EditText mWeight;
-    @Bind(R.id.caloriesEditText) EditText mCalories;
-    @Bind(R.id.muscleSpinner) Spinner mMuscleSpinner;
-    @Bind(R.id.addButton) Button mAddButton;
+    @BindView(R.id.nameEditText) EditText mExerciseName;
+    @BindView(R.id.repsOrDuration) EditText mRepsOrDuration;
+    @BindView(R.id.reps) RadioButton mReps;
+    @BindView(R.id.weightEditText) EditText mWeight;
+    @BindView(R.id.caloriesEditText) EditText mCalories;
+    @BindView(R.id.muscleSpinner) Spinner mMuscleSpinner;
+    @BindView(R.id.addButton) Button mAddButton;
 
     private Date mDate;
     private NewExercisePresenter mPresenter;

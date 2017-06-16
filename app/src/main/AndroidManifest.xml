@@ -48,6 +48,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.log_exercise.LogExerciseActivity" />
         </activity>
+        <activity android:name=".ui.welcome.WelcomeActivity"></activity>
     </application>
 
 </manifest>

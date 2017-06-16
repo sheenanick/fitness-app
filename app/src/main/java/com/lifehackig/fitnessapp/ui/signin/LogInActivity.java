@@ -2,24 +2,20 @@ package com.lifehackig.fitnessapp.ui.signin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.signup.SignUpActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class LogInActivity extends BaseActivity implements LogInContract.MvpView, View.OnClickListener {
-    @Bind(R.id.signUpText) TextView mSignUp;
-    @Bind(R.id.email) EditText mEmail;
-    @Bind(R.id.password) EditText mPassword;
-    @Bind(R.id.logInButton) Button mLogInButton;
+public class LogInActivity extends BaseActivity implements LogInContract.MvpView {
+    @BindView(R.id.email) EditText mEmail;
+    @BindView(R.id.password) EditText mPassword;
 
     private LogInPresenter mPresenter;
 
@@ -31,22 +27,9 @@ public class LogInActivity extends BaseActivity implements LogInContract.MvpView
 
         hideBottomNav();
         mPresenter = new LogInPresenter(this);
-
-        mLogInButton.setOnClickListener(this);
-        mSignUp.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == mSignUp) {
-            Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
-            startActivity(intent);
-        }
-        if (v == mLogInButton) {
-            logInWithPassword();
-        }
-    }
-
+    @OnClick(R.id.logInButton)
     public void logInWithPassword() {
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
@@ -62,6 +45,12 @@ public class LogInActivity extends BaseActivity implements LogInContract.MvpView
         if (invalidEmail || invalidPassword) return;
 
         mPresenter.signInWithEmailAndPassword(email, password);
+    }
+
+    @OnClick(R.id.signUpText)
+    public void navigateToSignUp() {
+        Intent intent = new Intent(LogInActivity.this, SignUpActivity.class);
+        startActivity(intent);
     }
 
     @Override
