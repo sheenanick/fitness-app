@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:layout_marginTop="0dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorSecondaryDark"
             android:textColor="@color/colorTextLight"
             android:text="@string/save_this_workout"/>
     </LinearLayout>
@@ -63,7 +63,7 @@
         android:layout_margin="16dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/colorSecondaryDark"
         app:fabSize="normal"
         android:src="@drawable/ic_add_white_24dp"/>
 

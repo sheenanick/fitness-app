@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorSecondaryDark"
         android:textColor="@color/colorTextLight"
         android:text="@string/log_in" />
 
