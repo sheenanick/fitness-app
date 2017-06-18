@@ -5,14 +5,46 @@
     android:layout_height="match_parent"
     tools:context="com.lifehackig.fitnessapp.ui.welcome.WelcomeActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <ViewFlipper
+        android:id="@+id/viewFliper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/image_of_feet_of_person_walking_up_stairs"
-        android:src="@drawable/main_image"/>
+        android:autoStart="true"
+        android:flipInterval="2000">
 
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/squats"
+            android:src="@drawable/carousel1"/>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/pull_ups"
+            android:src="@drawable/carousel2"/>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/dumbbells"
+            android:src="@drawable/carousel3"/>
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/city_running"
+            android:src="@drawable/carousel4"/>
+
+    </ViewFlipper>
 
     <TextView
         android:layout_width="wrap_content"

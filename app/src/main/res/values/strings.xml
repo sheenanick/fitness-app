@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">Fitness Tracker</string>
 
-    <!--Welcome Screen-->
+    <!--Welcome Screen & Onboarding-->
     <string name="welcome_to_fitness_tracker">Fitness Tracker</string>
     <string name="tagline">Get fit for life. Not just for summer.</string>
-    <string name="image_of_feet_of_person_walking_up_stairs">image of feet of person walking up stairs</string>
-
-    <!--Onboarding-->
+    <string name="squats">squats</string>
+    <string name="pull_ups">pull ups</string>
+    <string name="dumbbells">dumbbells</string>
+    <string name="city_running">city running</string>
     <string name="sign_up">Sign Up</string>
     <string name="log_in">Log In</string>
     <string name="email">Email</string>
