@@ -34,14 +34,15 @@ public class NewExercisePresenter implements NewExerciseContract.Presenter {
     @Override
     public void saveExercise(String name, int reps, int minutes, int intWeight, String muscle, int intCalories, Date date) {
         DateFormat refIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
-        mDateRef = mDatabase.getReference("members").child(mCurrentUid).child("days").child(refIdFormatter.format(date));
+        String stringDate = refIdFormatter.format(date);
+        mDateRef = mDatabase.getReference("members").child(mCurrentUid).child("days").child(stringDate);
 
         DatabaseReference exerciseRef = mDateRef.child("exercises").push();
         String pushId = exerciseRef.getKey();
         Exercise exercise = new Exercise(name, reps, minutes, intWeight, muscle, intCalories, pushId);
         exerciseRef.setValue(exercise);
 
-        mDateRef.child("date").setValue(date);
+        mDateRef.child("date").setValue(stringDate);
 
         updateCalories(intCalories);
         mView.navigateToDayActivity();
