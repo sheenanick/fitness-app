@@ -4,6 +4,7 @@ import com.lifehackig.fitnessapp.ui.base.BaseMvpView;
 import com.lifehackig.fitnessapp.ui.base.BasePresenter;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Sheena on 3/9/17.
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public interface LogExerciseContract {
     interface Presenter extends BasePresenter {
         void getWorkoutNames();
-        void addSavedWorkout(int position, String date);
+        void addSavedWorkout(int position, Date date);
     }
     interface MvpView extends BaseMvpView {
         void setupWorkoutSpinner(ArrayList<String> workoutNames);

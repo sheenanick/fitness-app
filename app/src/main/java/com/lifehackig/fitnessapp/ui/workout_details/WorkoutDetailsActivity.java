@@ -6,10 +6,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.adapters.FirebaseExerciseViewHolder;
+import com.lifehackig.fitnessapp.adapters.WorkoutExerciseListAdapter;
 import com.lifehackig.fitnessapp.models.Exercise;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 
@@ -20,7 +20,7 @@ public class WorkoutDetailsActivity extends BaseActivity implements WorkoutDetai
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.bottom_navigation) BottomNavigationView mBottomNavigationView;
 
-    private FirebaseRecyclerAdapter mAdapter;
+    private WorkoutExerciseListAdapter mAdapter;
     private WorkoutDetailsPresenter mPresenter;
 
     @Override
@@ -42,14 +42,11 @@ public class WorkoutDetailsActivity extends BaseActivity implements WorkoutDetai
 
     @Override
     public void setupFirebaseAdapter(DatabaseReference exercises) {
-        mAdapter = new FirebaseRecyclerAdapter<Exercise, FirebaseExerciseViewHolder>(Exercise.class, R.layout.exercise_list_item, FirebaseExerciseViewHolder.class, exercises) {
-            @Override
-            protected void populateViewHolder(FirebaseExerciseViewHolder viewHolder, Exercise model, int position) {
-                viewHolder.bindExercise(model);
-            }
-        };
+        mAdapter = new WorkoutExerciseListAdapter(Exercise.class, R.layout.exercise_list_item, FirebaseExerciseViewHolder.class, exercises);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
+
+        attachItemTouchHelper(mRecyclerView, mAdapter);
     }
 
     @Override

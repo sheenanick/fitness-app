@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +20,6 @@ import com.lifehackig.fitnessapp.models.Exercise;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.log_exercise.LogExerciseActivity;
 import com.lifehackig.fitnessapp.ui.main.MainActivity;
-import com.lifehackig.fitnessapp.util.SimpleItemTouchHelperCallback;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,8 +28,9 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class DayActivity extends BaseActivity implements DayContract.MvpView, View.OnClickListener, SaveWorkoutDialogFragment.SaveWorkoutDialogListener {
+public class DayActivity extends BaseActivity implements DayContract.MvpView, SaveWorkoutDialogFragment.SaveWorkoutDialogListener {
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.emptyView) TextView mEmptyView;
     @BindView(R.id.calories) TextView mCalories;
@@ -61,17 +60,6 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
         mPresenter.initFirebaseAdapter(refIdFormatter.format(mDate));
         mPresenter.getExercises();
         mPresenter.getCalories();
-
-        attachItemTouchHelper();
-
-        mSaveButton.setOnClickListener(this);
-        mFab.setOnClickListener(this);
-    }
-
-    private void attachItemTouchHelper() {
-        SimpleItemTouchHelperCallback simpleCallback = new SimpleItemTouchHelperCallback(0, ItemTouchHelper.LEFT, mAdapter, getApplicationContext());
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
 
     @Override
@@ -79,6 +67,8 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
         mAdapter = new FirebaseExerciseListAdapter(Exercise.class, R.layout.exercise_list_item, FirebaseExerciseViewHolder.class, exercises, calories, day);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
+
+        attachItemTouchHelper(mRecyclerView, mAdapter);
     }
 
     @Override
@@ -108,19 +98,15 @@ public class DayActivity extends BaseActivity implements DayContract.MvpView, Vi
         toast.show();
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == mFab) {
-            Intent intent = new Intent(DayActivity.this, LogExerciseActivity.class);
-            intent.putExtra("date", mDate.getTime());
-            startActivity(intent);
-        }
-        if (v == mSaveButton) {
-            launchAlertDialog();
-        }
+    @OnClick(R.id.fab)
+    public void navigateToLogExercise() {
+        Intent intent = new Intent(DayActivity.this, LogExerciseActivity.class);
+        intent.putExtra("date", mDate.getTime());
+        startActivity(intent);
     }
 
-    private void launchAlertDialog() {
+    @OnClick(R.id.saveButton)
+    public void launchAlertDialog() {
         SaveWorkoutDialogFragment dialogFragment = new SaveWorkoutDialogFragment();
         dialogFragment.show(getSupportFragmentManager(), "saveWorkout");
     }

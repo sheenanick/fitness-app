@@ -10,7 +10,7 @@ import com.lifehackig.fitnessapp.models.Exercise;
 
 import java.util.ArrayList;
 
-public class FirebaseExerciseListAdapter extends FirebaseRecyclerAdapter<Exercise, FirebaseExerciseViewHolder> {
+public class FirebaseExerciseListAdapter extends FirebaseRecyclerAdapter<Exercise, FirebaseExerciseViewHolder> implements FirebaseListAdapterInterface {
     private DatabaseReference mRef;
     private DatabaseReference mCaloriesRef;
     private DatabaseReference mDateRef;

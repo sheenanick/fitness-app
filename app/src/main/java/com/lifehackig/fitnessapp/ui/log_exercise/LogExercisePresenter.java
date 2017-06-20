@@ -9,8 +9,12 @@ import com.lifehackig.fitnessapp.models.Exercise;
 import com.lifehackig.fitnessapp.models.Workout;
 import com.lifehackig.fitnessapp.util.UserManager;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Sheena on 3/9/17.
@@ -61,11 +65,14 @@ public class LogExercisePresenter implements LogExerciseContract.Presenter {
     }
 
     @Override
-    public void addSavedWorkout(int position, String date) {
+    public void addSavedWorkout(int position, Date date) {
+        DateFormat refIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
+        String stringDate = refIdFormatter.format(date);
+
         Workout workout = mWorkoutObjects.get(position);
         List<Exercise> exercises = workout.getExercises();
 
-        mDateRef = mDatabase.getReference("members").child(mCurrentUid).child("days").child(date);
+        mDateRef = mDatabase.getReference("members").child(mCurrentUid).child("days").child(stringDate);
         DatabaseReference exercisesRef = mDateRef.child("exercises");
 
         Integer workoutTotalCalories = 0;
@@ -77,7 +84,7 @@ public class LogExercisePresenter implements LogExerciseContract.Presenter {
             exerciseRef.setValue(exercise);
         }
 
-        mDateRef.child("date").setValue(date);
+        mDateRef.child("date").setValue(stringDate);
         updateCalories(workoutTotalCalories);
 
         mView.navigateToDayActivity();
@@ -109,6 +116,8 @@ public class LogExercisePresenter implements LogExerciseContract.Presenter {
         mDatabase = null;
         mDateRef = null;
         mWorkoutObjects = null;
-        mSavedWorkoutsRef.removeEventListener(mWorkoutsListener);
+        if (mWorkoutsListener != null) {
+            mSavedWorkoutsRef.removeEventListener(mWorkoutsListener);
+        }
     }
 }

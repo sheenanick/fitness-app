@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,10 +18,12 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.lifehackig.fitnessapp.R;
+import com.lifehackig.fitnessapp.adapters.FirebaseListAdapterInterface;
 import com.lifehackig.fitnessapp.ui.account.AccountActivity;
 import com.lifehackig.fitnessapp.ui.main.MainActivity;
 import com.lifehackig.fitnessapp.ui.welcome.WelcomeActivity;
 import com.lifehackig.fitnessapp.ui.workouts.WorkoutsActivity;
+import com.lifehackig.fitnessapp.util.SimpleItemTouchHelperCallback;
 import com.lifehackig.fitnessapp.util.UserManager;
 
 public class BaseActivity extends AppCompatActivity implements BaseMvpView {
@@ -112,6 +116,14 @@ public class BaseActivity extends AppCompatActivity implements BaseMvpView {
     @Override
     public void hideBottomNav() {
         mBottomNavigationView.setVisibility(View.GONE);
+    }
+
+
+    @Override
+    public void attachItemTouchHelper(RecyclerView recyclerView, FirebaseListAdapterInterface adapter) {
+        SimpleItemTouchHelperCallback simpleCallback = new SimpleItemTouchHelperCallback(0, ItemTouchHelper.LEFT, adapter, getApplicationContext());
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override

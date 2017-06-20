@@ -12,14 +12,14 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.lifehackig.fitnessapp.R;
-import com.lifehackig.fitnessapp.adapters.FirebaseExerciseListAdapter;
+import com.lifehackig.fitnessapp.adapters.FirebaseListAdapterInterface;
 
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.SimpleCallback {
-    private FirebaseExerciseListAdapter mAdapter;
-    private Paint p = new Paint();
+    private FirebaseListAdapterInterface mAdapter;
+    private Paint paint = new Paint();
     private Context mContext;
 
-    public SimpleItemTouchHelperCallback(int int1, int int2, FirebaseExerciseListAdapter adapter, Context context) {
+    public SimpleItemTouchHelperCallback(int int1, int int2, FirebaseListAdapterInterface adapter, Context context) {
         super(int1, int2);
         mAdapter = adapter;
         mContext = context;
@@ -36,7 +36,7 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.SimpleCallbac
     }
 
     @Override
-    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+    public void onChildDraw(Canvas canvas, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
         if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
 
             View itemView = viewHolder.itemView;
@@ -48,14 +48,14 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.SimpleCallbac
             float height = itemView.getHeight();
             float rectWidth = height / 3;
 
-            p.setColor(Color.RED);
+            paint.setColor(Color.RED);
             RectF background = new RectF(left, top, right, bottom);
-            c.drawRect(background,p);
+            canvas.drawRect(background, paint);
             Bitmap icon = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_delete_forever_white_24dp);
-            RectF icon_dest = new RectF(right - 2*rectWidth ,top + rectWidth, right - rectWidth, bottom - rectWidth);
-            c.drawBitmap(icon,null,icon_dest,p);
+            RectF iconDest = new RectF(right - 2 * rectWidth ,top + rectWidth, right - rectWidth, bottom - rectWidth);
+            canvas.drawBitmap(icon, null, iconDest, paint);
 
         }
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+        super.onChildDraw(canvas, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
     }
 }

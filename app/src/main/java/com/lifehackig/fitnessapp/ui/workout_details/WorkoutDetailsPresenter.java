@@ -21,7 +21,6 @@ public class WorkoutDetailsPresenter implements WorkoutDetailsContract.Presenter
         if (user != null) {
             String uid = user.getUid();
             DatabaseReference exercises = FirebaseDatabase.getInstance().getReference("workouts").child(uid).child(workoutId).child("exercises");
-
             mView.setupFirebaseAdapter(exercises);
         }
     }

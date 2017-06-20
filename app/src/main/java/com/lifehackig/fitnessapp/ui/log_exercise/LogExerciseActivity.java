@@ -2,7 +2,6 @@ package com.lifehackig.fitnessapp.ui.log_exercise;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -12,16 +11,14 @@ import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.day.DayActivity;
 import com.lifehackig.fitnessapp.ui.new_exercise.NewExerciseActivity;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class LogExerciseActivity extends BaseActivity implements LogExerciseContract.MvpView, View.OnClickListener {
+public class LogExerciseActivity extends BaseActivity implements LogExerciseContract.MvpView {
     @BindView(R.id.workoutSpinner) Spinner mWorkoutSpinner;
     @BindView(R.id.selectButton) Button mSelectButton;
     @BindView(R.id.newExerciseButton) Button mNewExerciseButton;
@@ -42,9 +39,6 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
         setAppBarTitle("Log Exercise");
         setBottomNavChecked(0);
 
-        mSelectButton.setOnClickListener(this);
-        mNewExerciseButton.setOnClickListener(this);
-
         mPresenter = new LogExercisePresenter(this);
         mPresenter.getWorkoutNames();
     }
@@ -56,21 +50,16 @@ public class LogExerciseActivity extends BaseActivity implements LogExerciseCont
         mWorkoutSpinner.setAdapter(workoutAdapter);
     }
 
-    @Override
-    public void onClick(View v) {
-        if (v == mSelectButton) {
-            if (!mWorkoutSpinner.getSelectedItem().toString().equals("No saved workouts")) {
-                int position = mWorkoutSpinner.getSelectedItemPosition();
-                DateFormat refIdFormatter = new SimpleDateFormat("MMddyyyy", Locale.US);
-                mPresenter.addSavedWorkout(position, refIdFormatter.format(mDate));
-            }
-        }
-        if (v == mNewExerciseButton) {
-            navigateToNewExerciseActivity();
+    @OnClick(R.id.selectButton)
+    public void selectWorkout() {
+        if (!mWorkoutSpinner.getSelectedItem().toString().equals("No saved workouts")) {
+            int position = mWorkoutSpinner.getSelectedItemPosition();
+            mPresenter.addSavedWorkout(position, mDate);
         }
     }
 
-    private void navigateToNewExerciseActivity() {
+    @OnClick(R.id.newExerciseButton)
+    public void navigateToNewExerciseActivity() {
         Intent intent = new Intent(LogExerciseActivity.this, NewExerciseActivity.class);
         intent.putExtra("date", mDate.getTime());
         startActivity(intent);
