@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,13 +23,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements MainContract.MvpView, View.OnClickListener{
-    @Bind(R.id.date) TextView mDateTextView;
-    @Bind(R.id.calories) TextView mCalories;
-    @Bind(R.id.seeDetailsButton) Button mSeeDetailsButton;
+    @BindView(R.id.date) TextView mDateTextView;
+    @BindView(R.id.calories) TextView mCalories;
+    @BindView(R.id.seeDetailsButton) Button mSeeDetailsButton;
 
     private MainPresenter mPresenter;
     private CaldroidFragment mCaldroidFragment;

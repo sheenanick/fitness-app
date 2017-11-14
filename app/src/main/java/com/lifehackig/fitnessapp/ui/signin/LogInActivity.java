@@ -12,14 +12,14 @@ import com.lifehackig.fitnessapp.R;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 import com.lifehackig.fitnessapp.ui.signup.SignUpActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LogInActivity extends BaseActivity implements LogInContract.MvpView, View.OnClickListener {
-    @Bind(R.id.signUpText) TextView mSignUp;
-    @Bind(R.id.email) EditText mEmail;
-    @Bind(R.id.password) EditText mPassword;
-    @Bind(R.id.logInButton) Button mLogInButton;
+    @BindView(R.id.signUpText) TextView mSignUp;
+    @BindView(R.id.email) EditText mEmail;
+    @BindView(R.id.password) EditText mPassword;
+    @BindView(R.id.logInButton) Button mLogInButton;
 
     private LogInPresenter mPresenter;
 

@@ -13,12 +13,12 @@ import com.lifehackig.fitnessapp.adapters.FirebaseWorkoutViewHolder;
 import com.lifehackig.fitnessapp.models.Workout;
 import com.lifehackig.fitnessapp.ui.base.BaseActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WorkoutsActivity extends BaseActivity implements WorkoutsContract.MvpView {
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
-    @Bind(R.id.emptyView) TextView mEmptyView;
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
+    @BindView(R.id.emptyView) TextView mEmptyView;
 
     private WorkoutsPresenter mPresenter;
 

@@ -18,13 +18,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LogExerciseActivity extends BaseActivity implements LogExerciseContract.MvpView, View.OnClickListener {
-    @Bind(R.id.workoutSpinner) Spinner mWorkoutSpinner;
-    @Bind(R.id.selectButton) Button mSelectButton;
-    @Bind(R.id.newExerciseButton) Button mNewExerciseButton;
+    @BindView(R.id.workoutSpinner) Spinner mWorkoutSpinner;
+    @BindView(R.id.selectButton) Button mSelectButton;
+    @BindView(R.id.newExerciseButton) Button mNewExerciseButton;
 
     private Date mDate;
     private LogExercisePresenter mPresenter;
